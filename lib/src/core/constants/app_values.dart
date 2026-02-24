@@ -14,8 +14,8 @@ abstract class AppValues {
   static const double gap_6 = 6;
   static const double gap_5 = 5;
   static const double gap_4 = 4;
-  static const double gap_2 = 2;
   static const double gap_3 = 3;
+  static const double gap_2 = 2;
 
   // Container constraints
   static const double container_60 = 60;

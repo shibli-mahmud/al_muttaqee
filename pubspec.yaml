@@ -39,8 +39,13 @@ dependencies:
   logger: ^2.6.0
   fluttertoast: ^8.2.12
   shared_preferences: ^2.5.3
+  flutter_svg: ^2.2.3
+  phosphor_flutter: ^2.1.0
   dio: ^5.9.0
   package_info_plus: ^8.3.1
+  image_picker: ^1.2.1
+  flutter_dotenv: ^6.0.0
+  pinput: ^5.0.1
 
 dev_dependencies:
   flutter_test:
