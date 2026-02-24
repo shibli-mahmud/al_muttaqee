@@ -125,10 +125,14 @@ abstract class AppValues {
   static const double fontSize_86 = 86;
   static const double fontSize_72 = 72;
   static const double fontSize_64 = 64;
+  static const double fontSize_60 = 60;
   static const double fontSize_56 = 56;
+  static const double fontSize_50 = 50;
   static const double fontSize_38 = 38;
+  static const double fontSize_40 = 40;
   static const double fontSize_36 = 36;
   static const double fontSize_32 = 32;
+  static const double fontSize_30 = 30;
   static const double fontSize_28 = 28;
   static const double fontSize_24 = 24;
   static const double fontSize_22 = 22;
