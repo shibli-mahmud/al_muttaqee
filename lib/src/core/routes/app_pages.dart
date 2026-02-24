@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
-import 'package:islamic_app/src/module/splash/bindings/splash_binding.dart';
-import 'package:islamic_app/src/module/splash/views/splash_view.dart';
+import 'package:al_muttaqee/src/module/splash/bindings/splash_binding.dart';
+import 'package:al_muttaqee/src/module/splash/views/splash_view.dart';
 
 
 part 'app_routes.dart';

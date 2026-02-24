@@ -1,4 +1,4 @@
-# islamic_app
+# al_muttaqee
 
 A new Flutter project for islamic lifestyle. Prayer Time, Tasbih, Arabic Calender, Daily hadith quotes and so many features.
 

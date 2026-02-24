@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:islamic_app/l10n/app_localizations.dart';
-import 'package:islamic_app/l10n/l10n.dart';
-import 'package:islamic_app/src/bindings/initial_bindings.dart';
+import 'package:al_muttaqee/l10n/app_localizations.dart';
+import 'package:al_muttaqee/l10n/l10n.dart';
+import 'package:al_muttaqee/src/bindings/initial_bindings.dart';
 
 import 'core/config/build_config.dart';
 import 'package:get/get.dart';

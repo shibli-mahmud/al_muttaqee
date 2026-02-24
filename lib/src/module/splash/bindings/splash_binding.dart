@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:islamic_app/src/module/splash/controllers/splash_controller.dart';
+import 'package:al_muttaqee/src/module/splash/controllers/splash_controller.dart';
 
 class SplashBinding extends Bindings{
   @override

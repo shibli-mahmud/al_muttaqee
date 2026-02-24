@@ -1,8 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:get/get.dart' as route;
-import 'package:islamic_app/l10n/l10n.dart';
-import 'package:islamic_app/src/core/constants/app_strings.dart';
-import 'package:islamic_app/src/core/routes/app_pages.dart';
+import 'package:al_muttaqee/l10n/l10n.dart';
+import 'package:al_muttaqee/src/core/constants/app_strings.dart';
+import 'package:al_muttaqee/src/core/routes/app_pages.dart';
 
 class RequestHeaderInterceptor extends InterceptorsWrapper {
   // final authService = AuthService.to;

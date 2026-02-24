@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:islamic_app/src/core/constants/app_colors.dart';
-import 'package:islamic_app/src/core/constants/app_values.dart';
+import 'package:al_muttaqee/src/core/constants/app_colors.dart';
+import 'package:al_muttaqee/src/core/constants/app_values.dart';
 
 class PrimaryOutlinedButton extends StatelessWidget {
   const PrimaryOutlinedButton({

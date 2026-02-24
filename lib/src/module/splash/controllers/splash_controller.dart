@@ -1,4 +1,4 @@
-import 'package:islamic_app/src/core/base/base_controller.dart';
+import 'package:al_muttaqee/src/core/base/base_controller.dart';
 
 class SplashController extends BaseController{
 

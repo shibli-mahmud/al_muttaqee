@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
-import 'package:islamic_app/src/core/config/build_config.dart';
-import 'package:islamic_app/src/core/network/network_request_header.dart';
+import 'package:al_muttaqee/src/core/config/build_config.dart';
+import 'package:al_muttaqee/src/core/network/network_request_header.dart';
 
 
 /// A class responsible for providing network-related functionality using the Dio library.

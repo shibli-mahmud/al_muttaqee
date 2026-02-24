@@ -1,12 +1,12 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:islamic_app/src/core/config/build_config.dart';
+import 'package:al_muttaqee/src/core/config/build_config.dart';
 import 'package:dio/dio.dart';
-import 'package:islamic_app/src/core/network/dio_network_provider.dart';
-import 'package:islamic_app/src/core/network/network_error_handler.dart';
-import 'package:islamic_app/src/core/utils/exceptions/error_handlers.dart';
-import 'package:islamic_app/src/core/utils/exceptions/exceptions.dart';
+import 'package:al_muttaqee/src/core/network/dio_network_provider.dart';
+import 'package:al_muttaqee/src/core/network/network_error_handler.dart';
+import 'package:al_muttaqee/src/core/utils/exceptions/error_handlers.dart';
+import 'package:al_muttaqee/src/core/utils/exceptions/exceptions.dart';
 
 
 /// An abstract class representing a remote data source for network requests.

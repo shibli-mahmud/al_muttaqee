@@ -2,9 +2,9 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
-import 'package:islamic_app/l10n/app_localizations.dart';
-import 'package:islamic_app/src/core/config/build_config.dart';
-import 'package:islamic_app/src/core/utils/exceptions/exceptions.dart';
+import 'package:al_muttaqee/l10n/app_localizations.dart';
+import 'package:al_muttaqee/src/core/config/build_config.dart';
+import 'package:al_muttaqee/src/core/utils/exceptions/exceptions.dart';
 
 
 Exception handleNetworkError(DioException dioError) {

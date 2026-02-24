@@ -1,4 +1,4 @@
-import 'package:islamic_app/src/core/config/build_config.dart';
+import 'package:al_muttaqee/src/core/config/build_config.dart';
 
 abstract class AppStrings {
   static final _config = BuildConfig.instance.envConfig;
@@ -13,8 +13,8 @@ abstract class AppStrings {
 
 
   // Notification
-  static final notificationChannelId = "${_config.packageName}.islamic_app_channel";
-  static const notificationChannelName = "islamic_app Channel";
+  static final notificationChannelId = "${_config.packageName}.al_muttaqee_channel";
+  static const notificationChannelName = "al_muttaqee Channel";
 
   // Endpoints
   static const urlGetUser = "v1/token-user";

@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:islamic_app/src/core/local/preferences/preference_manager_impl.dart';
+import 'package:al_muttaqee/src/core/local/preferences/preference_manager_impl.dart';
 
 
 class InitialBindings extends Bindings {

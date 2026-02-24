@@ -1,4 +1,4 @@
-package com.shibli.islamic_app
+package com.shibli.al_muttaqee
 
 import io.flutter.embedding.android.FlutterActivity
 

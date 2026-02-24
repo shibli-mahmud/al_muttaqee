@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:islamic_app/src/core/base/base_widget_mixin.dart';
-import 'package:islamic_app/src/core/constants/app_colors.dart';
-import 'package:islamic_app/src/core/constants/app_values.dart';
+import 'package:al_muttaqee/src/core/base/base_widget_mixin.dart';
+import 'package:al_muttaqee/src/core/constants/app_colors.dart';
+import 'package:al_muttaqee/src/core/constants/app_values.dart';
 
 class NetworkImageView extends StatelessWidget with BaseWidgetMixin {
   NetworkImageView({

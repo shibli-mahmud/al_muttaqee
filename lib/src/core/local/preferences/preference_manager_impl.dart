@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:islamic_app/src/core/local/preferences/preference_manager.dart';
+import 'package:al_muttaqee/src/core/local/preferences/preference_manager.dart';
 
 class PreferenceManagerImpl extends GetxService implements PreferenceManager {
   final _preference = SharedPreferences.getInstance();

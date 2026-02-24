@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:islamic_app/l10n/app_localizations.dart';
+import 'package:al_muttaqee/l10n/app_localizations.dart';
 
 abstract class Validator {
   static final _appLocalizations = AppLocalizations.of(Get.context!)!;

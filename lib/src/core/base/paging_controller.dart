@@ -1,8 +1,8 @@
 import 'package:get/get.dart';
 import 'package:get/get_rx/get_rx.dart';
-import 'package:islamic_app/src/core/base/base_controller.dart';
-import 'package:islamic_app/src/core/base/page_state.dart';
-import 'package:islamic_app/src/core/constants/app_values.dart';
+import 'package:al_muttaqee/src/core/base/base_controller.dart';
+import 'package:al_muttaqee/src/core/base/page_state.dart';
+import 'package:al_muttaqee/src/core/constants/app_values.dart';
 
 
 class PagingController<T> extends BaseController {

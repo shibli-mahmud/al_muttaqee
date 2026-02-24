@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:islamic_app/src/core/constants/app_textstyles.dart';
+import 'package:al_muttaqee/src/core/constants/app_textstyles.dart';
 import 'package:pinput/pinput.dart';
 
 import 'app_colors.dart';

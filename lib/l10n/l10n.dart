@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'dart:ui';
 import 'package:get/get.dart';
-import 'package:islamic_app/src/core/constants/app_strings.dart';
+import 'package:al_muttaqee/src/core/constants/app_strings.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 
