@@ -14,7 +14,7 @@ class SplashView extends BaseView<SplashController>{
   Widget body(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Text("Splash Screen"),
+        child: Text("Splash"),
       ),
     );
   }
