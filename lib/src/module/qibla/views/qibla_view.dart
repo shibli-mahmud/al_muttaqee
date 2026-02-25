@@ -1,3 +1,4 @@
+import 'package:al_muttaqee/src/module/qibla/controllers/qibla_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/preferred_size.dart';
@@ -5,9 +6,8 @@ import 'package:al_muttaqee/src/core/base/base_view.dart';
 import 'package:al_muttaqee/src/core/constants/app_colors.dart';
 import 'package:al_muttaqee/src/core/constants/app_values.dart';
 import 'package:al_muttaqee/src/core/shared/widgets/asset_image_view.dart';
-import 'package:al_muttaqee/src/module/splash/controllers/splash_controller.dart';
 
-class SplashView extends BaseView<SplashController>{
+class QiblaView extends BaseView<QiblaController>{
   @override
   PreferredSizeWidget? appBar(BuildContext context) {
     return null;

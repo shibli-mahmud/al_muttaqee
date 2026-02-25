@@ -1,9 +1,9 @@
+import 'package:al_muttaqee/src/module/dashboard/controllers/dashboard_controller.dart';
 import 'package:get/get.dart';
-import 'package:al_muttaqee/src/module/splash/controllers/splash_controller.dart';
 
-class SplashBinding extends Bindings{
+class DashboardBinding extends Bindings{
   @override
   void dependencies() {
-    Get.lazyPut(() => SplashController());
+    Get.lazyPut(() => DashboardController());
   }
 }
