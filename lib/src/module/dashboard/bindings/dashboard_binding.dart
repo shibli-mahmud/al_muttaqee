@@ -8,6 +8,11 @@ import 'package:get/get.dart';
 class DashboardBinding extends Bindings{
   @override
   void dependencies() {
+    Get.lazyPut(() => HomeController(), fenix: true);
+    Get.lazyPut(() => QuranController(), fenix: true);
+    Get.lazyPut(() => QiblaController(), fenix: true);
+    Get.lazyPut(() => TasbihController(), fenix: true);
+
     Get.lazyPut(() => DashboardController(
         homeController: HomeController.to,
         quranController: QuranController.to,
