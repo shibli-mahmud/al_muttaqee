@@ -237,6 +237,8 @@ class _QuranTabBar extends StatelessWidget {
           color: AppColors.brand700,
           borderRadius: BorderRadius.circular(AppValues.radiusLarge),
         ),
+        indicatorSize: TabBarIndicatorSize.tab,
+        indicatorPadding: EdgeInsets.zero,
         labelColor: AppColors.baseWhite,
         unselectedLabelColor: AppColors.grey700,
         labelStyle: Theme.of(context).textTheme.labelLarge?.copyWith(
