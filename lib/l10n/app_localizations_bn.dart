@@ -49,4 +49,24 @@ class AppLocalizationsBn extends AppLocalizations {
       'হেলান: ${tilt.toStringAsFixed(0)}° — ডিভাইস সমতল করতে বাবল সেন্টার করুন';
   @override
   String get levelIndicator => 'লেভেল ইন্ডিকেটর (কেন্দ্র বাবল)';
+
+  // Quran
+  @override
+  String get quranLastRead => 'সর্বশেষ পঠিত সূরা';
+  @override
+  String get quranContinueReading => 'পড়া চালিয়ে যান';
+  @override
+  String get quranStartReading => 'পড়া শুরু করুন';
+  @override
+  String get quranNoLastReadYet => 'আপনি এখনও কোনো সূরা খুলেননি।';
+  @override
+  String get quranSurahTab => 'সূরা';
+  @override
+  String get quranParaTab => 'পারা';
+  @override
+  String get quranSurahLabel => 'সূরা';
+  @override
+  String get quranParaLabel => 'পারা';
+  @override
+  String quranAyahNumberLabel(int ayahNumber) => 'আয়াত $ayahNumber';
 }

@@ -38,6 +38,7 @@ abstract class AppLocalizations {
     Locale('bn'),
   ];
 
+  // Common navigation & labels
   String get home;
   String get quran;
   String get qibla;
@@ -45,6 +46,8 @@ abstract class AppLocalizations {
   String get language;
   String get english;
   String get bangla;
+
+  // Qibla
   String get preparingQiblaCompass;
   String get locationAccessRequired;
   String get locationAccessMessage;
@@ -56,6 +59,17 @@ abstract class AppLocalizations {
   String get deviceLevelMessage;
   String tiltMessage(double tilt);
   String get levelIndicator;
+
+  // Quran
+  String get quranLastRead;
+  String get quranContinueReading;
+  String get quranStartReading;
+  String get quranNoLastReadYet;
+  String get quranSurahTab;
+  String get quranParaTab;
+  String get quranSurahLabel;
+  String get quranParaLabel;
+  String quranAyahNumberLabel(int ayahNumber);
 }
 
 class _AppLocalizationsDelegate

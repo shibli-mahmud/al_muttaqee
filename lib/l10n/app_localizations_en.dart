@@ -49,4 +49,24 @@ class AppLocalizationsEn extends AppLocalizations {
       'Tilt: ${tilt.toStringAsFixed(0)}° — center the bubble to level the device';
   @override
   String get levelIndicator => 'Level indicator (center bubble)';
+
+  // Quran
+  @override
+  String get quranLastRead => 'Last read surah';
+  @override
+  String get quranContinueReading => 'Continue reading';
+  @override
+  String get quranStartReading => 'Start reading';
+  @override
+  String get quranNoLastReadYet => 'You have not opened any surah yet.';
+  @override
+  String get quranSurahTab => 'Surah';
+  @override
+  String get quranParaTab => 'Para';
+  @override
+  String get quranSurahLabel => 'Surah';
+  @override
+  String get quranParaLabel => 'Para';
+  @override
+  String quranAyahNumberLabel(int ayahNumber) => 'Ayah $ayahNumber';
 }

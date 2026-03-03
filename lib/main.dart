@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:al_muttaqee/src/core/config/build_config.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:quran_flutter/quran_flutter.dart';
 import 'src/application.dart';
 import 'src/core/config/env_config.dart';
 import 'package:al_muttaqee/l10n/l10n.dart';
@@ -21,6 +22,7 @@ void main() async {
   );
 
   await L10n.getLocale();
+  await Quran.initialize();
 
   runApp(const Application());
 }

@@ -11,6 +11,12 @@ abstract class AppStrings {
 
   static final spLanguage = "${_config.packageName}.language";
 
+  // Quran
+  static final spQuranLastSurahNumber =
+      "${_config.packageName}.quran_last_surah_number";
+  static final spQuranLastAyahNumber =
+      "${_config.packageName}.quran_last_ayah_number";
+
 
   // Notification
   static final notificationChannelId = "${_config.packageName}.al_muttaqee_channel";
