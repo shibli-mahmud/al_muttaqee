@@ -88,6 +88,8 @@ class SurahDetailView extends BaseView<QuranController> {
               ? translatedVerses[index]
               : null;
 
+          final locale = controller.currentLocale;
+
           return Container(
             padding: const EdgeInsets.symmetric(
               horizontal: AppValues.gap,
@@ -116,7 +118,7 @@ class SurahDetailView extends BaseView<QuranController> {
                       backgroundColor: AppColors.brand100,
                       foregroundColor: AppColors.brand800,
                       child: Text(
-                        arabic.verseNumber.toString(),
+                        formatNumberWithLocale(arabic.verseNumber, locale),
                         style: Theme.of(context)
                             .textTheme
                             .labelSmall

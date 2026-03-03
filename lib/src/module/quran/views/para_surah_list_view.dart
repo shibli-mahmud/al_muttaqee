@@ -23,12 +23,14 @@ class ParaSurahListView extends BaseView<QuranController> {
   @override
   PreferredSizeWidget? appBar(BuildContext context) {
     final l10n = appLocalization;
+    final locale = controller.currentLocale;
+    final paraNumberText = formatNumberWithLocale(paraNumber, locale);
     return AppBar(
       backgroundColor: AppColors.baseWhite,
       foregroundColor: AppColors.brand800,
       elevation: 0,
       title: Text(
-        '${l10n.quranParaLabel} $paraNumber',
+        '${l10n.quranParaLabel} $paraNumberText',
         style: Theme.of(context).textTheme.titleMedium?.copyWith(
               color: AppColors.brand800,
               fontWeight: FontWeight.w600,
@@ -61,6 +63,14 @@ class ParaSurahListView extends BaseView<QuranController> {
           final surah = paraSurahs[index];
           final locale = controller.currentLocale;
           final localizedName = surah.localizedName(locale);
+           final numberText = formatNumberWithLocale(surah.number, locale);
+          final ayahCountText =
+              formatNumberWithLocale(surah.ayahCount, locale);
+          final placeText = surah.revelationPlace == 'Meccan'
+              ? l10n.quranRevelationMeccan
+              : surah.revelationPlace == 'Medinan'
+                  ? l10n.quranRevelationMedinan
+                  : surah.revelationPlace;
 
           return ListTile(
             contentPadding: const EdgeInsets.symmetric(
@@ -71,7 +81,7 @@ class ParaSurahListView extends BaseView<QuranController> {
               backgroundColor: AppColors.brand100,
               foregroundColor: AppColors.brand800,
               child: Text(
-                surah.number.toString(),
+                numberText,
                 style: Theme.of(context).textTheme.labelMedium?.copyWith(
                       fontWeight: FontWeight.w600,
                     ),
@@ -104,7 +114,7 @@ class ParaSurahListView extends BaseView<QuranController> {
             subtitle: Padding(
               padding: const EdgeInsets.only(top: AppValues.space_4),
               child: Text(
-                '${surah.ayahCount} ${l10n.quranAyahNumberLabel(0).split(' ').first.toLowerCase()} • ${surah.revelationPlace}',
+                '$ayahCountText ${l10n.quranAyahNumberLabel(0).split(' ').first.toLowerCase()} • $placeText',
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
                       color: AppColors.grey600,
                     ),

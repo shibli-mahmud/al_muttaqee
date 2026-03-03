@@ -68,5 +68,24 @@ class AppLocalizationsBn extends AppLocalizations {
   @override
   String get quranParaLabel => 'পারা';
   @override
-  String quranAyahNumberLabel(int ayahNumber) => 'আয়াত $ayahNumber';
+  String quranAyahNumberLabel(int ayahNumber) {
+    const bnDigits = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];
+    final text = ayahNumber.toString();
+    final buffer = StringBuffer();
+    for (final ch in text.split('')) {
+      final codeUnit = ch.codeUnitAt(0);
+      if (codeUnit >= 48 && codeUnit <= 57) {
+        final digit = codeUnit - 48;
+        buffer.write(bnDigits[digit]);
+      } else {
+        buffer.write(ch);
+      }
+    }
+    return 'আয়াত ${buffer.toString()}';
+  }
+
+  @override
+  String get quranRevelationMeccan => 'মাক্কী';
+  @override
+  String get quranRevelationMedinan => 'মাদানী';
 }

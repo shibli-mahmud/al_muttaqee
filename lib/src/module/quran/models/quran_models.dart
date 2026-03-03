@@ -4,6 +4,25 @@ import 'package:al_muttaqee/l10n/l10n.dart';
 import 'package:al_muttaqee/src/module/quran/data/surah_names_bangla.dart';
 import 'package:quran_flutter/quran_flutter.dart';
 
+/// Formats numbers using locale-specific digits (e.g. Bangla digits for 'bn').
+String formatNumberWithLocale(int value, Locale locale) {
+  final text = value.toString();
+  if (!L10n.isBangla(locale)) return text;
+
+  const bnDigits = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];
+  final buffer = StringBuffer();
+  for (final ch in text.split('')) {
+    final codeUnit = ch.codeUnitAt(0);
+    if (codeUnit >= 48 && codeUnit <= 57) {
+      final digit = codeUnit - 48;
+      buffer.write(bnDigits[digit]);
+    } else {
+      buffer.write(ch);
+    }
+  }
+  return buffer.toString();
+}
+
 /// App-level surah model built from [quran_flutter] [Surah].
 /// Arabic and English from package; Bangla names from [surahNamesBangla].
 class SurahMeta {

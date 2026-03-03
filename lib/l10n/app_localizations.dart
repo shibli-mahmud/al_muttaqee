@@ -70,6 +70,8 @@ abstract class AppLocalizations {
   String get quranSurahLabel;
   String get quranParaLabel;
   String quranAyahNumberLabel(int ayahNumber);
+  String get quranRevelationMeccan;
+  String get quranRevelationMedinan;
 }
 
 class _AppLocalizationsDelegate

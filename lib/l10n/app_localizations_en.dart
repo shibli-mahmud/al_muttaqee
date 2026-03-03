@@ -69,4 +69,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get quranParaLabel => 'Para';
   @override
   String quranAyahNumberLabel(int ayahNumber) => 'Ayah $ayahNumber';
+  @override
+  String get quranRevelationMeccan => 'Meccan';
+  @override
+  String get quranRevelationMedinan => 'Medinan';
 }

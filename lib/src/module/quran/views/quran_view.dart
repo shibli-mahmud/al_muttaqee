@@ -239,6 +239,7 @@ class _QuranTabBar extends StatelessWidget {
         ),
         indicatorSize: TabBarIndicatorSize.tab,
         indicatorPadding: EdgeInsets.zero,
+        dividerColor: Colors.transparent,
         labelColor: AppColors.baseWhite,
         unselectedLabelColor: AppColors.grey700,
         labelStyle: Theme.of(context).textTheme.labelLarge?.copyWith(
@@ -276,6 +277,14 @@ class _SurahList extends GetView<QuranController> {
           final SurahMeta surah = surahs[index];
           final locale = controller.currentLocale;
           final localizedName = surah.localizedName(locale);
+          final numberText = formatNumberWithLocale(surah.number, locale);
+          final ayahCountText =
+              formatNumberWithLocale(surah.ayahCount, locale);
+          final placeText = surah.revelationPlace == 'Meccan'
+              ? l10n.quranRevelationMeccan
+              : surah.revelationPlace == 'Medinan'
+                  ? l10n.quranRevelationMedinan
+                  : surah.revelationPlace;
 
           return ListTile(
             contentPadding: const EdgeInsets.symmetric(
@@ -286,7 +295,7 @@ class _SurahList extends GetView<QuranController> {
               backgroundColor: AppColors.brand100,
               foregroundColor: AppColors.brand800,
               child: Text(
-                surah.number.toString(),
+                numberText,
                 style: Theme.of(context).textTheme.labelMedium?.copyWith(
                       fontWeight: FontWeight.w600,
                     ),
@@ -319,7 +328,7 @@ class _SurahList extends GetView<QuranController> {
             subtitle: Padding(
               padding: const EdgeInsets.only(top: AppValues.space_4),
               child: Text(
-                '${surah.ayahCount} ${l10n.quranAyahNumberLabel(0).split(' ').first.toLowerCase()} • ${surah.revelationPlace}',
+                '$ayahCountText ${l10n.quranAyahNumberLabel(0).split(' ').first.toLowerCase()} • $placeText',
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
                       color: AppColors.grey600,
                     ),
@@ -359,6 +368,9 @@ class _ParaList extends GetView<QuranController> {
         ),
         itemBuilder: (context, index) {
           final para = paras[index];
+          final locale = controller.currentLocale;
+          final paraNumberText =
+              formatNumberWithLocale(para.number, locale);
           final paraSurahs = surahs
               .where((s) => para.surahNumbers.contains(s.number))
               .toList();
@@ -375,14 +387,14 @@ class _ParaList extends GetView<QuranController> {
               backgroundColor: AppColors.brand100,
               foregroundColor: AppColors.brand800,
               child: Text(
-                para.number.toString(),
+                paraNumberText,
                 style: Theme.of(context).textTheme.labelMedium?.copyWith(
                       fontWeight: FontWeight.w600,
                     ),
               ),
             ),
             title: Text(
-              '${l10n.quranParaLabel} ${para.number}',
+              '${l10n.quranParaLabel} $paraNumberText',
               style: Theme.of(context).textTheme.titleMedium?.copyWith(
                     color: AppColors.brand800,
                     fontWeight: FontWeight.w600,
