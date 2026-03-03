@@ -13,10 +13,15 @@ class QiblaController extends BaseController {
   final RxDouble qiblaDirection = 0.0.obs; // Bearing from north to Qibla
   final RxDouble heading = 0.0.obs; // Device heading from compass
   final RxDouble tilt = 0.0.obs; // Device tilt angle in degrees (0 = flat)
+  /// Normalized tilt for bubble position: -1..1, 0 = level. Used for gravity bubble in compass center.
+  final RxDouble tiltX = 0.0.obs;
+  final RxDouble tiltY = 0.0.obs;
 
   final RxBool hasLocationPermission = false.obs;
   final RxBool isLocationServiceEnabled = false.obs;
   final RxBool isReady = false.obs;
+  /// True when compass sensor accuracy is low/unreliable; user should calibrate (e.g. figure-8 motion).
+  final RxBool compassNeedsCalibration = false.obs;
 
   StreamSubscription<CompassEvent>? _compassSubscription;
   StreamSubscription<AccelerometerEvent>? _accelerometerSubscription;
@@ -109,8 +114,10 @@ class QiblaController extends BaseController {
     _compassSubscription?.cancel();
     _compassSubscription = FlutterCompass.events?.listen((event) {
       final headingValue = event.heading;
-      if (headingValue == null) return;
-      heading.value = headingValue;
+      if (headingValue != null) heading.value = headingValue;
+      // Android: accuracy -1 = unreliable, 0 = low, 1 = medium, 2 = high. null when unreliable.
+      final acc = event.accuracy;
+      compassNeedsCalibration.value = acc == null || acc < 1;
     });
   }
 
@@ -123,12 +130,19 @@ class QiblaController extends BaseController {
 
       if (g == 0) {
         tilt.value = 0;
+        tiltX.value = 0;
+        tiltY.value = 0;
         return;
       }
 
       final double cosTheta = (event.z / g).clamp(-1.0, 1.0);
       final double theta = math.acos(cosTheta);
       tilt.value = _radiansToDegrees(theta);
+
+      // Normalized tilt for bubble: bubble moves opposite to gravity. Scale so ~10 m/s² gives ~1.
+      const double scale = 0.12;
+      tiltX.value = (-event.x * scale).clamp(-1.0, 1.0);
+      tiltY.value = (-event.y * scale).clamp(-1.0, 1.0);
     });
   }
 
