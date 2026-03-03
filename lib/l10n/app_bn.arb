@@ -1,0 +1,32 @@
+{
+  "@@locale": "bn",
+  "home": "হোম",
+  "quran": "কুরআন",
+  "qibla": "কিবলা",
+  "tasbih": "তাসবিহ",
+  "language": "ভাষা",
+  "english": "ইংরেজি",
+  "bangla": "বাংলা",
+  "preparingQiblaCompass": "কিবলা কম্পাস প্রস্তুত করা হচ্ছে...",
+  "locationAccessRequired": "অবস্থান অ্যাক্সেস প্রয়োজন",
+  "locationAccessMessage": "কিবলার দিক নির্ণয়ের জন্য অনুগ্রহ করে লোকেশন সেবা চালু করুন এবং অনুমতি দিন।",
+  "compassCalibrationMessage": "কম্পাস ক্যালিব্রেশন প্রয়োজন। নির্ভুলতা বাড়াতে নিচের আটের মতো ডিভাইস নাড়ান।",
+  "moveDeviceLikeThis": "ডিভাইস এভাবে নাড়ান",
+  "qiblaDirection": "কিবলার দিক",
+  "qiblaDirectionHint": "কিবলার দিকে মুখ করতে ডিভাইসের উপরের দিকে তীরটি ধরুন।",
+  "qiblaHeadingFormat": "কিবলা: {qibla}°  |  হেডিং: {heading}°",
+  "@qiblaHeadingFormat": {
+    "placeholders": {
+      "qibla": {},
+      "heading": {}
+    }
+  },
+  "deviceLevelMessage": "ডিভাইস সমতল — বৃত্তের মাঝে বাবল সেন্টার করুন",
+  "tiltMessage": "হেলান: {tilt}° — ডিভাইস সমতল করতে বাবল সেন্টার করুন",
+  "@tiltMessage": {
+    "placeholders": {
+      "tilt": {}
+    }
+  },
+  "levelIndicator": "লেভেল ইন্ডিকেটর (কেন্দ্র বাবল)"
+}

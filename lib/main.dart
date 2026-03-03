@@ -3,8 +3,9 @@ import 'package:al_muttaqee/src/core/config/build_config.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'src/application.dart';
 import 'src/core/config/env_config.dart';
+import 'package:al_muttaqee/l10n/l10n.dart';
 
-void main() async{
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   PackageInfo packageInfo = await PackageInfo.fromPlatform();
@@ -19,6 +20,8 @@ void main() async{
     config: envConfig,
   );
 
-  runApp( const Application());
+  await L10n.getLocale();
+
+  runApp(const Application());
 }
 

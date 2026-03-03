@@ -1,6 +1,32 @@
 {
   "@@locale": "en",
-  "home": "Home"
-
-
+  "home": "Home",
+  "quran": "Quran",
+  "qibla": "Qibla",
+  "tasbih": "Tasbih",
+  "language": "Language",
+  "english": "English",
+  "bangla": "Bangla",
+  "preparingQiblaCompass": "Preparing Qibla compass...",
+  "locationAccessRequired": "Location access required",
+  "locationAccessMessage": "Please enable location services and grant permission so we can calculate the direction of Qibla from your current position.",
+  "compassCalibrationMessage": "Compass needs calibration. Move your device in the figure-8 pattern below to improve accuracy.",
+  "moveDeviceLikeThis": "Move device like this",
+  "qiblaDirection": "Qibla Direction",
+  "qiblaDirectionHint": "Point the arrow towards the top of your device to face Qibla.",
+  "qiblaHeadingFormat": "Qibla: {qibla}°  |  Heading: {heading}°",
+  "@qiblaHeadingFormat": {
+    "placeholders": {
+      "qibla": {},
+      "heading": {}
+    }
+  },
+  "deviceLevelMessage": "Device is level — center the bubble in the circle",
+  "tiltMessage": "Tilt: {tilt}° — center the bubble to level the device",
+  "@tiltMessage": {
+    "placeholders": {
+      "tilt": {}
+    }
+  },
+  "levelIndicator": "Level indicator (center bubble)"
 }

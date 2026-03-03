@@ -33,7 +33,7 @@ class QiblaView extends BaseView<QiblaController> {
           // BaseView already shows a loading overlay; keep the content simple.
           return Center(
             child: Text(
-              'Preparing Qibla compass...',
+              appLocalization.preparingQiblaCompass,
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                     color: AppColors.grey800,
                   ),
@@ -71,7 +71,7 @@ class QiblaView extends BaseView<QiblaController> {
             ),
             const SizedBox(height: AppValues.gap),
             Text(
-              'Location access required',
+              appLocalization.locationAccessRequired,
               style: Theme.of(context).textTheme.titleMedium?.copyWith(
                     color: AppColors.brand800,
                     fontWeight: FontWeight.w600,
@@ -80,7 +80,7 @@ class QiblaView extends BaseView<QiblaController> {
             ),
             const SizedBox(height: AppValues.space_8),
             Text(
-              'Please enable location services and grant permission so we can calculate the direction of Qibla from your current position.',
+              appLocalization.locationAccessMessage,
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                     color: AppColors.grey800,
                   ),
@@ -120,7 +120,7 @@ class QiblaView extends BaseView<QiblaController> {
               const SizedBox(width: AppValues.space_8),
               Expanded(
                 child: Text(
-                  'Compass needs calibration. Move your device in the figure-8 pattern below to improve accuracy.',
+                  appLocalization.compassCalibrationMessage,
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
                         color: AppColors.grey800,
                       ),
@@ -139,7 +139,7 @@ class QiblaView extends BaseView<QiblaController> {
                 ),
                 const SizedBox(height: AppValues.space_4),
                 Text(
-                  'Move device like this',
+                  appLocalization.moveDeviceLikeThis,
                   style: Theme.of(context).textTheme.labelSmall?.copyWith(
                         color: AppColors.orange700,
                         fontWeight: FontWeight.w600,
@@ -160,7 +160,7 @@ class QiblaView extends BaseView<QiblaController> {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Text(
-          'Qibla Direction',
+          appLocalization.qiblaDirection,
           style: Theme.of(context).textTheme.titleLarge?.copyWith(
                 color: AppColors.brand800,
                 fontWeight: FontWeight.w700,
@@ -200,7 +200,7 @@ class QiblaView extends BaseView<QiblaController> {
         }),
         const SizedBox(height: AppValues.gapLarge),
         Text(
-          'Point the arrow towards the top of your device to face Qibla.',
+          appLocalization.qiblaDirectionHint,
           style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                 color: AppColors.grey800,
               ),
@@ -211,7 +211,7 @@ class QiblaView extends BaseView<QiblaController> {
           final double qibla = controller.qiblaDirection.value;
           final double heading = controller.heading.value;
           return Text(
-            'Qibla: ${qibla.toStringAsFixed(0)}°  |  Heading: ${heading.toStringAsFixed(0)}°',
+            appLocalization.qiblaHeadingFormat(qibla, heading),
             style: Theme.of(context).textTheme.bodySmall?.copyWith(
                   color: AppColors.grey700,
                 ),
@@ -471,14 +471,14 @@ class QiblaView extends BaseView<QiblaController> {
     bool isLevel,
   ) {
     final String label = isLevel
-        ? 'Device is level — center the bubble in the circle'
-        : 'Tilt: ${tilt.toStringAsFixed(0)}° — center the bubble to level the device';
+        ? appLocalization.deviceLevelMessage
+        : appLocalization.tiltMessage(tilt);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Text(
-          'Level indicator (center bubble)',
+          appLocalization.levelIndicator,
           style: Theme.of(context).textTheme.titleMedium?.copyWith(
                 color: AppColors.brand800,
                 fontWeight: FontWeight.w600,

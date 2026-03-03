@@ -7,7 +7,7 @@ import 'package:al_muttaqee/src/core/constants/app_colors.dart';
 import 'package:al_muttaqee/src/core/constants/app_values.dart';
 import 'package:al_muttaqee/src/core/shared/widgets/asset_image_view.dart';
 
-class HomeView extends BaseView<HomeController>{
+class HomeView extends BaseView<HomeController> {
   @override
   PreferredSizeWidget? appBar(BuildContext context) {
     return null;
@@ -16,20 +16,32 @@ class HomeView extends BaseView<HomeController>{
   @override
   Widget body(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(AppValues.container_60),
+      padding: const EdgeInsets.all(AppValues.gap),
       height: double.infinity,
       width: double.infinity,
       color: AppColors.baseWhite,
-      child: const Column(
+      child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          AssetImageView(fileName: 'al_muttaqee_bg.png'
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              IconButton(
+                icon: const Icon(Icons.menu),
+                onPressed: () {
+                  Scaffold.of(context).openDrawer();
+                },
+              ),
+            ],
+          ),
+          const Expanded(
+            child: Center(
+              child: AssetImageView(fileName: 'al_muttaqee_bg.png'),
+            ),
           ),
         ],
       ),
     );
   }
-
-
 }
