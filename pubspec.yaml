@@ -50,6 +50,7 @@ dependencies:
   flutter_compass: ^0.8.1
   sensors_plus: ^6.1.2
   quran_flutter: ^1.0.3
+  google_fonts: ^6.2.1
 
 dev_dependencies:
   flutter_test:

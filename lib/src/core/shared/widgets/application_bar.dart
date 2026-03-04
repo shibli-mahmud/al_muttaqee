@@ -15,7 +15,7 @@ class ApplicationBar extends StatelessWidget implements PreferredSizeWidget {
     this.centerTitle = false,
     this.titleWidget,
     this.iconThemeData,
-    this.titleTextStyle = kFigtree600W14S,
+    this.titleTextStyle,
     this.systemOverlayStyle,
   });
 
@@ -44,7 +44,7 @@ class ApplicationBar extends StatelessWidget implements PreferredSizeWidget {
             ? titleWidget
             : Text(
                 appTitleText!,
-                style: titleTextStyle,
+                style: titleTextStyle ?? kFigtree600W14S,
               ),
         actions: actions,
       ),
