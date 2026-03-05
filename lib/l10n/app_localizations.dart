@@ -72,6 +72,16 @@ abstract class AppLocalizations {
   String quranAyahNumberLabel(int ayahNumber);
   String get quranRevelationMeccan;
   String get quranRevelationMedinan;
+
+  // Tasbih
+  String get tasbihTapToCount;
+  String get tasbihSwipeHorizontal;
+  String get tasbihSwipeVertical;
+  String get tasbihOrientationLeftRight;
+  String get tasbihOrientationUpDown;
+  String get tasbihResetRound;
+  String get tasbihResetAll;
+  String tasbihRoundsTotal(int rounds, int total);
 }
 
 class _AppLocalizationsDelegate

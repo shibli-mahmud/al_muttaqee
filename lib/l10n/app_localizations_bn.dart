@@ -88,4 +88,22 @@ class AppLocalizationsBn extends AppLocalizations {
   String get quranRevelationMeccan => 'মাক্কী';
   @override
   String get quranRevelationMedinan => 'মাদানী';
+
+  // Tasbih
+  @override
+  String get tasbihTapToCount => 'গণনা করতে বৃত্তে ট্যাপ করুন';
+  @override
+  String get tasbihSwipeHorizontal => 'গণনা করতে বাম থেকে ডানে সোয়াইপ করুন';
+  @override
+  String get tasbihSwipeVertical => 'গণনা করতে উপরে সোয়াইপ করুন';
+  @override
+  String get tasbihOrientationLeftRight => 'বাম–ডান';
+  @override
+  String get tasbihOrientationUpDown => 'উপরে–নিচে';
+  @override
+  String get tasbihResetRound => 'রাউন্ড রিসেট';
+  @override
+  String get tasbihResetAll => 'সব রিসেট';
+  @override
+  String tasbihRoundsTotal(int rounds, int total) => '$rounds রাউন্ড • $total মোট';
 }

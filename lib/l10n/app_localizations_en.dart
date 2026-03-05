@@ -73,4 +73,23 @@ class AppLocalizationsEn extends AppLocalizations {
   String get quranRevelationMeccan => 'Meccan';
   @override
   String get quranRevelationMedinan => 'Medinan';
+
+  // Tasbih
+  @override
+  String get tasbihTapToCount => 'Tap the circle to count';
+  @override
+  String get tasbihSwipeHorizontal => 'Swipe left → right to count';
+  @override
+  String get tasbihSwipeVertical => 'Swipe up ↑ to count';
+  @override
+  String get tasbihOrientationLeftRight => 'Left–Right';
+  @override
+  String get tasbihOrientationUpDown => 'Up–Down';
+  @override
+  String get tasbihResetRound => 'Reset round';
+  @override
+  String get tasbihResetAll => 'Reset all';
+  @override
+  String tasbihRoundsTotal(int rounds, int total) =>
+      '$rounds round${rounds == 1 ? '' : 's'} • $total total';
 }

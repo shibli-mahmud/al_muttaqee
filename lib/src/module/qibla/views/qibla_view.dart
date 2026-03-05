@@ -511,13 +511,15 @@ class QiblaView extends BaseView<QiblaController> {
                   color: isLevel ? AppColors.green600 : AppColors.orange500,
                 ),
               ),
-              const SizedBox(width: AppValues.space_8),
-              Text(
-                label,
-                style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      color: AppColors.grey800,
-                    ),
-                textAlign: TextAlign.center,
+              // const SizedBox(width: AppValues.gap_4),
+              Expanded(
+                child: Text(
+                  label,
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                        color: AppColors.grey800,
+                      ),
+                  textAlign: TextAlign.center,
+                ),
               ),
             ],
           ),

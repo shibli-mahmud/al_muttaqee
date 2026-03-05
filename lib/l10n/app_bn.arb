@@ -28,5 +28,19 @@
       "tilt": {}
     }
   },
-  "levelIndicator": "লেভেল ইন্ডিকেটর (কেন্দ্র বাবল)"
+  "levelIndicator": "লেভেল ইন্ডিকেটর (কেন্দ্র বাবল)",
+  "tasbihTapToCount": "গণনা করতে বৃত্তে ট্যাপ করুন",
+  "tasbihSwipeHorizontal": "গণনা করতে বাম থেকে ডানে সোয়াইপ করুন",
+  "tasbihSwipeVertical": "গণনা করতে উপরে সোয়াইপ করুন",
+  "tasbihOrientationLeftRight": "বাম–ডান",
+  "tasbihOrientationUpDown": "উপরে–নিচে",
+  "tasbihResetRound": "রাউন্ড রিসেট",
+  "tasbihResetAll": "সব রিসেট",
+  "tasbihRoundsTotal": "{rounds} রাউন্ড • {total} মোট",
+  "@tasbihRoundsTotal": {
+    "placeholders": {
+      "rounds": {},
+      "total": {}
+    }
+  }
 }

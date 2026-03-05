@@ -28,5 +28,19 @@
       "tilt": {}
     }
   },
-  "levelIndicator": "Level indicator (center bubble)"
+  "levelIndicator": "Level indicator (center bubble)",
+  "tasbihTapToCount": "Tap the circle to count",
+  "tasbihSwipeHorizontal": "Swipe left → right to count",
+  "tasbihSwipeVertical": "Swipe up ↑ to count",
+  "tasbihOrientationLeftRight": "Left–Right",
+  "tasbihOrientationUpDown": "Up–Down",
+  "tasbihResetRound": "Reset round",
+  "tasbihResetAll": "Reset all",
+  "tasbihRoundsTotal": "{rounds} round(s) • {total} total",
+  "@tasbihRoundsTotal": {
+    "placeholders": {
+      "rounds": {},
+      "total": {}
+    }
+  }
 }
