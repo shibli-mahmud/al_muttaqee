@@ -5,13 +5,13 @@ import 'package:al_muttaqee/src/module/quran/controllers/quran_controller.dart';
 import 'package:al_muttaqee/src/module/tasbih/controllers/tasbih_controller.dart';
 import 'package:get/get.dart';
 
-class DashboardController extends BaseController{
+class DashboardController extends BaseController {
+  static DashboardController get to => Get.find<DashboardController>();
 
   final HomeController homeController;
   final QuranController quranController;
   final QiblaController qiblaController;
   final TasbihController tasbihController;
-
 
   DashboardController({
     required this.homeController,

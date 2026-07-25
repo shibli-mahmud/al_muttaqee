@@ -9,7 +9,7 @@ abstract class Routes {
   static const qibla = _Paths.qibla;
   static const quran = _Paths.quran;
   static const tasbih = _Paths.tasbih;
-
+  static const prayerTimes = _Paths.prayerTimes;
 }
 
 abstract class _Paths {
@@ -19,5 +19,5 @@ abstract class _Paths {
   static const qibla = "/qibla";
   static const quran = "/quran";
   static const tasbih = "/tasbih";
-
+  static const prayerTimes = "/prayer-times";
 }

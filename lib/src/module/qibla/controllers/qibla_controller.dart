@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:math' as math;
 
 import 'package:al_muttaqee/src/core/base/base_controller.dart';
+import 'package:al_muttaqee/src/core/utils/utils/location_service.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:flutter_compass/flutter_compass.dart';
@@ -10,17 +11,15 @@ import 'package:sensors_plus/sensors_plus.dart';
 class QiblaController extends BaseController {
   static QiblaController get to => Get.find<QiblaController>();
 
-  final RxDouble qiblaDirection = 0.0.obs; // Bearing from north to Qibla
-  final RxDouble heading = 0.0.obs; // Device heading from compass
-  final RxDouble tilt = 0.0.obs; // Device tilt angle in degrees (0 = flat)
-  /// Normalized tilt for bubble position: -1..1, 0 = level. Used for gravity bubble in compass center.
+  final RxDouble qiblaDirection = 0.0.obs;
+  final RxDouble heading = 0.0.obs;
+  final RxDouble tilt = 0.0.obs;
   final RxDouble tiltX = 0.0.obs;
   final RxDouble tiltY = 0.0.obs;
 
   final RxBool hasLocationPermission = false.obs;
   final RxBool isLocationServiceEnabled = false.obs;
   final RxBool isReady = false.obs;
-  /// True when compass sensor accuracy is low/unreliable; user should calibrate (e.g. figure-8 motion).
   final RxBool compassNeedsCalibration = false.obs;
 
   StreamSubscription<CompassEvent>? _compassSubscription;
@@ -28,6 +27,8 @@ class QiblaController extends BaseController {
 
   static const double _kaabaLatitude = 21.4225;
   static const double _kaabaLongitude = 39.8262;
+
+  LocationService get _location => LocationService.to;
 
   @override
   void onInit() {
@@ -39,44 +40,36 @@ class QiblaController extends BaseController {
     try {
       showLoading();
 
-      final serviceEnabled = await Geolocator.isLocationServiceEnabled();
+      final serviceEnabled = await _location.isServiceEnabled();
       isLocationServiceEnabled.value = serviceEnabled;
       if (!serviceEnabled) {
-        showErrorMessage('Location services are disabled.');
+        showErrorMessage(appLocalization.locationAccessMessage);
         return;
       }
 
-      LocationPermission permission = await Geolocator.checkPermission();
-      if (permission == LocationPermission.denied) {
-        permission = await Geolocator.requestPermission();
-      }
-
-      if (permission == LocationPermission.denied ||
-          permission == LocationPermission.deniedForever) {
-        showErrorMessage(
-          'Location permission is required to calculate the Qibla direction.',
-        );
+      final ok = await _location.ensurePermission();
+      if (!ok) {
+        showErrorMessage(appLocalization.locationAccessMessage);
         return;
       }
 
       hasLocationPermission.value = true;
 
-      final position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high,
+      final position = await _location.getCurrentPosition(
+        accuracy: LocationAccuracy.high,
       );
 
-      final bearing = _calculateBearing(
+      qiblaDirection.value = _calculateBearing(
         position.latitude,
         position.longitude,
       );
-      qiblaDirection.value = bearing;
 
       _listenToCompass();
       _listenToTilt();
 
       isReady.value = true;
     } catch (e) {
-      showErrorMessage('Failed to initialize Qibla compass.');
+      showErrorMessage(appLocalization.preparingQiblaCompass);
       logger.e('QiblaController _initQibla error: $e');
     } finally {
       hideLoading();
@@ -98,24 +91,18 @@ class QiblaController extends BaseController {
     final double bearingRad = math.atan2(y, x);
     final double bearingDeg = _radiansToDegrees(bearingRad);
 
-    // Normalize to 0 - 360
     return (bearingDeg + 360) % 360;
   }
 
-  double _degreesToRadians(double degrees) {
-    return degrees * math.pi / 180;
-  }
+  double _degreesToRadians(double degrees) => degrees * math.pi / 180;
 
-  double _radiansToDegrees(double radians) {
-    return radians * 180 / math.pi;
-  }
+  double _radiansToDegrees(double radians) => radians * 180 / math.pi;
 
   void _listenToCompass() {
     _compassSubscription?.cancel();
     _compassSubscription = FlutterCompass.events?.listen((event) {
       final headingValue = event.heading;
       if (headingValue != null) heading.value = headingValue;
-      // Android: accuracy -1 = unreliable, 0 = low, 1 = medium, 2 = high. null when unreliable.
       final acc = event.accuracy;
       compassNeedsCalibration.value = acc == null || acc < 1;
     });
@@ -139,7 +126,6 @@ class QiblaController extends BaseController {
       final double theta = math.acos(cosTheta);
       tilt.value = _radiansToDegrees(theta);
 
-      // Normalized tilt for bubble: bubble moves opposite to gravity. Scale so ~10 m/s² gives ~1.
       const double scale = 0.12;
       tiltX.value = (-event.x * scale).clamp(-1.0, 1.0);
       tiltY.value = (-event.y * scale).clamp(-1.0, 1.0);

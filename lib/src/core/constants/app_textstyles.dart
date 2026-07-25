@@ -703,4 +703,12 @@ const _kFigtree800W60S = TextStyle(
 );
 
 // Public getters — use Bangla font when locale is bn (used by app_themes, widgets)
+TextStyle get kFigtree400W12S => _resolve(_kFigtree400W12S);
+TextStyle get kFigtree400W14S => _resolve(_kFigtree400W14S);
+TextStyle get kFigtree500W14S => _resolve(_kFigtree500W14S);
 TextStyle get kFigtree600W14S => _resolve(_kFigtree600W14S);
+TextStyle get kFigtree600W16S => _resolve(_kFigtree600W16S);
+TextStyle get kFigtree600W18S => _resolve(_kFigtree600W18S);
+TextStyle get kFigtree700W16S => _resolve(_kFigtree700W16S);
+TextStyle get kFigtree700W18S => _resolve(_kFigtree700W18S);
+TextStyle get kFigtree700W22S => _resolve(_kFigtree700W22S);

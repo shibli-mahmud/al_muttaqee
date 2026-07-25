@@ -17,6 +17,10 @@ abstract class AppStrings {
   static final spQuranLastAyahNumber =
       "${_config.packageName}.quran_last_ayah_number";
 
+  // Prayer times
+  static final spPrayerMethod = "${_config.packageName}.prayer_method";
+  static final spPrayerHanafi = "${_config.packageName}.prayer_hanafi";
+  static final spPrayerOffsetPrefix = "${_config.packageName}.prayer_offset";
 
   // Notification
   static final notificationChannelId = "${_config.packageName}.al_muttaqee_channel";
@@ -24,5 +28,5 @@ abstract class AppStrings {
 
   // Endpoints
   static const urlGetUser = "v1/token-user";
-
+  static const urlHadithBase = "hadith";
 }

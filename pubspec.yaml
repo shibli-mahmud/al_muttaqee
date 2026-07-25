@@ -51,6 +51,8 @@ dependencies:
   sensors_plus: ^6.1.2
   quran_flutter: ^1.0.3
   google_fonts: ^6.2.1
+  adhan_dart: ^2.0.1
+  hijri: ^3.0.1
 
 dev_dependencies:
   flutter_test:
