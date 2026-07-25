@@ -3,7 +3,9 @@ import 'package:al_muttaqee/src/core/base/base_view.dart';
 import 'package:al_muttaqee/src/core/constants/app_colors.dart';
 import 'package:al_muttaqee/src/core/constants/app_textstyles.dart';
 import 'package:al_muttaqee/src/core/constants/app_values.dart';
+import 'package:al_muttaqee/src/core/routes/app_pages.dart';
 import 'package:al_muttaqee/src/module/home/controllers/home_controller.dart';
+import 'package:al_muttaqee/src/module/prayer_times/models/prayer_times_models.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -32,8 +34,15 @@ class HomeView extends BaseView<HomeController> {
                   Expanded(
                     child: Text(
                       l10n.home,
-                      style: kFigtree700W18S.copyWith(color: AppColors.brand700),
+                      style: kFigtree700W18S.copyWith(
+                        color: AppColors.brand700,
+                      ),
                     ),
+                  ),
+                  IconButton(
+                    icon: const Icon(Icons.notifications_outlined,
+                        color: AppColors.brand700),
+                    onPressed: () => Get.toNamed(Routes.notifications),
                   ),
                   IconButton(
                     icon: const Icon(Icons.menu, color: AppColors.brand700),
@@ -44,6 +53,7 @@ class HomeView extends BaseView<HomeController> {
               const SizedBox(height: AppValues.gapXSmall),
               _buildNextSalatCard(l10n),
               const SizedBox(height: AppValues.gap),
+              _buildRamadanCard(l10n),
               _buildDateRow(l10n),
               const SizedBox(height: AppValues.gap),
               _buildDailyCards(l10n),
@@ -157,6 +167,37 @@ class HomeView extends BaseView<HomeController> {
     );
   }
 
+  Widget _buildRamadanCard(AppLocalizations l10n) {
+    return Obx(() {
+      if (!controller.isRamadan.value) return const SizedBox.shrink();
+      final times = controller.prayerTimes?.dayTimes.value;
+      if (times == null) return const SizedBox.shrink();
+      final fajr = times.entryFor(PrayerName.fajr)?.time;
+      final maghrib = times.entryFor(PrayerName.maghrib)?.time;
+      if (fajr == null || maghrib == null) return const SizedBox.shrink();
+      final format = DateFormat.jm();
+      return Padding(
+        padding: const EdgeInsets.only(bottom: AppValues.gap),
+        child: _HomeCard(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              _ramadanTime(l10n.sehriEnds, format.format(fajr)),
+              _ramadanTime(l10n.iftar, format.format(maghrib)),
+            ],
+          ),
+        ),
+      );
+    });
+  }
+
+  Widget _ramadanTime(String title, String time) => Column(
+        children: [
+          Text(title, style: kFigtree400W12S),
+          Text(time, style: kFigtree600W16S.copyWith(color: AppColors.brand600)),
+        ],
+      );
+
   Widget _buildDailyCards(AppLocalizations l10n) {
     return Obx(() {
       if (controller.dailyCards.isEmpty) {
@@ -174,28 +215,36 @@ class HomeView extends BaseView<HomeController> {
                 : l10n.duaOfTheDay;
             return Padding(
               padding: const EdgeInsets.only(right: AppValues.gapSmall),
-              child: _HomeCard(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      title,
-                      style: kFigtree600W14S.copyWith(color: AppColors.brand600),
-                    ),
-                    const SizedBox(height: AppValues.gapXSmall),
-                    Expanded(
-                      child: Text(
-                        card.text,
-                        maxLines: 4,
-                        overflow: TextOverflow.ellipsis,
-                        style: kFigtree400W14S,
+              child: InkWell(
+                borderRadius: BorderRadius.circular(AppValues.radiusSmall),
+                onTap: card.titleKey == 'hadith' ? controller.openHadith : null,
+                child: _HomeCard(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        title,
+                        style: kFigtree600W14S.copyWith(
+                          color: AppColors.brand600,
+                        ),
                       ),
-                    ),
-                    Text(
-                      card.source,
-                      style: kFigtree400W12S.copyWith(color: AppColors.grey600),
-                    ),
-                  ],
+                      const SizedBox(height: AppValues.gapXSmall),
+                      Expanded(
+                        child: Text(
+                          card.text,
+                          maxLines: 4,
+                          overflow: TextOverflow.ellipsis,
+                          style: kFigtree400W14S,
+                        ),
+                      ),
+                      Text(
+                        card.source,
+                        style: kFigtree400W12S.copyWith(
+                          color: AppColors.grey600,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             );
@@ -227,6 +276,16 @@ class HomeView extends BaseView<HomeController> {
         icon: PhosphorIconsRegular.mapPin,
         onTap: controller.openMasjidFinder,
       ),
+      _QuickItem(
+        label: l10n.calendar,
+        icon: PhosphorIconsRegular.calendar,
+        onTap: controller.openCalendar,
+      ),
+      _QuickItem(
+        label: l10n.zakat,
+        icon: PhosphorIconsRegular.calculator,
+        onTap: controller.openZakat,
+      ),
     ];
 
     return GridView.builder(
@@ -248,7 +307,11 @@ class HomeView extends BaseView<HomeController> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(item.icon, color: AppColors.brand500, size: AppValues.icon),
+                Icon(
+                  item.icon,
+                  color: AppColors.brand500,
+                  size: AppValues.icon,
+                ),
                 const SizedBox(height: AppValues.gap_4),
                 Text(
                   item.label,

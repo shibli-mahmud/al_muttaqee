@@ -1,0 +1,161 @@
+{
+  "bukhari": {
+    "chapters": [
+      {"chapterId": 1, "chapterNameEnglish": "Revelation", "chapterNameBengali": "ওয়াহী"},
+      {"chapterId": 2, "chapterNameEnglish": "Belief", "chapterNameBengali": "ঈমান"},
+      {"chapterId": 3, "chapterNameEnglish": "Knowledge", "chapterNameBengali": "ইলম"}
+    ],
+    "hadiths": {
+      "1": [
+        {
+          "hadithId": 1,
+          "chapterId": 1,
+          "hadithArabic": "إِنَّمَا الأَعْمَالُ بِالنِّيَّاتِ، وَإِنَّمَا لِكُلِّ امْرِئٍ مَا نَوَى",
+          "hadithEnglish": "Actions are according to intentions, and everyone will get what was intended.",
+          "hadithBengali": "কর্ম নিয়তের উপর নির্ভরশীল, এবং প্রত্যেকে তাই পাবে যা সে নিয়ত করেছে।",
+          "narrator": "Umar ibn al-Khattab"
+        },
+        {
+          "hadithId": 2,
+          "chapterId": 1,
+          "hadithArabic": "كَانَ رَسُولُ اللَّهِ صلى الله عليه وسلم أَجْوَدَ النَّاسِ",
+          "hadithEnglish": "The Messenger of Allah was the most generous of people.",
+          "hadithBengali": "রাসূলুল্লাহ সাল্লাল্লাহু আলাইহি ওয়াসাল্লাম ছিলেন মানুষের মধ্যে সবচেয়ে দানশীল।",
+          "narrator": "Ibn Abbas"
+        }
+      ],
+      "2": [
+        {
+          "hadithId": 8,
+          "chapterId": 2,
+          "hadithArabic": "بُنِيَ الإِسْلاَمُ عَلَى خَمْسٍ",
+          "hadithEnglish": "Islam is built upon five pillars.",
+          "hadithBengali": "ইসলাম পাঁচটি স্তম্ভের উপর প্রতিষ্ঠিত।",
+          "narrator": "Ibn Umar"
+        }
+      ],
+      "3": [
+        {
+          "hadithId": 10,
+          "chapterId": 3,
+          "hadithArabic": "مَنْ يُرِدِ اللَّهُ بِهِ خَيْرًا يُفَقِّهْهُ فِي الدِّينِ",
+          "hadithEnglish": "When Allah wishes good for someone, He bestows upon him understanding of the religion.",
+          "hadithBengali": "আল্লাহ যার কল্যাণ চান তাকে দ্বীনের জ্ঞান দান করেন।",
+          "narrator": "Muawiya"
+        }
+      ]
+    }
+  },
+  "muslim": {
+    "chapters": [
+      {"chapterId": 1, "chapterNameEnglish": "Faith", "chapterNameBengali": "ঈমান"},
+      {"chapterId": 2, "chapterNameEnglish": "Purification", "chapterNameBengali": "পবিত্রতা"}
+    ],
+    "hadiths": {
+      "1": [
+        {
+          "hadithId": 1,
+          "chapterId": 1,
+          "hadithArabic": "الْمُسْلِمُ مَنْ سَلِمَ الْمُسْلِمُونَ مِنْ لِسَانِهِ وَيَدِهِ",
+          "hadithEnglish": "A Muslim is the one from whose tongue and hand the Muslims are safe.",
+          "hadithBengali": "মুসলিম সে যার জিহ্বা ও হাত থেকে অন্য মুসলিমরা নিরাপদ থাকে।",
+          "narrator": "Abdullah ibn Amr"
+        }
+      ],
+      "2": [
+        {
+          "hadithId": 2,
+          "chapterId": 2,
+          "hadithArabic": "الطُّهُورُ شَطْرُ الإِيمَانِ",
+          "hadithEnglish": "Cleanliness is half of faith.",
+          "hadithBengali": "পবিত্রতা ঈমানের অর্ধেক।",
+          "narrator": "Abu Malik al-Ashari"
+        }
+      ]
+    }
+  },
+  "abuDaud": {
+    "chapters": [
+      {"chapterId": 1, "chapterNameEnglish": "Purification", "chapterNameBengali": "পবিত্রতা"},
+      {"chapterId": 2, "chapterNameEnglish": "Prayer", "chapterNameBengali": "সালাত"}
+    ],
+    "hadiths": {
+      "1": [
+        {
+          "hadithId": 1,
+          "chapterId": 1,
+          "hadithArabic": "مِفْتَاحُ الصَّلاَةِ الطُّهُورُ",
+          "hadithEnglish": "The key to prayer is purification.",
+          "hadithBengali": "সালাতের চাবি হলো পবিত্রতা।",
+          "narrator": "Ali ibn Abi Talib"
+        }
+      ],
+      "2": [
+        {
+          "hadithId": 2,
+          "chapterId": 2,
+          "hadithArabic": "صَلُّوا كَمَا رَأَيْتُمُونِي أُصَلِّي",
+          "hadithEnglish": "Pray as you have seen me praying.",
+          "hadithBengali": "তোমরা সালাত আদায় করো যেমন আমাকে সালাত আদায় করতে দেখেছ।",
+          "narrator": "Malik ibn al-Huwayrith"
+        }
+      ]
+    }
+  },
+  "ibnMajah": {
+    "chapters": [
+      {"chapterId": 1, "chapterNameEnglish": "Sunnah", "chapterNameBengali": "সুন্নাহ"},
+      {"chapterId": 2, "chapterNameEnglish": "Manners", "chapterNameBengali": "আদব"}
+    ],
+    "hadiths": {
+      "1": [
+        {
+          "hadithId": 1,
+          "chapterId": 1,
+          "hadithArabic": "تَرَكْتُ فِيكُمْ أَمْرَيْنِ لَنْ تَضِلُّوا مَا تَمَسَّكْتُمْ بِهِمَا",
+          "hadithEnglish": "I have left among you two things; you will never go astray as long as you hold fast to them.",
+          "hadithBengali": "আমি তোমাদের মধ্যে দুটি জিনিস রেখে যাচ্ছি; তোমরা এ দুটিকে আঁকড়ে ধরে থাকলে কখনো পথভ্রষ্ট হবে না।",
+          "narrator": "Abu Huraira"
+        }
+      ],
+      "2": [
+        {
+          "hadithId": 2,
+          "chapterId": 2,
+          "hadithArabic": "مَنْ كَانَ يُؤْمِنُ بِاللَّهِ وَالْيَوْمِ الآخِرِ فَلْيَقُلْ خَيْرًا أَوْ لِيَصْمُتْ",
+          "hadithEnglish": "Whoever believes in Allah and the Last Day should speak good or remain silent.",
+          "hadithBengali": "যে আল্লাহ ও আখিরাতে বিশ্বাস করে সে যেন ভালো কথা বলে অথবা চুপ থাকে।",
+          "narrator": "Abu Huraira"
+        }
+      ]
+    }
+  },
+  "tirmidi": {
+    "chapters": [
+      {"chapterId": 1, "chapterNameEnglish": "Purification", "chapterNameBengali": "পবিত্রতা"},
+      {"chapterId": 2, "chapterNameEnglish": "Charity", "chapterNameBengali": "সদকা"}
+    ],
+    "hadiths": {
+      "1": [
+        {
+          "hadithId": 1,
+          "chapterId": 1,
+          "hadithArabic": "لاَ يَقْبَلُ اللَّهُ صَلاَةً بِغَيْرِ طُهُورٍ",
+          "hadithEnglish": "Allah does not accept prayer without purification.",
+          "hadithBengali": "আল্লাহ পবিত্রতা ছাড়া সালাত কবুল করেন না।",
+          "narrator": "Ibn Umar"
+        }
+      ],
+      "2": [
+        {
+          "hadithId": 2,
+          "chapterId": 2,
+          "hadithArabic": "تَبَسُّمُكَ فِي وَجْهِ أَخِيكَ لَكَ صَدَقَةٌ",
+          "hadithEnglish": "Your smiling in the face of your brother is charity.",
+          "hadithBengali": "তোমার ভাইয়ের মুখের দিকে মৃদু হাসি তোমার জন্য সদকা।",
+          "narrator": "Abu Dharr"
+        }
+      ]
+    }
+  }
+}

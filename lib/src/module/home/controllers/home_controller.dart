@@ -32,6 +32,7 @@ class HomeController extends BaseController {
   final dailyCards = <DailyCardItem>[].obs;
   final lastSurah = 0.obs;
   final lastAyah = 0.obs;
+  final isRamadan = false.obs;
 
   @override
   void onInit() {
@@ -43,25 +44,33 @@ class HomeController extends BaseController {
 
   void _loadDates() {
     final now = DateTime.now();
-    gregorianLabel.value =
-        '${now.day} ${_monthName(now.month)} ${now.year}';
+    gregorianLabel.value = '${now.day} ${_monthName(now.month)} ${now.year}';
     final hijri = HijriCalendar.fromDate(now);
-    hijriLabel.value =
-        '${hijri.hDay} ${hijri.longMonthName} ${hijri.hYear} AH';
+    hijriLabel.value = '${hijri.hDay} ${hijri.longMonthName} ${hijri.hYear} AH';
+    isRamadan.value = hijri.hMonth == 9;
   }
 
   String _monthName(int month) {
     const names = [
-      'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-      'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec',
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'May',
+      'Jun',
+      'Jul',
+      'Aug',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Dec',
     ];
     return names[month - 1];
   }
 
   Future<void> _loadDailyContent() async {
     try {
-      final raw =
-          await rootBundle.loadString('assets/data/daily_content.json');
+      final raw = await rootBundle.loadString('assets/data/daily_content.json');
       final json = jsonDecode(raw) as Map<String, dynamic>;
       final day = DateTime.now().day;
       final isBn = L10n.isBangla(L10n.selectedLocale);
@@ -90,10 +99,14 @@ class HomeController extends BaseController {
 
   Future<void> _loadLastRead() async {
     final prefs = PreferenceManagerImpl.to;
-    lastSurah.value =
-        await prefs.getInt(AppStrings.spQuranLastSurahNumber, defaultValue: 1);
-    lastAyah.value =
-        await prefs.getInt(AppStrings.spQuranLastAyahNumber, defaultValue: 1);
+    lastSurah.value = await prefs.getInt(
+      AppStrings.spQuranLastSurahNumber,
+      defaultValue: 1,
+    );
+    lastAyah.value = await prefs.getInt(
+      AppStrings.spQuranLastAyahNumber,
+      defaultValue: 1,
+    );
   }
 
   PrayerTimesController? get prayerTimes {
@@ -116,6 +129,7 @@ class HomeController extends BaseController {
   }
 
   void openPrayerTimes() => Get.toNamed(Routes.prayerTimes);
+  void openHadith() => Get.toNamed(Routes.hadith);
 
   void openQuranContinue() {
     if (Get.isRegistered<DashboardController>()) {
@@ -135,10 +149,10 @@ class HomeController extends BaseController {
     }
   }
 
-  void openMasjidFinder() {
-    showSuccessMessage(appLocalization.comingSoon);
-    showSuccessToast(appLocalization.comingSoon);
-  }
+  void openMasjidFinder() => Get.toNamed(Routes.masjidFinder);
+  void openCalendar() => Get.toNamed(Routes.calendar);
+  void openZakat() => Get.toNamed(Routes.zakat);
+  void openPro() => Get.toNamed(Routes.pro);
 
   void reloadLocaleSensitive() {
     _loadDailyContent();

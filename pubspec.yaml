@@ -53,6 +53,13 @@ dependencies:
   google_fonts: ^6.2.1
   adhan_dart: ^2.0.1
   hijri: ^3.0.1
+  flutter_local_notifications: ^20.1.0
+  timezone: ^0.10.1
+  just_audio: ^0.10.6
+  flutter_cache_manager: ^3.4.2
+  google_maps_flutter: ^2.12.3
+  url_launcher: ^6.3.2
+  in_app_purchase: ^3.2.3
 
 dev_dependencies:
   flutter_test:

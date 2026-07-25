@@ -665,6 +665,48 @@ abstract class AppLocalizations {
   /// **'No results found'**
   String get noResults;
 
+  /// No description provided for @hadithAllChapters.
+  ///
+  /// In en, this message translates to:
+  /// **'All chapters'**
+  String get hadithAllChapters;
+
+  /// No description provided for @hadithBukhari.
+  ///
+  /// In en, this message translates to:
+  /// **'Sahih al-Bukhari'**
+  String get hadithBukhari;
+
+  /// No description provided for @hadithMuslim.
+  ///
+  /// In en, this message translates to:
+  /// **'Sahih Muslim'**
+  String get hadithMuslim;
+
+  /// No description provided for @hadithAbuDaud.
+  ///
+  /// In en, this message translates to:
+  /// **'Sunan Abu Dawud'**
+  String get hadithAbuDaud;
+
+  /// No description provided for @hadithIbnMajah.
+  ///
+  /// In en, this message translates to:
+  /// **'Sunan Ibn Majah'**
+  String get hadithIbnMajah;
+
+  /// No description provided for @hadithTirmidhi.
+  ///
+  /// In en, this message translates to:
+  /// **'Jami` at-Tirmidhi'**
+  String get hadithTirmidhi;
+
+  /// No description provided for @hadithSourcesAttribution.
+  ///
+  /// In en, this message translates to:
+  /// **'Islamic Foundation Bangladesh / alquranbd'**
+  String get hadithSourcesAttribution;
+
   /// No description provided for @ramadanMode.
   ///
   /// In en, this message translates to:
@@ -676,6 +718,186 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Important dates'**
   String get importantDates;
+
+  /// No description provided for @mapsApiKeyRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Google Maps and Places API keys to .env to show nearby mosques.'**
+  String get mapsApiKeyRequired;
+
+  /// No description provided for @noNearbyMasjids.
+  ///
+  /// In en, this message translates to:
+  /// **'No nearby mosques found.'**
+  String get noNearbyMasjids;
+
+  /// No description provided for @proBenefits.
+  ///
+  /// In en, this message translates to:
+  /// **'Support development with offline downloads for all reciters and full Hadith search and bookmarks. Quran text, Prayer Times, Qibla and Tasbih stay free.'**
+  String get proBenefits;
+
+  /// No description provided for @proUnlocked.
+  ///
+  /// In en, this message translates to:
+  /// **'Pro unlocked'**
+  String get proUnlocked;
+
+  /// No description provided for @restorePurchases.
+  ///
+  /// In en, this message translates to:
+  /// **'Restore purchases'**
+  String get restorePurchases;
+
+  /// No description provided for @supportDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Make an optional Sadaqah contribution to support the app.'**
+  String get supportDescription;
+
+  /// No description provided for @storeUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'The store is unavailable. Try again in a configured test or production environment.'**
+  String get storeUnavailable;
+
+  /// No description provided for @debugProUnlock.
+  ///
+  /// In en, this message translates to:
+  /// **'Debug Pro unlock'**
+  String get debugProUnlock;
+
+  /// No description provided for @ashura.
+  ///
+  /// In en, this message translates to:
+  /// **'Ashura'**
+  String get ashura;
+
+  /// No description provided for @ramadanStart.
+  ///
+  /// In en, this message translates to:
+  /// **'Ramadan begins'**
+  String get ramadanStart;
+
+  /// No description provided for @laylatulQadr.
+  ///
+  /// In en, this message translates to:
+  /// **'Estimated Laylatul Qadr night'**
+  String get laylatulQadr;
+
+  /// No description provided for @eidAlFitr.
+  ///
+  /// In en, this message translates to:
+  /// **'Eid al-Fitr'**
+  String get eidAlFitr;
+
+  /// No description provided for @eidAlAdha.
+  ///
+  /// In en, this message translates to:
+  /// **'Eid al-Adha'**
+  String get eidAlAdha;
+
+  /// No description provided for @cash.
+  ///
+  /// In en, this message translates to:
+  /// **'Cash'**
+  String get cash;
+
+  /// No description provided for @goldGrams.
+  ///
+  /// In en, this message translates to:
+  /// **'Gold (grams)'**
+  String get goldGrams;
+
+  /// No description provided for @silverGrams.
+  ///
+  /// In en, this message translates to:
+  /// **'Silver (grams)'**
+  String get silverGrams;
+
+  /// No description provided for @businessAssets.
+  ///
+  /// In en, this message translates to:
+  /// **'Business assets'**
+  String get businessAssets;
+
+  /// No description provided for @debtsOwedToYou.
+  ///
+  /// In en, this message translates to:
+  /// **'Debts owed to you'**
+  String get debtsOwedToYou;
+
+  /// No description provided for @debtsYouOwe.
+  ///
+  /// In en, this message translates to:
+  /// **'Debts you owe'**
+  String get debtsYouOwe;
+
+  /// No description provided for @useGoldNisab.
+  ///
+  /// In en, this message translates to:
+  /// **'Use gold nisab (85g)'**
+  String get useGoldNisab;
+
+  /// No description provided for @quranLastRead.
+  ///
+  /// In en, this message translates to:
+  /// **'Last read'**
+  String get quranLastRead;
+
+  /// No description provided for @quranNoLastReadYet.
+  ///
+  /// In en, this message translates to:
+  /// **'You have not started reading yet'**
+  String get quranNoLastReadYet;
+
+  /// No description provided for @quranStartReading.
+  ///
+  /// In en, this message translates to:
+  /// **'Start reading'**
+  String get quranStartReading;
+
+  /// No description provided for @quranContinueReading.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue reading'**
+  String get quranContinueReading;
+
+  /// No description provided for @quranSurahTab.
+  ///
+  /// In en, this message translates to:
+  /// **'Surah'**
+  String get quranSurahTab;
+
+  /// No description provided for @quranParaTab.
+  ///
+  /// In en, this message translates to:
+  /// **'Para'**
+  String get quranParaTab;
+
+  /// No description provided for @quranParaLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Para {number}'**
+  String quranParaLabel(int number);
+
+  /// No description provided for @quranRevelationMeccan.
+  ///
+  /// In en, this message translates to:
+  /// **'Meccan'**
+  String get quranRevelationMeccan;
+
+  /// No description provided for @quranRevelationMedinan.
+  ///
+  /// In en, this message translates to:
+  /// **'Medinan'**
+  String get quranRevelationMedinan;
+
+  /// No description provided for @quranAyahNumberLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Ayah {number}'**
+  String quranAyahNumberLabel(int number);
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

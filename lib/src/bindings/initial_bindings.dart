@@ -5,10 +5,11 @@ import 'package:al_muttaqee/src/core/utils/utils/location_service.dart';
 class InitialBindings extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut(
-      () => PreferenceManagerImpl(),
-      fenix: true,
-    );
-    Get.put<LocationService>(LocationService(), permanent: true);
+    if (!Get.isRegistered<PreferenceManagerImpl>()) {
+      Get.lazyPut(() => PreferenceManagerImpl(), fenix: true);
+    }
+    if (!Get.isRegistered<LocationService>()) {
+      Get.put<LocationService>(LocationService(), permanent: true);
+    }
   }
 }

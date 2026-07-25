@@ -1,4 +1,5 @@
 import 'package:al_muttaqee/src/module/dashboard/controllers/dashboard_controller.dart';
+import 'package:al_muttaqee/src/module/hadith/controllers/hadith_controller.dart';
 import 'package:al_muttaqee/src/module/home/controllers/home_controller.dart';
 import 'package:al_muttaqee/src/module/prayer_times/controllers/prayer_times_controller.dart';
 import 'package:al_muttaqee/src/module/qibla/controllers/qibla_controller.dart';
@@ -14,6 +15,7 @@ class DashboardBinding extends Bindings {
     Get.lazyPut(() => QiblaController(), fenix: true);
     Get.lazyPut(() => TasbihController(), fenix: true);
     Get.lazyPut(() => PrayerTimesController(), fenix: true);
+    Get.lazyPut(() => HadithController(), fenix: true);
 
     Get.lazyPut(
       () => DashboardController(

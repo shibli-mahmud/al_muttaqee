@@ -4,6 +4,14 @@ import 'package:al_muttaqee/l10n/l10n.dart';
 import 'package:al_muttaqee/src/module/quran/data/surah_names_bangla.dart';
 import 'package:quran_flutter/quran_flutter.dart';
 
+/// A Quran recitation edition served by Al Quran Cloud's CDN.
+class QuranReciter {
+  final String id;
+  final String name;
+
+  const QuranReciter({required this.id, required this.name});
+}
+
 /// Formats numbers using locale-specific digits (e.g. Bangla digits for 'bn').
 String formatNumberWithLocale(int value, Locale locale) {
   final text = value.toString();
@@ -66,13 +74,10 @@ class ParaMeta {
   final int number;
   final List<int> surahNumbers;
 
-  const ParaMeta({
-    required this.number,
-    required this.surahNumbers,
-  });
+  const ParaMeta({required this.number, required this.surahNumbers});
 
   static ParaMeta fromPackage(Juz juz) {
-    final keys = juz.surahVerses.keys.map((e) => e as int).toList()..sort();
+    final keys = juz.surahVerses.keys.toList()..sort();
     return ParaMeta(number: juz.number, surahNumbers: keys);
   }
 }

@@ -122,6 +122,53 @@
   "narrator": "বর্ণনাকারী",
   "chapter": "অধ্যায়",
   "noResults": "কোনো ফলাফল নেই",
+  "hadithAllChapters": "সব অধ্যায়",
+  "hadithBukhari": "সহিহ আল-বুখারি",
+  "hadithMuslim": "সহিহ মুসলিম",
+  "hadithAbuDaud": "সুনান আবু দাউদ",
+  "hadithIbnMajah": "সুনান ইবনে মাজাহ",
+  "hadithTirmidhi": "জামে আত-তিরমিজি",
+  "hadithSourcesAttribution": "ইসলামিক ফাউন্ডেশন বাংলাদেশ / আলকুরআনবিডি",
   "ramadanMode": "রমজান মোড",
-  "importantDates": "গুরুত্বপূর্ণ তারিখ"
+  "importantDates": "গুরুত্বপূর্ণ তারিখ",
+  "mapsApiKeyRequired": "কাছের মসজিদ দেখাতে .env-এ Google Maps ও Places API কী যোগ করুন।",
+  "noNearbyMasjids": "কাছাকাছি কোনো মসজিদ পাওয়া যায়নি।",
+  "proBenefits": "সব কারির অফলাইন ডাউনলোড এবং পূর্ণ হাদিস সার্চ ও বুকমার্ক পেতে উন্নয়নে সহায়তা করুন। কুরআন, নামাজের সময়, কিবলা ও তাসবিহ সবসময় ফ্রি থাকবে।",
+  "proUnlocked": "প্রো আনলক হয়েছে",
+  "restorePurchases": "ক্রয় পুনরুদ্ধার করুন",
+  "supportDescription": "অ্যাপকে সহায়তা করতে ঐচ্ছিক সদকা অবদান রাখুন।",
+  "storeUnavailable": "স্টোর পাওয়া যাচ্ছে না। কনফিগার করা টেস্ট বা প্রোডাকশন পরিবেশে চেষ্টা করুন।",
+  "debugProUnlock": "ডিবাগ প্রো আনলক",
+  "ashura": "আশুরা",
+  "ramadanStart": "রমজান শুরু",
+  "laylatulQadr": "সম্ভাব্য লাইলাতুল কদর",
+  "eidAlFitr": "ঈদুল ফিতর",
+  "eidAlAdha": "ঈদুল আজহা",
+  "cash": "নগদ",
+  "goldGrams": "স্বর্ণ (গ্রাম)",
+  "silverGrams": "রূপা (গ্রাম)",
+  "businessAssets": "ব্যবসার সম্পদ",
+  "debtsOwedToYou": "আপনার পাওনা ঋণ",
+  "debtsYouOwe": "আপনার দেনা",
+  "useGoldNisab": "স্বর্ণ নিসাব ব্যবহার করুন (৮৫ গ্রাম)",
+  "quranLastRead": "শেষ পড়া",
+  "quranNoLastReadYet": "আপনি এখনো পড়া শুরু করেননি",
+  "quranStartReading": "পড়া শুরু করুন",
+  "quranContinueReading": "পড়া চালিয়ে যান",
+  "quranSurahTab": "সূরা",
+  "quranParaTab": "পারা",
+  "quranParaLabel": "পারা {number}",
+  "@quranParaLabel": {
+    "placeholders": {
+      "number": {"type": "int"}
+    }
+  },
+  "quranRevelationMeccan": "মক্কী",
+  "quranRevelationMedinan": "মাদানী",
+  "quranAyahNumberLabel": "আয়াত {number}",
+  "@quranAyahNumberLabel": {
+    "placeholders": {
+      "number": {"type": "int"}
+    }
+  }
 }

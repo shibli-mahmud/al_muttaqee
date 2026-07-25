@@ -9,8 +9,10 @@ import 'package:al_muttaqee/src/core/config/build_config.dart';
 import 'package:al_muttaqee/src/core/constants/app_colors.dart';
 import 'package:al_muttaqee/src/core/shared/widgets/loading.dart';
 
+abstract class BaseView<Controller extends BaseController>
+    extends GetView<Controller> {
+  BaseView({super.key});
 
-abstract class BaseView<Controller extends BaseController> extends GetView<Controller> {
   final GlobalKey<ScaffoldState> globalKey = GlobalKey<ScaffoldState>();
 
   AppLocalizations get appLocalization => AppLocalizations.of(Get.context!)!;
@@ -30,8 +32,16 @@ abstract class BaseView<Controller extends BaseController> extends GetView<Contr
       child: Stack(
         children: [
           annotatedRegion(context),
-          Obx(() => controller.pageState == PageState.LOADING ? _showLoading() : Container()),
-          Obx(() => controller.errorMessage.isNotEmpty ? showErrorSnackBar(controller.errorMessage) : Container()),
+          Obx(
+            () => controller.pageState == PageState.LOADING
+                ? _showLoading()
+                : Container(),
+          ),
+          Obx(
+            () => controller.errorMessage.isNotEmpty
+                ? showErrorSnackBar(controller.errorMessage)
+                : Container(),
+          ),
           Container(),
         ],
       ),
@@ -45,10 +55,7 @@ abstract class BaseView<Controller extends BaseController> extends GetView<Contr
         statusBarColor: statusBarColor(),
         statusBarIconBrightness: Brightness.dark,
       ),
-      child: Material(
-        color: Colors.transparent,
-        child: pageScaffold(context),
-      ),
+      child: Material(color: Colors.transparent, child: pageScaffold(context)),
     );
   }
 
@@ -68,9 +75,7 @@ abstract class BaseView<Controller extends BaseController> extends GetView<Contr
   }
 
   Widget pageContent(BuildContext context) {
-    return SafeArea(
-      child: body(context),
-    );
+    return SafeArea(child: body(context));
   }
 
   Widget showErrorSnackBar(String message) {
@@ -94,7 +99,6 @@ abstract class BaseView<Controller extends BaseController> extends GetView<Contr
         return Container();
       },
     );
-    return Container();
   }
 
   void showToast(String message) {

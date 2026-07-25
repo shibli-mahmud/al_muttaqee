@@ -304,8 +304,123 @@ class AppLocalizationsBn extends AppLocalizations {
   String get noResults => 'কোনো ফলাফল নেই';
 
   @override
+  String get hadithAllChapters => 'সব অধ্যায়';
+
+  @override
+  String get hadithBukhari => 'সহিহ আল-বুখারি';
+
+  @override
+  String get hadithMuslim => 'সহিহ মুসলিম';
+
+  @override
+  String get hadithAbuDaud => 'সুনান আবু দাউদ';
+
+  @override
+  String get hadithIbnMajah => 'সুনান ইবনে মাজাহ';
+
+  @override
+  String get hadithTirmidhi => 'জামে আত-তিরমিজি';
+
+  @override
+  String get hadithSourcesAttribution => 'ইসলামিক ফাউন্ডেশন বাংলাদেশ / আলকুরআনবিডি';
+
+  @override
   String get ramadanMode => 'রমজান মোড';
 
   @override
   String get importantDates => 'গুরুত্বপূর্ণ তারিখ';
+
+  @override
+  String get mapsApiKeyRequired => 'কাছের মসজিদ দেখাতে .env-এ Google Maps ও Places API কী যোগ করুন।';
+
+  @override
+  String get noNearbyMasjids => 'কাছাকাছি কোনো মসজিদ পাওয়া যায়নি।';
+
+  @override
+  String get proBenefits => 'সব কারির অফলাইন ডাউনলোড এবং পূর্ণ হাদিস সার্চ ও বুকমার্ক পেতে উন্নয়নে সহায়তা করুন। কুরআন, নামাজের সময়, কিবলা ও তাসবিহ সবসময় ফ্রি থাকবে।';
+
+  @override
+  String get proUnlocked => 'প্রো আনলক হয়েছে';
+
+  @override
+  String get restorePurchases => 'ক্রয় পুনরুদ্ধার করুন';
+
+  @override
+  String get supportDescription => 'অ্যাপকে সহায়তা করতে ঐচ্ছিক সদকা অবদান রাখুন।';
+
+  @override
+  String get storeUnavailable => 'স্টোর পাওয়া যাচ্ছে না। কনফিগার করা টেস্ট বা প্রোডাকশন পরিবেশে চেষ্টা করুন।';
+
+  @override
+  String get debugProUnlock => 'ডিবাগ প্রো আনলক';
+
+  @override
+  String get ashura => 'আশুরা';
+
+  @override
+  String get ramadanStart => 'রমজান শুরু';
+
+  @override
+  String get laylatulQadr => 'সম্ভাব্য লাইলাতুল কদর';
+
+  @override
+  String get eidAlFitr => 'ঈদুল ফিতর';
+
+  @override
+  String get eidAlAdha => 'ঈদুল আজহা';
+
+  @override
+  String get cash => 'নগদ';
+
+  @override
+  String get goldGrams => 'স্বর্ণ (গ্রাম)';
+
+  @override
+  String get silverGrams => 'রূপা (গ্রাম)';
+
+  @override
+  String get businessAssets => 'ব্যবসার সম্পদ';
+
+  @override
+  String get debtsOwedToYou => 'আপনার পাওনা ঋণ';
+
+  @override
+  String get debtsYouOwe => 'আপনার দেনা';
+
+  @override
+  String get useGoldNisab => 'স্বর্ণ নিসাব ব্যবহার করুন (৮৫ গ্রাম)';
+
+  @override
+  String get quranLastRead => 'শেষ পড়া';
+
+  @override
+  String get quranNoLastReadYet => 'আপনি এখনো পড়া শুরু করেননি';
+
+  @override
+  String get quranStartReading => 'পড়া শুরু করুন';
+
+  @override
+  String get quranContinueReading => 'পড়া চালিয়ে যান';
+
+  @override
+  String get quranSurahTab => 'সূরা';
+
+  @override
+  String get quranParaTab => 'পারা';
+
+  @override
+  String quranParaLabel(int number) {
+    return 'পারা $number';
+  }
+
+  @override
+  String get quranRevelationMeccan => 'মক্কী';
+
+  @override
+  String get quranRevelationMedinan => 'মাদানী';
+
+  @override
+  String quranAyahNumberLabel(int number) {
+    return 'আয়াত $number';
+  }
 }

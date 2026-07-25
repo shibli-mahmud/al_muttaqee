@@ -5,6 +5,7 @@ import 'package:al_muttaqee/src/core/constants/app_strings.dart';
 import 'package:al_muttaqee/src/core/local/preferences/preference_manager.dart';
 import 'package:al_muttaqee/src/core/local/preferences/preference_manager_impl.dart';
 import 'package:al_muttaqee/src/core/utils/utils/location_service.dart';
+import 'package:al_muttaqee/src/core/utils/utils/notification_service.dart';
 import 'package:al_muttaqee/src/module/prayer_times/data/prayer_times_calculator.dart';
 import 'package:al_muttaqee/src/module/prayer_times/models/prayer_times_models.dart';
 import 'package:get/get.dart';
@@ -107,6 +108,9 @@ class PrayerTimesController extends BaseController {
         offsets: Map<PrayerName, int>.from(offsets),
       );
       _tick();
+      if (Get.isRegistered<NotificationService>()) {
+        await NotificationService.to.rescheduleAll();
+      }
     } catch (e, st) {
       logger.e('PrayerTimesController.refreshTimes: $e\n$st');
       showErrorMessage(appLocalization.prayerTimesLoadError);

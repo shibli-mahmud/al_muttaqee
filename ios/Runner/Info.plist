@@ -46,8 +46,12 @@
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>This app uses your location to calculate the direction of Qibla.</string>
+	<string>Location is used for Qibla, prayer times, and finding nearby mosques.</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>This app uses your location to calculate the direction of Qibla.</string>
+	<string>Location is used for Qibla, prayer times, and finding nearby mosques.</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>audio</string>
+	</array>
 </dict>
 </plist>

@@ -304,8 +304,123 @@ class AppLocalizationsEn extends AppLocalizations {
   String get noResults => 'No results found';
 
   @override
+  String get hadithAllChapters => 'All chapters';
+
+  @override
+  String get hadithBukhari => 'Sahih al-Bukhari';
+
+  @override
+  String get hadithMuslim => 'Sahih Muslim';
+
+  @override
+  String get hadithAbuDaud => 'Sunan Abu Dawud';
+
+  @override
+  String get hadithIbnMajah => 'Sunan Ibn Majah';
+
+  @override
+  String get hadithTirmidhi => 'Jami` at-Tirmidhi';
+
+  @override
+  String get hadithSourcesAttribution => 'Islamic Foundation Bangladesh / alquranbd';
+
+  @override
   String get ramadanMode => 'Ramadan mode';
 
   @override
   String get importantDates => 'Important dates';
+
+  @override
+  String get mapsApiKeyRequired => 'Add Google Maps and Places API keys to .env to show nearby mosques.';
+
+  @override
+  String get noNearbyMasjids => 'No nearby mosques found.';
+
+  @override
+  String get proBenefits => 'Support development with offline downloads for all reciters and full Hadith search and bookmarks. Quran text, Prayer Times, Qibla and Tasbih stay free.';
+
+  @override
+  String get proUnlocked => 'Pro unlocked';
+
+  @override
+  String get restorePurchases => 'Restore purchases';
+
+  @override
+  String get supportDescription => 'Make an optional Sadaqah contribution to support the app.';
+
+  @override
+  String get storeUnavailable => 'The store is unavailable. Try again in a configured test or production environment.';
+
+  @override
+  String get debugProUnlock => 'Debug Pro unlock';
+
+  @override
+  String get ashura => 'Ashura';
+
+  @override
+  String get ramadanStart => 'Ramadan begins';
+
+  @override
+  String get laylatulQadr => 'Estimated Laylatul Qadr night';
+
+  @override
+  String get eidAlFitr => 'Eid al-Fitr';
+
+  @override
+  String get eidAlAdha => 'Eid al-Adha';
+
+  @override
+  String get cash => 'Cash';
+
+  @override
+  String get goldGrams => 'Gold (grams)';
+
+  @override
+  String get silverGrams => 'Silver (grams)';
+
+  @override
+  String get businessAssets => 'Business assets';
+
+  @override
+  String get debtsOwedToYou => 'Debts owed to you';
+
+  @override
+  String get debtsYouOwe => 'Debts you owe';
+
+  @override
+  String get useGoldNisab => 'Use gold nisab (85g)';
+
+  @override
+  String get quranLastRead => 'Last read';
+
+  @override
+  String get quranNoLastReadYet => 'You have not started reading yet';
+
+  @override
+  String get quranStartReading => 'Start reading';
+
+  @override
+  String get quranContinueReading => 'Continue reading';
+
+  @override
+  String get quranSurahTab => 'Surah';
+
+  @override
+  String get quranParaTab => 'Para';
+
+  @override
+  String quranParaLabel(int number) {
+    return 'Para $number';
+  }
+
+  @override
+  String get quranRevelationMeccan => 'Meccan';
+
+  @override
+  String get quranRevelationMedinan => 'Medinan';
+
+  @override
+  String quranAyahNumberLabel(int number) {
+    return 'Ayah $number';
+  }
 }

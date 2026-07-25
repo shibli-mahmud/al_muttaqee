@@ -122,6 +122,53 @@
   "narrator": "Narrator",
   "chapter": "Chapter",
   "noResults": "No results found",
+  "hadithAllChapters": "All chapters",
+  "hadithBukhari": "Sahih al-Bukhari",
+  "hadithMuslim": "Sahih Muslim",
+  "hadithAbuDaud": "Sunan Abu Dawud",
+  "hadithIbnMajah": "Sunan Ibn Majah",
+  "hadithTirmidhi": "Jami` at-Tirmidhi",
+  "hadithSourcesAttribution": "Islamic Foundation Bangladesh / alquranbd",
   "ramadanMode": "Ramadan mode",
-  "importantDates": "Important dates"
+  "importantDates": "Important dates",
+  "mapsApiKeyRequired": "Add Google Maps and Places API keys to .env to show nearby mosques.",
+  "noNearbyMasjids": "No nearby mosques found.",
+  "proBenefits": "Support development with offline downloads for all reciters and full Hadith search and bookmarks. Quran text, Prayer Times, Qibla and Tasbih stay free.",
+  "proUnlocked": "Pro unlocked",
+  "restorePurchases": "Restore purchases",
+  "supportDescription": "Make an optional Sadaqah contribution to support the app.",
+  "storeUnavailable": "The store is unavailable. Try again in a configured test or production environment.",
+  "debugProUnlock": "Debug Pro unlock",
+  "ashura": "Ashura",
+  "ramadanStart": "Ramadan begins",
+  "laylatulQadr": "Estimated Laylatul Qadr night",
+  "eidAlFitr": "Eid al-Fitr",
+  "eidAlAdha": "Eid al-Adha",
+  "cash": "Cash",
+  "goldGrams": "Gold (grams)",
+  "silverGrams": "Silver (grams)",
+  "businessAssets": "Business assets",
+  "debtsOwedToYou": "Debts owed to you",
+  "debtsYouOwe": "Debts you owe",
+  "useGoldNisab": "Use gold nisab (85g)",
+  "quranLastRead": "Last read",
+  "quranNoLastReadYet": "You have not started reading yet",
+  "quranStartReading": "Start reading",
+  "quranContinueReading": "Continue reading",
+  "quranSurahTab": "Surah",
+  "quranParaTab": "Para",
+  "quranParaLabel": "Para {number}",
+  "@quranParaLabel": {
+    "placeholders": {
+      "number": {"type": "int"}
+    }
+  },
+  "quranRevelationMeccan": "Meccan",
+  "quranRevelationMedinan": "Medinan",
+  "quranAyahNumberLabel": "Ayah {number}",
+  "@quranAyahNumberLabel": {
+    "placeholders": {
+      "number": {"type": "int"}
+    }
+  }
 }
