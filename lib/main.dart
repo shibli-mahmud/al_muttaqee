@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:al_muttaqee/src/core/config/build_config.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:quran_flutter/quran_flutter.dart';
@@ -6,20 +7,30 @@ import 'src/application.dart';
 import 'src/core/config/env_config.dart';
 import 'package:al_muttaqee/l10n/l10n.dart';
 
-void main() async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  PackageInfo packageInfo = await PackageInfo.fromPlatform();
+  try {
+    await dotenv.load(fileName: '.env');
+  } catch (_) {
+    try {
+      await dotenv.load(fileName: '.env.example');
+    } catch (e) {
+      debugPrint('dotenv: no env file loaded. $e');
+    }
+  }
+
+  final packageInfo = await PackageInfo.fromPlatform();
+  final baseUrl = dotenv.env['API_BASE_URL'] ?? 'https://alquranbd.com/api/';
+
   final envConfig = EnvConfig(
     appName: packageInfo.appName,
     appVersion: packageInfo.version,
     packageName: packageInfo.packageName,
-    baseUrl: "",
+    baseUrl: baseUrl,
   );
 
-  BuildConfig.instantiate(
-    config: envConfig,
-  );
+  BuildConfig.instantiate(config: envConfig);
 
   await L10n.getLocale();
   await Quran.initialize();
