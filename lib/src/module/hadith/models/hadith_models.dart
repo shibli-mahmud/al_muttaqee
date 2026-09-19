@@ -1,97 +1,108 @@
-enum HadithBook {
-  bukhari('bukhari'),
-  muslim('muslim'),
-  abuDaud('abuDaud'),
-  ibnMajah('ibnMajah'),
-  tirmidi('tirmidi');
+/// A collection in the bundled corpus.
+class HadithBook {
+  const HadithBook({
+    required this.slug,
+    required this.nameBn,
+    required this.nameEn,
+    required this.nameAr,
+    required this.chapterCount,
+    required this.hadithCount,
+    required this.curated,
+  });
 
-  const HadithBook(this.apiSlug);
-  final String apiSlug;
+  final String slug;
+  final String nameBn;
+  final String nameEn;
+  final String nameAr;
+  final int chapterCount;
+  final int hadithCount;
+
+  /// The curated entry point — ৪০ হাদিস নববি. It gets the gold treatment on
+  /// the হাদিস screen because it is the one collection a newcomer can
+  /// realistically finish, and finishing something is what brings them back.
+  final bool curated;
+
+  static HadithBook fromRow(Map<String, Object?> row) => HadithBook(
+        slug: row['slug']! as String,
+        nameBn: row['name_bn']! as String,
+        nameEn: row['name_en']! as String,
+        nameAr: row['name_ar']! as String,
+        chapterCount: (row['chapter_count'] as int?) ?? 0,
+        hadithCount: (row['hadith_count'] as int?) ?? 0,
+        curated: ((row['curated'] as int?) ?? 0) == 1,
+      );
 }
 
+/// One kitab inside a collection.
 class HadithChapter {
-  const HadithChapter({required this.number, required this.title});
+  const HadithChapter({
+    required this.book,
+    required this.number,
+    required this.nameBn,
+    required this.nameEn,
+    required this.hadithCount,
+  });
 
+  final String book;
   final int number;
-  final String title;
+  final String nameBn;
+  final String nameEn;
+  final int hadithCount;
 
-  factory HadithChapter.fromJson(Map<String, dynamic> json) {
-    return HadithChapter(
-      number: _asInt(
-        json['chapterId'] ??
-            json['chapterNumber'] ??
-            json['chapter'] ??
-            json['id'],
-      ),
-      title: _asString(
-        json['chapterNameBengali'] ??
-            json['chapterNameEnglish'] ??
-            json['chapterName'] ??
-            json['title'] ??
-            json['name'],
-      ),
-    );
-  }
+  static HadithChapter fromRow(Map<String, Object?> row) => HadithChapter(
+        book: row['book']! as String,
+        number: (row['number'] as int?) ?? 0,
+        nameBn: row['name_bn']! as String,
+        nameEn: row['name_en']! as String,
+        hadithCount: (row['hadith_count'] as int?) ?? 0,
+      );
 }
 
+/// A single hadith.
 class Hadith {
   const Hadith({
     required this.book,
-    required this.chapter,
     required this.number,
+    required this.chapter,
     required this.arabic,
     required this.bengali,
-    required this.english,
-    required this.narrator,
-    required this.title,
+    required this.grade,
   });
 
-  final HadithBook book;
-  final int chapter;
+  final String book;
   final int number;
+  final int chapter;
   final String arabic;
   final String bengali;
-  final String english;
-  final String narrator;
-  final String title;
 
-  String get id => '${book.apiSlug}:$chapter:$number';
+  /// The Al-Albani (or first available) grading, already in Bangla —
+  /// সহিহ, হাসান, যঈফ and so on. Empty for Bukhari and Muslim, whose
+  /// authenticity is not in question and where a badge would be noise.
+  final String grade;
 
-  factory Hadith.fromJson(HadithBook book, Map<String, dynamic> json) {
-    return Hadith(
-      book: book,
-      chapter: _asInt(
-        json['chapterId'] ?? json['chapterNumber'] ?? json['chapter'],
-      ),
-      number: _asInt(
-        json['hadithId'] ??
-            json['hadithNumber'] ??
-            json['hadithNo'] ??
-            json['id'],
-      ),
-      arabic: _asString(json['hadithArabic'] ?? json['arabic'] ?? json['ar']),
-      bengali: _asString(
-        json['hadithBengali'] ??
-            json['hadithBangla'] ??
-            json['bengali'] ??
-            json['bn'],
-      ),
-      english: _asString(
-        json['hadithEnglish'] ?? json['english'] ?? json['en'],
-      ),
-      narrator: _asString(
-        json['narrator'] ?? json['rawi'] ?? json['narratedBy'],
-      ),
-      title: _asString(
-        json['title'] ??
-            json['chapterNameBengali'] ??
-            json['chapterNameEnglish'] ??
-            json['chapterName'],
-      ),
-    );
-  }
+  /// Stable identity for bookmarks: `bukhari:1`.
+  String get id => '$book:$number';
+
+  static Hadith fromRow(Map<String, Object?> row) => Hadith(
+        book: row['book']! as String,
+        number: (row['number'] as int?) ?? 0,
+        chapter: (row['chapter'] as int?) ?? 0,
+        arabic: (row['arabic'] as String?) ?? '',
+        bengali: (row['bengali'] as String?) ?? '',
+        grade: (row['grade'] as String?) ?? '',
+      );
 }
 
-int _asInt(dynamic value) => int.tryParse('$value') ?? 0;
+/// A hadith plus the collection and chapter it came from, which a search
+/// result or a bookmark needs in order to be readable out of context.
+class HadithHit {
+  const HadithHit({
+    required this.hadith,
+    required this.bookName,
+    required this.chapterName,
+  });
 
-String _asString(dynamic value) => value?.toString().trim() ?? '';
+  final Hadith hadith;
+  final String bookName;
+  final String chapterName;
+}

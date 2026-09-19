@@ -1,6 +1,9 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:al_muttaqee/src/core/config/build_config.dart';
+import 'package:al_muttaqee/src/core/local/db/app_database.dart';
 import 'package:al_muttaqee/src/core/local/preferences/preference_manager_impl.dart';
 import 'package:al_muttaqee/src/core/utils/utils/location_service.dart';
 import 'package:al_muttaqee/src/core/utils/utils/notification_service.dart';
@@ -41,8 +44,18 @@ Future<void> main() async {
 
   Get.put(PreferenceManagerImpl(), permanent: true);
   Get.put(LocationService(), permanent: true);
+
+  // The tracker reads its first day the moment হোম builds, so the database is
+  // opened before the first frame rather than lazily behind a spinner.
+  Get.put(await AppDatabase().init(), permanent: true);
+
   final notifications = await NotificationService().init();
   Get.put(notifications, permanent: true);
+
+  // Refill the rolling alarm window on every cold start. The plugin re-arms
+  // what it already holds after a reboot, but only a launch can extend the
+  // window past the seven days scheduled last time.
+  unawaited(notifications.rescheduleAll());
 
   runApp(const Application());
 }

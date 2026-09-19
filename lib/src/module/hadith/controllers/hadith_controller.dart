@@ -1,116 +1,190 @@
-import 'dart:ui';
+import 'dart:async';
 
-import 'package:al_muttaqee/l10n/l10n.dart';
-import 'package:al_muttaqee/src/core/base/base_controller.dart';
-import 'package:al_muttaqee/src/core/constants/app_strings.dart';
-import 'package:al_muttaqee/src/core/local/preferences/preference_manager.dart';
-import 'package:al_muttaqee/src/core/local/preferences/preference_manager_impl.dart';
-import 'package:al_muttaqee/src/module/hadith/data/hadith_repository.dart';
-import 'package:al_muttaqee/src/module/hadith/models/hadith_models.dart';
 import 'package:get/get.dart';
 
+import 'package:al_muttaqee/src/core/base/base_controller.dart';
+import 'package:al_muttaqee/src/core/local/db/hadith_database.dart';
+import 'package:al_muttaqee/src/core/routes/app_pages.dart';
+import 'package:al_muttaqee/src/module/hadith/data/hadith_repository.dart';
+import 'package:al_muttaqee/src/module/hadith/models/hadith_models.dart';
+
+/// হাদিস — frame ১৫, plus the collection and chapter screens behind it.
+///
+/// Bookmarking is free. The old build put it behind the Pro unlock; the
+/// redesign takes the paywall out of the features entirely, and a bookmark is
+/// the cheapest possible thing to store — it is one string in preferences.
 class HadithController extends BaseController {
   static HadithController get to => Get.find<HadithController>();
 
-  HadithController({
-    HadithRepository? repository,
-    PreferenceManager? preferences,
-  }) : _repository = repository ?? HadithRepository(),
-       _preferences = preferences ?? PreferenceManagerImpl.to;
+  HadithController({HadithRepository? repository, HadithDatabase? database})
+      : _repository = repository ?? HadithRepository(),
+        _database = database ?? HadithDatabase.to;
 
   final HadithRepository _repository;
-  final PreferenceManager _preferences;
+  final HadithDatabase _database;
 
+  final books = <HadithBook>[].obs;
+  final dailyHadith = Rxn<HadithHit>();
+  final bookmarkIds = <String>{}.obs;
+
+  /// True while the corpus is being inflated or read for the first time.
+  final isLoading = true.obs;
+
+  /// Set when the corpus could not be opened, so the screen can explain
+  /// itself instead of looking empty.
+  final loadError = ''.obs;
+
+  // ── Collection screen ─────────────────────────────────────────────────────
   final chapters = <HadithChapter>[].obs;
+  final openBook = Rxn<HadithBook>();
+  final isLoadingChapters = false.obs;
+
+  // ── Chapter screen ────────────────────────────────────────────────────────
   final hadiths = <Hadith>[].obs;
-  final bookmarks = <String>{}.obs;
-  final isLoading = false.obs;
-  final selectedBook = Rxn<HadithBook>();
-  final selectedChapter = Rxn<HadithChapter>();
+  final openChapter = Rxn<HadithChapter>();
+  final isLoadingHadiths = false.obs;
+
+  // ── Search ────────────────────────────────────────────────────────────────
   final searchQuery = ''.obs;
-  final isPro = false.obs;
-
-  Locale get currentLocale => L10n.selectedLocale;
-
-  List<Hadith> get filteredHadiths {
-    final query = searchQuery.value.trim().toLowerCase();
-    if (query.isEmpty || !isPro.value) return hadiths;
-    return hadiths.where((hadith) {
-      final firstLine = localizedText(hadith).split('\n').first.toLowerCase();
-      return hadith.title.toLowerCase().contains(query) ||
-          firstLine.contains(query) ||
-          hadith.number.toString().contains(query);
-    }).toList();
-  }
+  final searchResults = <HadithHit>[].obs;
+  final isSearching = false.obs;
+  Timer? _searchDebounce;
 
   @override
   void onInit() {
     super.onInit();
-    _loadBookmarks();
-    _loadProStatus();
+    load();
   }
 
-  Future<void> openBook(HadithBook book) async {
-    selectedBook.value = book;
-    selectedChapter.value = null;
+  @override
+  void onClose() {
+    _searchDebounce?.cancel();
+    super.onClose();
+  }
+
+  Future<void> load() async {
+    isLoading.value = true;
+    loadError.value = '';
+    try {
+      await _database.open();
+      if (_database.error.value.isNotEmpty) {
+        loadError.value = _database.error.value;
+        return;
+      }
+      books.assignAll(await _repository.books());
+      dailyHadith.value = await _repository.hadithOfTheDay();
+      bookmarkIds.assignAll(await _repository.bookmarkIds());
+    } catch (e, st) {
+      logger.e('HadithController.load: $e\n$st');
+      loadError.value = e.toString();
+    } finally {
+      isLoading.value = false;
+    }
+  }
+
+  /// The collections shown as ordinary browse cards.
+  List<HadithBook> get browsable =>
+      books.where((book) => !book.curated).toList(growable: false);
+
+  /// ৪০ হাদিস নববি, which the design gives its own treatment.
+  HadithBook? get curated =>
+      books.firstWhereOrNull((book) => book.curated);
+
+  // ── Navigation ────────────────────────────────────────────────────────────
+
+  Future<void> selectBook(HadithBook book) async {
+    openBook.value = book;
     chapters.clear();
+    isLoadingChapters.value = true;
+    try {
+      chapters.assignAll(await _repository.chapters(book.slug));
+    } catch (e, st) {
+      logger.e('HadithController.selectBook: $e\n$st');
+    } finally {
+      isLoadingChapters.value = false;
+    }
+    await Get.toNamed(Routes.hadithCollectionFor(book.slug));
+  }
+
+  Future<void> selectChapter(HadithChapter chapter) async {
+    openChapter.value = chapter;
     hadiths.clear();
-    await _loadChapters(book);
+    isLoadingHadiths.value = true;
+    try {
+      hadiths.assignAll(
+        await _repository.hadiths(chapter.book, chapter.number),
+      );
+    } catch (e, st) {
+      logger.e('HadithController.selectChapter: $e\n$st');
+    } finally {
+      isLoadingHadiths.value = false;
+    }
+    await Get.toNamed(Routes.hadithChapter);
   }
 
-  Future<void> openChapter(HadithChapter chapter) async {
-    final book = selectedBook.value;
-    if (book == null) return;
-    selectedChapter.value = chapter;
-    searchQuery.value = '';
-    isLoading.value = true;
+  /// Re-reads the chapter list when the collection screen is entered directly
+  /// by route rather than through [selectBook].
+  Future<void> ensureChaptersFor(String slug) async {
+    if (openBook.value?.slug == slug && chapters.isNotEmpty) return;
+    isLoadingChapters.value = true;
     try {
-      hadiths.assignAll(await _repository.loadHadiths(book, chapter.number));
-    } catch (error, stackTrace) {
-      logger.e('HadithController.openChapter: $error\n$stackTrace');
-      hadiths.clear();
+      openBook.value = await _repository.book(slug);
+      chapters.assignAll(await _repository.chapters(slug));
+    } catch (e, st) {
+      logger.e('HadithController.ensureChaptersFor: $e\n$st');
     } finally {
-      isLoading.value = false;
+      isLoadingChapters.value = false;
     }
   }
 
-  Future<void> _loadChapters(HadithBook book) async {
-    isLoading.value = true;
-    try {
-      chapters.assignAll(await _repository.loadChapters(book));
-    } catch (error, stackTrace) {
-      logger.e('HadithController._loadChapters: $error\n$stackTrace');
-      chapters.assignAll(const [HadithChapter(number: 1, title: '')]);
-    } finally {
-      isLoading.value = false;
-    }
-  }
+  // ── Search ────────────────────────────────────────────────────────────────
 
-  String localizedText(Hadith hadith) =>
-      L10n.isBangla(currentLocale) ? hadith.bengali : hadith.english;
+  /// Debounced by 300ms: FTS over 34,000 rows is fast but not free, and firing
+  /// it on every keystroke of a Bangla keyboard — where one character often
+  /// arrives as several composition events — would run it many times per word.
+  void onSearchChanged(String query) {
+    searchQuery.value = query;
+    _searchDebounce?.cancel();
 
-  bool isBookmarked(Hadith hadith) => bookmarks.contains(hadith.id);
-
-  Future<void> toggleBookmark(Hadith hadith) async {
-    if (!isPro.value) {
-      showErrorMessage(appLocalization.proUnlock);
+    if (query.trim().length < 2) {
+      searchResults.clear();
+      isSearching.value = false;
       return;
     }
-    if (!bookmarks.add(hadith.id)) bookmarks.remove(hadith.id);
-    bookmarks.refresh();
-    await _preferences.setStringList(
-      AppStrings.spHadithBookmarks,
-      bookmarks.toList(),
-    );
+
+    isSearching.value = true;
+    _searchDebounce = Timer(const Duration(milliseconds: 300), () async {
+      try {
+        searchResults.assignAll(await _repository.search(query));
+      } catch (e, st) {
+        logger.e('HadithController.onSearchChanged: $e\n$st');
+        searchResults.clear();
+      } finally {
+        isSearching.value = false;
+      }
+    });
   }
 
-  Future<void> _loadBookmarks() async {
-    bookmarks.assignAll(
-      await _preferences.getStringList(AppStrings.spHadithBookmarks),
-    );
+  void clearSearch() {
+    _searchDebounce?.cancel();
+    searchQuery.value = '';
+    searchResults.clear();
+    isSearching.value = false;
   }
 
-  Future<void> _loadProStatus() async {
-    isPro.value = await _preferences.getBool('pro_unlocked', defaultValue: false);
+  // ── Bookmarks ─────────────────────────────────────────────────────────────
+
+  bool isBookmarked(Hadith hadith) => bookmarkIds.contains(hadith.id);
+
+  Future<void> toggleBookmark(Hadith hadith) async {
+    // Optimistic, so the icon flips on the frame the finger lifts.
+    if (!bookmarkIds.add(hadith.id)) bookmarkIds.remove(hadith.id);
+    bookmarkIds.refresh();
+    await _repository.toggleBookmark(hadith.id);
   }
+
+  Future<List<HadithHit>> loadBookmarks() => _repository.bookmarks();
+
+  void openSearch() => Get.toNamed(Routes.hadithSearch);
+  void openBookmarks() => Get.toNamed(Routes.hadithBookmarks);
 }

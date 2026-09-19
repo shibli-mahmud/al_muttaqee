@@ -1,556 +1,597 @@
 import 'dart:math' as math;
 
-import 'package:al_muttaqee/src/module/tasbih/controllers/tasbih_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/preferred_size.dart';
-import 'package:al_muttaqee/src/core/base/base_view.dart';
-import 'package:al_muttaqee/src/core/constants/app_colors.dart';
-import 'package:al_muttaqee/src/core/constants/app_values.dart';
-import 'package:al_muttaqee/l10n/app_localizations.dart';
 import 'package:get/get.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
-enum _BeadsOrientation { horizontal, vertical }
+import 'package:al_muttaqee/l10n/app_localizations.dart';
+import 'package:al_muttaqee/src/core/base/base_view.dart';
+import 'package:al_muttaqee/src/core/constants/app_colors.dart';
+import 'package:al_muttaqee/src/core/constants/app_values.dart';
+import 'package:al_muttaqee/src/core/constants/dusk_text_styles.dart';
+import 'package:al_muttaqee/src/core/shared/widgets/dusk/dusk.dart';
+import 'package:al_muttaqee/src/core/utils/utils/number_format.dart';
+import 'package:al_muttaqee/src/module/tasbih/controllers/tasbih_controller.dart';
+import 'package:al_muttaqee/src/module/tasbih/models/tasbih_models.dart';
+import 'package:al_muttaqee/src/module/tasbih/views/tasbih_bead_ring.dart';
 
-/// Minimum swipe distance (px) to count as one bead move.
-const double _kMinSwipeDistance = 36;
-
+/// তাসবিহ — frame ০৭.
+///
+/// A counter is one interaction repeated a hundred times, so everything here
+/// serves the tap: the target is the whole card rather than a small button,
+/// the ring shows the round without asking anyone to read a number, and each
+/// count carries a haptic so it works with the eyes closed.
 class TasbihView extends BaseView<TasbihController> {
+  TasbihView({super.key});
+
   @override
-  PreferredSizeWidget? appBar(BuildContext context) {
-    return null;
-  }
+  PreferredSizeWidget? appBar(BuildContext context) => null;
+
+  @override
+  Color pageBackgroundColor() => AppColors.ivory;
+
+  @override
+  Color statusBarColor() => AppColors.baseTransparent;
+
+  @override
+  Widget pageContent(BuildContext context) => body(context);
 
   @override
   Widget body(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(
-        horizontal: AppValues.gapLarge,
-        vertical: AppValues.gap,
-      ),
-      height: double.infinity,
-      width: double.infinity,
-      color: AppColors.baseWhite,
-      child: Obx(() => _TasbihContent(
-            count: controller.count.value,
-            totalCount: controller.totalCount.value,
-            roundsCompleted: controller.roundsCompleted.value,
-            targetCount: TasbihController.targetCount,
-            l10n: appLocalization,
-            onIncrement: controller.increment,
-            onDecrement: controller.decrement,
-            onSwipeEnd: controller.completeRoundIfFull,
-            onResetRound: controller.resetRound,
-            onResetAll: controller.resetAll,
-          )),
-    );
-  }
-}
+    final l10n = AppLocalizations.of(context)!;
 
-class _TasbihContent extends StatefulWidget {
-  const _TasbihContent({
-    required this.count,
-    required this.totalCount,
-    required this.roundsCompleted,
-    required this.targetCount,
-    required this.l10n,
-    required this.onIncrement,
-    required this.onDecrement,
-    required this.onSwipeEnd,
-    required this.onResetRound,
-    required this.onResetAll,
-  });
-
-  final int count;
-  final int totalCount;
-  final int roundsCompleted;
-  final int targetCount;
-  final AppLocalizations l10n;
-  final VoidCallback onIncrement;
-  final VoidCallback onDecrement;
-  final VoidCallback onSwipeEnd;
-  final VoidCallback onResetRound;
-  final VoidCallback onResetAll;
-
-  @override
-  State<_TasbihContent> createState() => _TasbihContentState();
-}
-
-class _TasbihContentState extends State<_TasbihContent> {
-  _BeadsOrientation _orientation = _BeadsOrientation.horizontal;
-
-  @override
-  Widget build(BuildContext context) {
-    final hasCount = widget.count > 0 || widget.totalCount > 0;
-
-    return Column(
-      children: [
-        const SizedBox(height: AppValues.gapSmall),
-        Text(
-          '${widget.count} / ${widget.targetCount}',
-          style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                color: AppColors.brand800,
-                fontWeight: FontWeight.bold,
+    return Obx(
+      () => Column(
+        children: [
+          _hero(l10n),
+          Expanded(
+            child: ListView(
+              // Negative top padding pulls the counter card up over the
+              // gradient edge, the way the design overlaps them.
+              padding: const EdgeInsets.fromLTRB(
+                AppValues.screenPadding,
+                0,
+                AppValues.screenPadding,
+                AppValues.space_24,
               ),
-        ),
-        if (widget.roundsCompleted > 0) ...[
-          const SizedBox(height: AppValues.gap_4),
-          Text(
-            widget.l10n.tasbihRoundsTotal(
-                widget.roundsCompleted, widget.totalCount),
-            style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                  color: AppColors.grey600,
+              children: [
+                Transform.translate(
+                  offset: const Offset(0, -AppValues.space_18),
+                  child: _counterCard(context, l10n),
                 ),
+                _actionRow(l10n),
+              ],
+            ),
           ),
         ],
-        const SizedBox(height: AppValues.gap),
-        Expanded(
-          child: LayoutBuilder(
-            builder: (context, constraints) {
-              return _BeadsWindow(
-                count: widget.count,
-                targetCount: widget.targetCount,
-                orientation: _orientation,
-                constraints: constraints.biggest,
-                onIncrement: widget.onIncrement,
-                onDecrement: widget.onDecrement,
-                onSwipeEnd: widget.onSwipeEnd,
-              );
-            },
-          ),
-        ),
-        const SizedBox(height: AppValues.gapXSmall),
-        Text(
-          _orientation == _BeadsOrientation.horizontal
-              ? widget.l10n.tasbihSwipeHorizontal
-              : widget.l10n.tasbihSwipeVertical,
-          style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                color: AppColors.grey500,
+      ),
+    );
+  }
+
+  // ── Hero ──────────────────────────────────────────────────────────────────
+
+  Widget _hero(AppLocalizations l10n) {
+    const theme = DuskHeroTheme.day;
+    final dhikr = controller.activeDhikr.value;
+
+    return DuskHero(
+      theme: theme,
+      paddingBottom: AppValues.space_34,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          DuskHeroTitleRow(
+            title: l10n.navTasbih,
+            theme: theme,
+            large: true,
+            actions: [
+              DuskHeroIconButton(
+                icon: PhosphorIconsRegular.clockCounterClockwise,
+                theme: theme,
+                semanticLabel: l10n.tasbihHistoryTitle,
+                onTap: controller.openHistory,
               ),
-        ),
-        const SizedBox(height: AppValues.gap),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            _OrientationChip(
-              icon: PhosphorIconsRegular.arrowsHorizontal,
-              label: widget.l10n.tasbihOrientationLeftRight,
-              selected: _orientation == _BeadsOrientation.horizontal,
-              onTap: () {
-                setState(() {
-                  _orientation = _BeadsOrientation.horizontal;
-                });
-              },
-            ),
-            const SizedBox(width: AppValues.gap),
-            _OrientationChip(
-              icon: PhosphorIconsRegular.arrowsVertical,
-              label: widget.l10n.tasbihOrientationUpDown,
-              selected: _orientation == _BeadsOrientation.vertical,
-              onTap: () {
-                setState(() {
-                  _orientation = _BeadsOrientation.vertical;
-                });
-              },
-            ),
-          ],
-        ),
-        if (hasCount) ...[
-          const SizedBox(height: AppValues.gap),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              _ActionButton(
-                icon: PhosphorIconsRegular.arrowCounterClockwise,
-                label: widget.l10n.tasbihResetRound,
-                onTap: widget.onResetRound,
-              ),
-              const SizedBox(width: AppValues.gap),
-              _ActionButton(
-                icon: PhosphorIconsRegular.trash,
-                label: widget.l10n.tasbihResetAll,
-                onTap: widget.onResetAll,
+              DuskHeroIconButton(
+                icon: PhosphorIconsRegular.vibrate,
+                theme: theme,
+                filled: controller.hapticsEnabled.value,
+                semanticLabel: l10n.tasbihHaptics,
+                onTap: controller.toggleHaptics,
               ),
             ],
           ),
+          const SizedBox(height: AppValues.groupGap),
+          _presetChips(theme),
+          const SizedBox(height: AppValues.space_20),
+          Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: AppValues.heroPadding,
+            ),
+            child: Column(
+              children: [
+                Text(
+                  dhikr.arabic,
+                  textAlign: TextAlign.center,
+                  style: DuskText.arabic(size: AppValues.fontSize_36,
+                          height: 1.5)
+                      .copyWith(color: theme.onPrimary),
+                ),
+                const SizedBox(height: AppValues.gap_4),
+                Text(
+                  '${dhikr.bangla} · '
+                  '${l10n.tasbihTimes(formatNumberWithLocale(controller.target.value))}',
+                  textAlign: TextAlign.center,
+                  style: DuskText.bangla(
+                    size: AppValues.fontSize_13_5,
+                    weight: FontWeight.w500,
+                    color: theme.onMuted,
+                  ),
+                ),
+              ],
+            ),
+          ),
         ],
-        const SizedBox(height: AppValues.gapLarge),
+      ),
+    );
+  }
+
+  Widget _presetChips(DuskHeroTheme theme) {
+    return SizedBox(
+      height: 38,
+      child: ListView.separated(
+        scrollDirection: Axis.horizontal,
+        padding: const EdgeInsets.symmetric(
+          horizontal: AppValues.heroPadding,
+        ),
+        itemCount: dhikrPresets.length,
+        separatorBuilder: (_, __) => const SizedBox(width: AppValues.space_7),
+        itemBuilder: (context, index) {
+          final preset = dhikrPresets[index];
+          final active = preset.id == controller.activeDhikr.value.id;
+          return DuskPill(
+            label: preset.bangla,
+            background: active
+                ? theme.accent
+                : AppColors.onDeepPrimary.withValues(alpha: 0.14),
+            foreground: active ? theme.accentInk : theme.onPrimary,
+            style: DuskText.bangla(
+              size: AppValues.fontSize_12_5,
+              weight: active ? FontWeight.w700 : FontWeight.w600,
+            ),
+            onTap: () => controller.selectDhikr(preset),
+          );
+        },
+      ),
+    );
+  }
+
+  // ── Counter ───────────────────────────────────────────────────────────────
+
+  Widget _counterCard(BuildContext context, AppLocalizations l10n) {
+    final width = MediaQuery.sizeOf(context).width;
+    // The design sets 116; below that the digits crowd the card's padding on
+    // narrow phones, so it scales with the width instead of clipping.
+    final counterSize = math.min(AppValues.fontSize_116, width * 0.30);
+
+    return Semantics(
+      button: true,
+      label: l10n.tasbihCountAction,
+      value: formatNumberWithLocale(controller.count.value),
+      // The ring itself takes the tap and the drag; the card around it is just
+      // the surface, so a stray touch on the stat tiles does not count a bead.
+      child: Container(
+          padding: const EdgeInsets.symmetric(
+            vertical: AppValues.space_26,
+            horizontal: AppValues.space_22,
+          ),
+          decoration: BoxDecoration(
+            color: AppColors.surface,
+            borderRadius: BorderRadius.circular(DuskRadius.counter),
+            boxShadow: AppColors.shadowCounter,
+          ),
+          child: Column(
+            children: [
+              _CompletionFlare(
+                pulse: controller.roundJustCompleted.value,
+                child: TasbihBeadRing(
+                  count: controller.count.value,
+                  target: controller.target.value,
+                  onAdvance: controller.increment,
+                  onRewind: controller.decrement,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        formatNumberWithLocale(controller.count.value),
+                        style: DuskText.counter(counterSize)
+                            .copyWith(color: AppColors.duskDeep),
+                      ),
+                      Text(
+                        l10n.tasbihOfTarget(
+                          formatNumberWithLocale(controller.progressInRound),
+                          formatNumberWithLocale(controller.target.value),
+                        ),
+                        style: DuskText.bangla(
+                          size: AppValues.fontSize_13,
+                          weight: FontWeight.w600,
+                          color: AppColors.inkMuted,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              const SizedBox(height: AppValues.space_18),
+              _statTiles(l10n),
+            ],
+          ),
+      ),
+    );
+  }
+
+  Widget _statTiles(AppLocalizations l10n) {
+    final summary = controller.summary.value;
+
+    return Row(
+      children: [
+        Expanded(
+          child: _StatTile(
+            label: l10n.tasbihTodayTotal,
+            value: formatNumberWithLocale(summary.todayTotal),
+          ),
+        ),
+        const SizedBox(width: AppValues.gapXSmall),
+        Expanded(
+          child: _StatTile(
+            label: l10n.tasbihRounds,
+            value: formatNumberWithLocale(summary.todayRounds),
+          ),
+        ),
+        const SizedBox(width: AppValues.gapXSmall),
+        Expanded(
+          child: _StatTile(
+            label: l10n.tasbihStreak,
+            value: formatNumberWithLocale(summary.streak),
+            highlighted: true,
+          ),
+        ),
       ],
     );
   }
-}
 
-class _OrientationChip extends StatelessWidget {
-  const _OrientationChip({
-    required this.icon,
-    required this.label,
-    required this.selected,
-    required this.onTap,
-  });
+  // ── Actions ───────────────────────────────────────────────────────────────
 
-  final IconData icon;
-  final String label;
-  final bool selected;
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    return Material(
-      color: selected ? AppColors.brand200 : AppColors.grey200,
-      borderRadius: BorderRadius.circular(AppValues.radiusLarge),
-      child: InkWell(
-        onTap: onTap,
-        borderRadius: BorderRadius.circular(AppValues.radiusLarge),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: AppValues.gap,
-            vertical: AppValues.gapXSmall,
-          ),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Icon(
-                icon,
-                size: AppValues.icon_18,
-                color: selected ? AppColors.brand800 : AppColors.grey700,
+  Widget _actionRow(AppLocalizations l10n) {
+    return Row(
+      children: [
+        _CircleAction(
+          icon: PhosphorIconsRegular.arrowCounterClockwise,
+          semanticLabel: l10n.tasbihReset,
+          onTap: () => _confirmReset(l10n),
+        ),
+        const SizedBox(width: AppValues.space_12),
+        Expanded(
+          child: Material(
+            color: AppColors.gold,
+            borderRadius: BorderRadius.circular(AppValues.space_28 + 2),
+            clipBehavior: Clip.antiAlias,
+            child: Ink(
+              decoration: BoxDecoration(
+                color: AppColors.gold,
+                borderRadius: BorderRadius.circular(AppValues.space_28 + 2),
+                boxShadow: AppColors.shadowGold,
               ),
-              const SizedBox(width: AppValues.gap_4),
-              Text(
-                label,
-                style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      color: selected ? AppColors.brand800 : AppColors.grey700,
-                      fontWeight:
-                          selected ? FontWeight.w600 : FontWeight.w500,
-                    ),
+              child: InkWell(
+                onTap: controller.increment,
+                // Long-press undoes a miscount without a separate control,
+                // which keeps the action row to three things.
+                onLongPress: controller.decrement,
+                splashColor: AppColors.goldPressed.withValues(alpha: 0.4),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    vertical: AppValues.space_22,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Icon(
+                        PhosphorIconsBold.plus,
+                        size: AppValues.icon_28,
+                        color: AppColors.goldInk,
+                      ),
+                      const SizedBox(width: AppValues.gapSmall),
+                      Text(
+                        l10n.tasbihCountAction,
+                        style: DuskText.bangla(
+                          size: AppValues.fontSize_14,
+                          weight: FontWeight.w700,
+                          color: AppColors.goldInk,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+        const SizedBox(width: AppValues.space_12),
+        _CircleAction(
+          icon: PhosphorIconsRegular.target,
+          semanticLabel: l10n.tasbihSetGoal,
+          onTap: () => _pickTarget(l10n),
+        ),
+      ],
+    );
+  }
+
+  Future<void> _confirmReset(AppLocalizations l10n) async {
+    // A reset throws away work, so it asks. Everything else here is one tap.
+    final confirmed = await Get.dialog<bool>(
+      AlertDialog(
+        backgroundColor: AppColors.surface,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(DuskRadius.card),
+        ),
+        title: Text(l10n.tasbihResetTitle, style: DuskText.cardHeading),
+        content: Text(
+          l10n.tasbihResetBody,
+          style: DuskText.bodySmall.copyWith(color: AppColors.inkSecondary),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Get.back<bool>(result: false),
+            child: Text(
+              l10n.cancel,
+              style: DuskText.rowLabel.copyWith(color: AppColors.inkMuted),
+            ),
+          ),
+          TextButton(
+            onPressed: () => Get.back<bool>(result: true),
+            child: Text(
+              l10n.tasbihReset,
+              style: DuskText.rowLabel.copyWith(color: AppColors.danger),
+            ),
+          ),
+        ],
+      ),
+    );
+    if (confirmed == true) await controller.resetCount();
+  }
+
+  Future<void> _pickTarget(AppLocalizations l10n) async {
+    await Get.bottomSheet<void>(
+      Container(
+        decoration: const BoxDecoration(
+          color: AppColors.ivory,
+          borderRadius: BorderRadius.vertical(
+            top: Radius.circular(DuskRadius.sheet),
+          ),
+          boxShadow: AppColors.shadowSheet,
+        ),
+        padding: const EdgeInsets.fromLTRB(
+          AppValues.screenPadding,
+          AppValues.space_12,
+          AppValues.screenPadding,
+          AppValues.space_24,
+        ),
+        child: SafeArea(
+          top: false,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Center(
+                child: Container(
+                  width: 44,
+                  height: 5,
+                  decoration: BoxDecoration(
+                    color: AppColors.grabHandle,
+                    borderRadius: BorderRadius.circular(DuskRadius.chip),
+                  ),
+                ),
+              ),
+              const SizedBox(height: AppValues.space_18),
+              Text(l10n.tasbihSetGoal, style: DuskText.cardHeading),
+              const SizedBox(height: AppValues.gapSmall),
+              Obx(
+                () => GroupedCard(
+                  children: [
+                    for (final option in TasbihController.targetOptions)
+                      GroupedRow(
+                        title: l10n.tasbihTimes(
+                          formatNumberWithLocale(option),
+                        ),
+                        titleStyle: DuskText.rowLabel.copyWith(
+                          color: controller.target.value == option
+                              ? AppColors.goldTintInk
+                              : AppColors.ink,
+                        ),
+                        tinted: controller.target.value == option,
+                        trailing: Icon(
+                          controller.target.value == option
+                              ? PhosphorIconsFill.checkCircle
+                              : PhosphorIconsRegular.circle,
+                          size: AppValues.icon_20,
+                          color: controller.target.value == option
+                              ? AppColors.goldOnIvory
+                              : AppColors.dashedBorder,
+                        ),
+                        onTap: () {
+                          controller.setTarget(option);
+                          Get.back<void>();
+                        },
+                      ),
+                  ],
+                ),
               ),
             ],
           ),
         ),
       ),
+      isScrollControlled: true,
+      backgroundColor: AppColors.baseTransparent,
     );
   }
 }
 
-/// Shows 4 beads: [count-1, count, count+1, count+2]. Center bead is current (full size/opacity), edges faded.
-class _BeadsWindow extends StatefulWidget {
-  const _BeadsWindow({
-    required this.count,
-    required this.targetCount,
-    required this.orientation,
-    required this.constraints,
-    required this.onIncrement,
-    required this.onDecrement,
-    required this.onSwipeEnd,
-  });
+/// A gold flare when a round completes.
+///
+/// The haptic tells the hand; this tells the eye. It is deliberately brief —
+/// the point of the exercise is not to be watching the screen.
+class _CompletionFlare extends StatefulWidget {
+  const _CompletionFlare({required this.pulse, required this.child});
 
-  final int count;
-  final int targetCount;
-  final _BeadsOrientation orientation;
-  final Size constraints;
-  final VoidCallback onIncrement;
-  final VoidCallback onDecrement;
-  final VoidCallback onSwipeEnd;
-
-  static const int _visibleBeads = 4;
-  static const double _stringThickness = 2.5;
-  static const double _centerBeadScale = 1.0;
-  static const double _sideBeadScale = 0.72;
-  static const double _edgeBeadScale = 0.52;
+  final int pulse;
+  final Widget child;
 
   @override
-  State<_BeadsWindow> createState() => _BeadsWindowState();
+  State<_CompletionFlare> createState() => _CompletionFlareState();
 }
 
-class _BeadsWindowState extends State<_BeadsWindow>
+class _CompletionFlareState extends State<_CompletionFlare>
     with SingleTickerProviderStateMixin {
-  /// Total drag distance during current gesture (for one-swipe-one-bead).
-  double _totalDragDelta = 0;
-  /// One bead step in pixels (baseSize + gap), updated in build.
-  double _oneBeadStep = 60;
-  /// +1 = forward animation, -1 = backward.
-  int _beadMoveDirection = 0;
-  late AnimationController _beadMoveController;
-
-  static const double _totalExtentFactor = 4.0 + 3 * 0.35;
+  late final AnimationController _flare = AnimationController(
+    vsync: this,
+    duration: const Duration(milliseconds: 620),
+  );
 
   @override
-  void initState() {
-    super.initState();
-    _beadMoveController = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 260),
-    )..addListener(() => setState(() {}));
+  void didUpdateWidget(_CompletionFlare old) {
+    super.didUpdateWidget(old);
+    if (widget.pulse != old.pulse) _flare.forward(from: 0);
   }
 
   @override
   void dispose() {
-    _beadMoveController.dispose();
+    _flare.dispose();
     super.dispose();
-  }
-
-  void _startOneBeadAnimation(int direction) {
-    if (_beadMoveController.isAnimating) return;
-    _beadMoveDirection = direction;
-    void onComplete(AnimationStatus status) {
-      if (status == AnimationStatus.completed) {
-        _beadMoveController.removeStatusListener(onComplete);
-        _beadMoveController.reset();
-        if (_beadMoveDirection > 0) {
-          widget.onIncrement();
-        } else {
-          widget.onDecrement();
-        }
-        widget.onSwipeEnd();
-        _beadMoveDirection = 0;
-        setState(() {});
-      }
-    }
-    _beadMoveController.addStatusListener(onComplete);
-    _beadMoveController.forward();
   }
 
   @override
   Widget build(BuildContext context) {
-    final isHorizontal =
-        widget.orientation == _BeadsOrientation.horizontal;
-    final extent =
-        isHorizontal ? widget.constraints.width : widget.constraints.height;
-    final crossExtent =
-        isHorizontal ? widget.constraints.height : widget.constraints.width;
-    final maxBaseFromExtent = extent / _totalExtentFactor;
-    final maxBaseFromCross = crossExtent * 0.32;
-    final baseSize =
-        math.min(math.min(maxBaseFromExtent, maxBaseFromCross), 80.0)
-            .clamp(32.0, 80.0);
-    final gap = baseSize * 0.35;
-    _oneBeadStep = baseSize + gap;
-
-    final double dragOffset = _beadMoveController.isAnimating
-        ? _beadMoveDirection * _oneBeadStep * Curves.easeOut.transform(_beadMoveController.value)
-        : 0;
-    final offset = isHorizontal
-        ? Offset(dragOffset, 0)
-        : Offset(0, dragOffset);
-
-    return GestureDetector(
-      behavior: HitTestBehavior.opaque,
-      onPanStart: (_) {
-        _totalDragDelta = 0;
-      },
-      onPanUpdate: (details) {
-        final delta = isHorizontal ? details.delta.dx : details.delta.dy;
-        _totalDragDelta += delta;
-      },
-      onPanEnd: (_) {
-        if (_totalDragDelta >= _kMinSwipeDistance && !_beadMoveController.isAnimating) {
-          HapticFeedback.selectionClick();
-          _startOneBeadAnimation(1);
-        } else if (_totalDragDelta <= -_kMinSwipeDistance && !_beadMoveController.isAnimating) {
-          HapticFeedback.selectionClick();
-          _startOneBeadAnimation(-1);
-        } else {
-          widget.onSwipeEnd();
-        }
-        _totalDragDelta = 0;
-      },
-      child: SizedBox(
-        width: widget.constraints.width,
-        height: widget.constraints.height,
-        child: Center(
-          child: ClipRect(
-            child: Transform.translate(
-              offset: offset,
-              child: isHorizontal
-                  ? _buildHorizontalBeads(baseSize, gap)
-                  : _buildVerticalBeads(baseSize, gap),
+    return AnimatedBuilder(
+      animation: _flare,
+      builder: (context, child) {
+        if (_flare.value == 0 || _flare.isCompleted) return child!;
+        final t = Curves.easeOut.transform(_flare.value);
+        return Stack(
+          alignment: Alignment.center,
+          children: [
+            child!,
+            IgnorePointer(
+              child: Opacity(
+                opacity: (1 - t) * 0.6,
+                child: Container(
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    gradient: RadialGradient(
+                      colors: [
+                        AppColors.gold.withValues(alpha: 0.0),
+                        AppColors.gold.withValues(alpha: 0.5),
+                        AppColors.gold.withValues(alpha: 0.0),
+                      ],
+                      stops: [0.0, 0.55 + 0.4 * t, 1.0],
+                    ),
+                  ),
+                ),
+              ),
             ),
-          ),
-        ),
-      ),
+          ],
+        );
+      },
+      child: widget.child,
     );
-  }
-
-  Widget _buildHorizontalBeads(double baseSize, double gap) {
-    final beads = _buildBeadSlots(baseSize);
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        for (int i = 0; i < _BeadsWindow._visibleBeads; i++) ...[
-          if (i > 0) _StringSegment(gap: gap, horizontal: true),
-          beads[i],
-        ],
-      ],
-    );
-  }
-
-  Widget _buildVerticalBeads(double baseSize, double gap) {
-    final beads = _buildBeadSlots(baseSize);
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        for (int i = 0; i < _BeadsWindow._visibleBeads; i++) ...[
-          if (i > 0) _StringSegment(gap: gap, horizontal: false),
-          beads[i],
-        ],
-      ],
-    );
-  }
-
-  List<Widget> _buildBeadSlots(double baseSize) {
-    const c = _BeadsWindow._visibleBeads;
-    final count = widget.count;
-    final target = widget.targetCount;
-    final slots = <Widget>[];
-    for (int i = 0; i < c; i++) {
-      final value = count - 1 + i;
-      final isCurrent = i == 1;
-      final isPast = value < 0;
-      final isFuture = value > target;
-      double scale;
-      double opacity;
-      if (isCurrent) {
-        scale = _BeadsWindow._centerBeadScale;
-        opacity = 1.0;
-      } else if (i == 0 || i == c - 1) {
-        scale = _BeadsWindow._edgeBeadScale;
-        opacity = (isPast || isFuture) ? 0.25 : 0.45;
-      } else {
-        scale = _BeadsWindow._sideBeadScale;
-        opacity = (isPast || isFuture) ? 0.3 : 0.6;
-      }
-      slots.add(
-        _WindowBead(
-          size: baseSize * scale,
-          counted: value >= 0 && value < count,
-          isCurrent: isCurrent,
-          faded: isPast || isFuture,
-          opacity: opacity,
-          showCheck: value == target && value < count,
-        ),
-      );
-    }
-    return slots;
   }
 }
 
-class _StringSegment extends StatelessWidget {
-  const _StringSegment({required this.gap, required this.horizontal});
+class _StatTile extends StatelessWidget {
+  const _StatTile({
+    required this.label,
+    required this.value,
+    this.highlighted = false,
+  });
 
-  final double gap;
-  final bool horizontal;
+  final String label;
+  final String value;
+  final bool highlighted;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: horizontal ? gap : _BeadsWindow._stringThickness,
-      height: horizontal ? _BeadsWindow._stringThickness : gap,
+      padding: const EdgeInsets.symmetric(
+        vertical: AppValues.space_11,
+        horizontal: AppValues.gapSmall,
+      ),
       decoration: BoxDecoration(
-        color: AppColors.grey300,
-        borderRadius: BorderRadius.circular(_BeadsWindow._stringThickness / 2),
+        color: highlighted ? AppColors.goldTint : AppColors.neutralFill,
+        borderRadius: BorderRadius.circular(DuskRadius.inner),
       ),
-    );
-  }
-}
-
-class _WindowBead extends StatelessWidget {
-  const _WindowBead({
-    required this.size,
-    required this.counted,
-    required this.isCurrent,
-    required this.faded,
-    required this.opacity,
-    required this.showCheck,
-  });
-
-  final double size;
-  final bool counted;
-  final bool isCurrent;
-  final bool faded;
-  final double opacity;
-  final bool showCheck;
-
-  @override
-  Widget build(BuildContext context) {
-    final color = faded
-        ? AppColors.grey400
-        : (counted ? AppColors.brand500 : AppColors.brand300);
-    final borderColor =
-        faded ? AppColors.grey500 : (counted ? AppColors.brand700 : AppColors.brand500);
-
-    return Opacity(
-      opacity: opacity.clamp(0.0, 1.0),
-      child: Container(
-        width: size,
-        height: size,
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          color: color,
-          border: Border.all(
-            color: borderColor,
-            width: isCurrent ? 2.5 : 1.5,
+      child: Column(
+        children: [
+          Text(
+            label,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: DuskText.caption.copyWith(
+              color:
+                  highlighted ? AppColors.goldOnCanvas : AppColors.inkMuted,
+            ),
           ),
-          boxShadow: isCurrent && !faded
-              ? [
-                  BoxShadow(
-                    color: AppColors.brand600.withOpacity(0.35),
-                    blurRadius: 8,
-                    offset: const Offset(0, 3),
-                  ),
-                ]
-              : null,
-        ),
-        child: showCheck
-            ? Icon(
-                PhosphorIconsFill.check,
-                size: size * 0.45,
-                color: AppColors.baseWhite,
-              )
-            : null,
+          const SizedBox(height: AppValues.gap_2),
+          Text(
+            value,
+            style: DuskText.bangla(
+              size: AppValues.fontSize_17,
+              weight: FontWeight.w700,
+              color: highlighted ? AppColors.goldTintInk : AppColors.ink,
+            ),
+          ),
+        ],
       ),
     );
   }
 }
 
-class _ActionButton extends StatelessWidget {
-  const _ActionButton({
+class _CircleAction extends StatelessWidget {
+  const _CircleAction({
     required this.icon,
-    required this.label,
+    required this.semanticLabel,
     required this.onTap,
   });
 
   final IconData icon;
-  final String label;
+  final String semanticLabel;
   final VoidCallback onTap;
+
+  static const double _size = 58;
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      color: Colors.transparent,
-      child: InkWell(
-        onTap: onTap,
-        borderRadius: BorderRadius.circular(AppValues.radiusSmall),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: AppValues.gap,
-            vertical: AppValues.gapXSmall,
+    return Semantics(
+      button: true,
+      label: semanticLabel,
+      child: Material(
+        color: AppColors.surface,
+        shape: const CircleBorder(),
+        clipBehavior: Clip.antiAlias,
+        child: Ink(
+          decoration: const BoxDecoration(
+            color: AppColors.surface,
+            shape: BoxShape.circle,
+            boxShadow: AppColors.shadowCard,
           ),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Icon(icon, size: AppValues.icon_20, color: AppColors.brand600),
-              const SizedBox(width: AppValues.gap_4),
-              Text(
-                label,
-                style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      color: AppColors.brand700,
-                      fontWeight: FontWeight.w500,
-                    ),
+          child: InkWell(
+            onTap: onTap,
+            child: SizedBox(
+              width: _size,
+              height: _size,
+              child: Icon(
+                icon,
+                size: AppValues.icon_22,
+                color: AppColors.duskMid,
               ),
-            ],
+            ),
           ),
         ),
       ),

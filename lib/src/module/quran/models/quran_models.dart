@@ -4,6 +4,12 @@ import 'package:al_muttaqee/l10n/l10n.dart';
 import 'package:al_muttaqee/src/module/quran/data/surah_names_bangla.dart';
 import 'package:quran_flutter/quran_flutter.dart';
 
+// Number formatting is app-wide now, not a Quran concern: every screen has to
+// render Bengali numerals. It lives in core/utils and is re-exported here so
+// the existing Quran call sites keep working unchanged.
+export 'package:al_muttaqee/src/core/utils/utils/number_format.dart'
+    show formatNumberWithLocale;
+
 /// A Quran recitation edition served by Al Quran Cloud's CDN.
 class QuranReciter {
   final String id;
@@ -12,24 +18,6 @@ class QuranReciter {
   const QuranReciter({required this.id, required this.name});
 }
 
-/// Formats numbers using locale-specific digits (e.g. Bangla digits for 'bn').
-String formatNumberWithLocale(int value, Locale locale) {
-  final text = value.toString();
-  if (!L10n.isBangla(locale)) return text;
-
-  const bnDigits = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];
-  final buffer = StringBuffer();
-  for (final ch in text.split('')) {
-    final codeUnit = ch.codeUnitAt(0);
-    if (codeUnit >= 48 && codeUnit <= 57) {
-      final digit = codeUnit - 48;
-      buffer.write(bnDigits[digit]);
-    } else {
-      buffer.write(ch);
-    }
-  }
-  return buffer.toString();
-}
 
 /// App-level surah model built from [quran_flutter] [Surah].
 /// Arabic and English from package; Bangla names from [surahNamesBangla].
@@ -61,6 +49,13 @@ class SurahMeta {
     );
   }
 
+  /// Whether the surah was revealed at Makkah. The package reports the place
+  /// as a free string, so the check is normalised here rather than at every
+  /// call site.
+  bool get isMeccan =>
+      revelationPlace.toLowerCase().startsWith('mecc') ||
+      revelationPlace.toLowerCase().startsWith('makk');
+
   String localizedName(Locale locale) {
     if (L10n.isBangla(locale)) {
       return banglaName;
@@ -74,11 +69,27 @@ class ParaMeta {
   final int number;
   final List<int> surahNumbers;
 
-  const ParaMeta({required this.number, required this.surahNumbers});
+  /// Where the para opens, so tapping it lands on the right ayah rather than
+  /// at the top of whichever surah happens to be first.
+  final int startSurahNumber;
+  final int startVerseNumber;
+
+  const ParaMeta({
+    required this.number,
+    required this.surahNumbers,
+    required this.startSurahNumber,
+    required this.startVerseNumber,
+  });
 
   static ParaMeta fromPackage(Juz juz) {
     final keys = juz.surahVerses.keys.toList()..sort();
-    return ParaMeta(number: juz.number, surahNumbers: keys);
+    final first = keys.isEmpty ? 1 : keys.first;
+    return ParaMeta(
+      number: juz.number,
+      surahNumbers: keys,
+      startSurahNumber: first,
+      startVerseNumber: juz.surahVerses[first]?.startVerseNumber ?? 1,
+    );
   }
 }
 

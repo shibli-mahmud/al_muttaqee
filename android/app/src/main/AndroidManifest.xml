@@ -5,14 +5,25 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+    <!-- USE_EXACT_ALARM is granted at install for apps whose core purpose is
+         alarms. An adhan that fires late is a missed prayer window, so this is
+         the correct declaration rather than a convenience. -->
+    <uses-permission android:name="android.permission.USE_EXACT_ALARM" />
+    <!-- Needed to ask for battery-optimisation exclusion, without which the
+         aggressive OEM power managers common in this market delay the adhan. -->
+    <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK" />
     <application
         android:label="Al Muttaqee"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
-        <!-- Replace with a restricted Google Maps SDK key before release. -->
+        <!-- Injected from android/local.properties or the GOOGLE_MAPS_API_KEY
+             environment variable at build time, so the key is never committed.
+             See README for how to set it. -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="YOUR_GOOGLE_MAPS_API_KEY" />
+            android:value="${googleMapsApiKey}" />
         <activity
             android:name=".MainActivity"
             android:exported="true"

@@ -209,4 +209,126 @@ abstract class AppValues {
   static const int textMaxLine_4 = 4;
   static const int textMaxLine_5 = 5;
 
+  // ── Dusk spacing scale ────────────────────────────────────────────────────
+  // The redesign uses one scale end to end. Reach for a semantic constant
+  // below before a raw step; the raw steps exist so one-off gaps in the
+  // designs still come from a named token rather than a literal.
+  static const double space_3 = 3;
+  static const double space_5 = 5;
+  static const double space_7 = 7;
+  static const double space_9 = 9;
+  static const double space_11 = 11;
+  static const double space_12 = 12;
+  static const double space_13 = 13;
+  static const double space_14 = 14;
+  static const double space_18 = 18;
+  static const double space_20 = 20;
+  static const double space_22 = 22;
+  static const double space_24 = 24;
+  static const double space_26 = 26;
+  static const double space_28 = 28;
+  static const double space_34 = 34;
+
+  /// Horizontal padding for the scrolling body of every screen.
+  static const double screenPadding = 18;
+
+  /// Screen padding below 375dp, where 18 starts to crowd the 5-cell strips.
+  static const double screenPaddingTight = 14;
+
+  /// Horizontal padding inside a hero sheet — wider than the body so the hero
+  /// reads as a distinct surface rather than a coloured band behind the list.
+  static const double heroPadding = 22;
+
+  /// Internal padding of a card.
+  static const double cardPadding = 16;
+  static const double cardPaddingWide = 18;
+
+  /// Gap between cards inside one group.
+  static const double cardGap = 9;
+  static const double cardGapWide = 10;
+
+  /// Gap between groups of cards.
+  static const double groupGap = 14;
+  static const double groupGapWide = 16;
+
+  /// Vertical padding of a row inside a grouped list card.
+  static const double rowPaddingV = 11;
+  static const double rowPaddingH = 10;
+
+  // ── Dusk component metrics ────────────────────────────────────────────────
+  /// Floating bottom nav: inner padding, then outer margin.
+  static const double navInnerPadding = 8;
+  static const double navOuterH = 14;
+  static const double navOuterBottom = 16;
+  static const double navOuterTop = 10;
+
+  /// Square icon button in a hero (36) and the home bell (38).
+  static const double heroIconButton = 36;
+  static const double heroBellButton = 38;
+
+  /// Leading icon chip inside a list row.
+  static const double iconChip = 36;
+
+  /// Icon chip inside a quick-access / grid tile.
+  static const double tileIconChip = 38;
+
+  /// Tracker circles: 44 on হোম, 30 in the নামাজ list rows.
+  static const double trackerCircle = 44;
+  static const double trackerCircleSmall = 30;
+
+  /// Minimum tap target. Non-negotiable: the audience includes users 45+.
+  static const double minTapTarget = 44;
+
+  // ── Dusk type scale ───────────────────────────────────────────────────────
+  static const double fontSize_10_5 = 10.5;
+  static const double fontSize_11 = 11;
+  static const double fontSize_11_5 = 11.5;
+  static const double fontSize_12_5 = 12.5;
+  static const double fontSize_13 = 13;
+  static const double fontSize_13_5 = 13.5;
+  static const double fontSize_14_5 = 14.5;
+  static const double fontSize_15 = 15;
+  static const double fontSize_15_5 = 15.5;
+  static const double fontSize_17 = 17;
+  static const double fontSize_19 = 19;
+  static const double fontSize_21 = 21;
+  static const double fontSize_23 = 23;
+  static const double fontSize_25 = 25;
+  static const double fontSize_26 = 26;
+  static const double fontSize_29 = 29;
+  static const double fontSize_34 = 34;
+  static const double fontSize_46 = 46;
+  static const double fontSize_52 = 52;
+  static const double fontSize_58 = 58;
+  static const double fontSize_116 = 116;
+
+  // ── Dusk icon sizes ───────────────────────────────────────────────────────
+  static const double icon_17 = 17;
+  static const double icon_19 = 19;
+  static const double icon_21 = 21;
+  static const double icon_23 = 23;
+  static const double icon_30 = 30;
+  static const double icon_34 = 34;
+
+  // ── Dusk motion ───────────────────────────────────────────────────────────
+  /// Hero cross-fade when the prayer window turns over.
+  static const Duration heroCrossFade = Duration(milliseconds: 400);
+
+  /// Tracker circle tap: scale 1.0 -> 0.92 -> 1.0.
+  static const Duration trackerTap = Duration(milliseconds: 180);
+
+  /// Bottom-nav active pill slide.
+  static const Duration navPill = Duration(milliseconds: 260);
+
+  /// Card press opacity.
+  static const Duration cardPress = Duration(milliseconds: 120);
+
+  /// Width below which screen padding tightens and the 5-cell strips shrink.
+  static const double breakpointNarrow = 375;
+
+  /// Width below which the 5-prayer strip scrolls instead of compressing.
+  static const double breakpointVeryNarrow = 340;
+
+  /// Cap on the user's text scale. Cards must grow, never clip.
+  static const double maxTextScale = 1.3;
 }

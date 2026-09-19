@@ -47,3 +47,11 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# Hadith build pipeline
+# The downloaded editions are ~86 MB of JSON and are only an input to
+# tool/hadith/build_hadith_db.py. The built database it produces
+# (assets/data/hadith.db.gz) IS committed, because the app has to build from a
+# clean clone without a network round trip.
+tool/hadith/.cache/
+build/hadith/

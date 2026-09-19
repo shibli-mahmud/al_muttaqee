@@ -1,165 +1,228 @@
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
+
 import 'package:al_muttaqee/l10n/app_localizations.dart';
 import 'package:al_muttaqee/src/core/base/base_view.dart';
 import 'package:al_muttaqee/src/core/constants/app_colors.dart';
-import 'package:al_muttaqee/src/core/constants/app_textstyles.dart';
 import 'package:al_muttaqee/src/core/constants/app_values.dart';
-import 'package:al_muttaqee/src/core/routes/app_pages.dart';
+import 'package:al_muttaqee/src/core/constants/dusk_text_styles.dart';
+import 'package:al_muttaqee/src/core/shared/widgets/dusk/dusk.dart';
+import 'package:al_muttaqee/src/core/utils/utils/number_format.dart';
 import 'package:al_muttaqee/src/module/home/controllers/home_controller.dart';
+import 'package:al_muttaqee/src/module/prayer_times/models/prayer_log_models.dart';
 import 'package:al_muttaqee/src/module/prayer_times/models/prayer_times_models.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:intl/intl.dart';
-import 'package:phosphor_flutter/phosphor_flutter.dart';
 
+/// হোম — frame ০১.
+///
+/// The screen answers one question first — how long until the next prayer —
+/// and only then offers the day's five habits. Everything above the fold is in
+/// service of that one answer, which is why the countdown gets the hero and the
+/// features get a four-tile strip at the bottom.
 class HomeView extends BaseView<HomeController> {
+  HomeView({super.key});
+
   @override
   PreferredSizeWidget? appBar(BuildContext context) => null;
 
   @override
+  Color pageBackgroundColor() => AppColors.ivory;
+
+  @override
+  Color statusBarColor() => AppColors.baseTransparent;
+
+  /// The hero runs under the status bar, so the page must not inset for it —
+  /// [DuskHero] applies the top [SafeArea] to its own content instead.
+  @override
+  Widget pageContent(BuildContext context) => body(context);
+
+  @override
   Widget body(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    return Container(
-      color: AppColors.baseBackground,
-      child: SafeArea(
-        child: RefreshIndicator(
-          onRefresh: () async {
-            await controller.prayerTimes?.refreshTimes();
-            controller.reloadLocaleSensitive();
-          },
-          child: ListView(
-            padding: const EdgeInsets.all(AppValues.gap),
-            children: [
-              Row(
+    final padding = _screenPadding(context);
+
+    return RefreshIndicator(
+      onRefresh: controller.reloadAll,
+      color: AppColors.duskMid,
+      backgroundColor: AppColors.surface,
+      child: Obx(
+        () => ListView(
+          padding: EdgeInsets.zero,
+          children: [
+            _Hero(controller: controller, l10n: l10n),
+            Padding(
+              padding: EdgeInsets.fromLTRB(
+                padding,
+                AppValues.space_18,
+                padding,
+                AppValues.space_24,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
+                  _dateRow(l10n),
+                  const SizedBox(height: AppValues.groupGap),
+                  _trackerCard(l10n),
+                  const SizedBox(height: AppValues.groupGap),
+                  _continueReadingCard(l10n),
+                  if (controller.isMaghribWindow) ...[
+                    const SizedBox(height: AppValues.groupGap),
+                    _iftarDuaCard(l10n),
+                  ],
+                  const SizedBox(height: AppValues.groupGap),
+                  _hadithCard(l10n),
+                  const SizedBox(height: AppValues.groupGap),
+                  DuskOverline(l10n.quickAccessOverline),
+                  _quickAccess(l10n),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  // ── Date row ──────────────────────────────────────────────────────────────
+
+  /// Two cards, unequal: the Hijri one is wider and tinted because its label is
+  /// longer and, for this audience, more often the one being looked up.
+  Widget _dateRow(AppLocalizations l10n) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Expanded(
+          flex: 100,
+          child: _DateCard(
+            label: l10n.todayLabel,
+            value: controller.gregorianLabel.value,
+            background: AppColors.surface,
+            labelColor: AppColors.inkMuted,
+            valueColor: AppColors.ink,
+            shadow: AppColors.shadowCard,
+          ),
+        ),
+        const SizedBox(width: AppValues.cardGapWide),
+        Expanded(
+          flex: 125,
+          child: _DateCard(
+            label: l10n.hijriLabel,
+            value: controller.hijriLabel.value,
+            background: AppColors.sage,
+            labelColor: AppColors.sageLabel,
+            valueColor: AppColors.duskDeep,
+            shadow: const [],
+          ),
+        ),
+      ],
+    );
+  }
+
+  // ── Tracker ───────────────────────────────────────────────────────────────
+
+  Widget _trackerCard(AppLocalizations l10n) {
+    final tracker = controller.tracker;
+
+    return DuskCard(
+      child: Obx(() {
+        final streak = tracker?.currentStreak ?? 0;
+
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Row(
+              children: [
+                Expanded(
+                  child: Text(l10n.todaysPrayers, style: DuskText.cardHeading),
+                ),
+                if (streak > 0)
+                  DuskPill(
+                    label: l10n.streakDays(formatNumberWithLocale(streak)),
+                    icon: PhosphorIconsFill.flame,
+                  ),
+              ],
+            ),
+            const SizedBox(height: AppValues.groupGap),
+            Row(
+              children: [
+                for (final prayer in trackedPrayers)
                   Expanded(
-                    child: Text(
-                      l10n.home,
-                      style: kFigtree700W18S.copyWith(
-                        color: AppColors.brand700,
-                      ),
+                    child: _TrackerColumn(
+                      label: controller.prayerLabel(prayer),
+                      state: tracker?.stateFor(prayer) ?? TrackerState.future,
+                      onTap: tracker == null
+                          ? null
+                          : () => tracker.togglePrayerLogged(prayer),
                     ),
                   ),
-                  IconButton(
-                    icon: const Icon(Icons.notifications_outlined,
-                        color: AppColors.brand700),
-                    onPressed: () => Get.toNamed(Routes.notifications),
-                  ),
-                  IconButton(
-                    icon: const Icon(Icons.menu, color: AppColors.brand700),
-                    onPressed: () => Scaffold.of(context).openDrawer(),
-                  ),
-                ],
-              ),
-              const SizedBox(height: AppValues.gapXSmall),
-              _buildNextSalatCard(l10n),
-              const SizedBox(height: AppValues.gap),
-              _buildRamadanCard(l10n),
-              _buildDateRow(l10n),
-              const SizedBox(height: AppValues.gap),
-              _buildDailyCards(l10n),
-              const SizedBox(height: AppValues.gap),
-              Text(l10n.quickAccess, style: kFigtree600W16S),
-              const SizedBox(height: AppValues.gapSmall),
-              _buildQuickAccess(l10n),
-              const SizedBox(height: AppValues.gapLarge),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildNextSalatCard(AppLocalizations l10n) {
-    return Obx(() {
-      final prayer = controller.prayerTimes;
-      final times = prayer?.dayTimes.value;
-      if (prayer == null || times == null) {
-        return _HomeCard(
-          child: Text(l10n.preparingPrayerTimes, style: kFigtree400W14S),
-        );
-      }
-
-      final current = times.current;
-      final timeFmt = DateFormat.jm();
-      return InkWell(
-        onTap: controller.openPrayerTimes,
-        borderRadius: BorderRadius.circular(AppValues.radius),
-        child: Container(
-          width: double.infinity,
-          padding: const EdgeInsets.all(AppValues.gap),
-          decoration: BoxDecoration(
-            color: AppColors.brand500,
-            borderRadius: BorderRadius.circular(AppValues.radius),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              if (current != null) ...[
-                Text(
-                  l10n.currentPrayer,
-                  style: kFigtree400W12S.copyWith(color: AppColors.brand200),
-                ),
-                Text(
-                  controller.prayerLabel(current),
-                  style: kFigtree600W16S.copyWith(color: AppColors.baseWhite),
-                ),
-                const SizedBox(height: AppValues.gapXSmall),
               ],
-              Text(
-                l10n.nextPrayer,
-                style: kFigtree400W12S.copyWith(color: AppColors.brand200),
-              ),
-              Text(
-                controller.prayerLabel(times.next),
-                style: kFigtree700W22S.copyWith(color: AppColors.baseWhite),
-              ),
-              const SizedBox(height: AppValues.gap_4),
-              Text(
-                '${l10n.timeRemaining}: ${prayer.formatRemaining(prayer.remaining.value)}',
-                style: kFigtree600W16S.copyWith(color: AppColors.baseWhite),
-              ),
-              Text(
-                timeFmt.format(times.nextTime),
-                style: kFigtree400W14S.copyWith(color: AppColors.brand100),
-              ),
-            ],
-          ),
-        ),
-      );
-    });
+            ),
+          ],
+        );
+      }),
+    );
   }
 
-  Widget _buildDateRow(AppLocalizations l10n) {
-    return Obx(
-      () => Row(
+  // ── Continue reading ──────────────────────────────────────────────────────
+
+  Widget _continueReadingCard(AppLocalizations l10n) {
+    // The reading-plan percentage arrives with the plan itself in phase 2; the
+    // ayah position is real today, so the card shows what it knows.
+    final ayah = controller.lastAyah.value;
+
+    return DuskCard(
+      gradient: const LinearGradient(
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
+        colors: [AppColors.duskMid, AppColors.duskLight],
+      ),
+      shadow: const [],
+      onTap: controller.openQuranContinue,
+      child: Row(
         children: [
           Expanded(
-            child: _HomeCard(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    l10n.gregorianDate,
-                    style: kFigtree400W12S.copyWith(color: AppColors.grey600),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  l10n.continueReadingOverline,
+                  style: DuskText.overline.copyWith(color: AppColors.gold),
+                ),
+                const SizedBox(height: 1),
+                Text(
+                  _surahLabel(),
+                  style: DuskText.bangla(
+                    size: AppValues.fontSize_19,
+                    weight: FontWeight.w700,
+                    color: AppColors.onDeepPrimary,
                   ),
-                  Text(controller.gregorianLabel.value, style: kFigtree600W14S),
-                ],
-              ),
+                ),
+                Text(
+                  ayah > 0
+                      ? l10n.quranAyahNumberLabel(ayah)
+                      : l10n.readingNotStarted,
+                  style: DuskText.bangla(
+                    size: AppValues.fontSize_12,
+                    weight: FontWeight.w400,
+                    color: AppColors.onDeepMuted,
+                  ),
+                ),
+              ],
             ),
           ),
-          const SizedBox(width: AppValues.gapSmall),
-          Expanded(
-            child: _HomeCard(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    l10n.hijriDate,
-                    style: kFigtree400W12S.copyWith(color: AppColors.grey600),
-                  ),
-                  Text(controller.hijriLabel.value, style: kFigtree600W14S),
-                ],
-              ),
+          const SizedBox(width: AppValues.groupGap),
+          Container(
+            width: AppValues.icon_50,
+            height: AppValues.icon_50,
+            decoration: const BoxDecoration(
+              color: AppColors.gold,
+              shape: BoxShape.circle,
+            ),
+            alignment: Alignment.center,
+            child: const Icon(
+              PhosphorIconsFill.play,
+              size: AppValues.icon_21,
+              color: AppColors.goldInk,
             ),
           ),
         ],
@@ -167,186 +230,610 @@ class HomeView extends BaseView<HomeController> {
     );
   }
 
-  Widget _buildRamadanCard(AppLocalizations l10n) {
-    return Obx(() {
-      if (!controller.isRamadan.value) return const SizedBox.shrink();
-      final times = controller.prayerTimes?.dayTimes.value;
-      if (times == null) return const SizedBox.shrink();
-      final fajr = times.entryFor(PrayerName.fajr)?.time;
-      final maghrib = times.entryFor(PrayerName.maghrib)?.time;
-      if (fajr == null || maghrib == null) return const SizedBox.shrink();
-      final format = DateFormat.jm();
-      return Padding(
-        padding: const EdgeInsets.only(bottom: AppValues.gap),
-        child: _HomeCard(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              _ramadanTime(l10n.sehriEnds, format.format(fajr)),
-              _ramadanTime(l10n.iftar, format.format(maghrib)),
-            ],
-          ),
-        ),
-      );
-    });
+  String _surahLabel() {
+    final number = controller.lastSurah.value;
+    return number > 0
+        ? 'সূরা ${formatNumberWithLocale(number)}'
+        : appLocalization.quran;
   }
 
-  Widget _ramadanTime(String title, String time) => Column(
-        children: [
-          Text(title, style: kFigtree400W12S),
-          Text(time, style: kFigtree600W16S.copyWith(color: AppColors.brand600)),
-        ],
-      );
+  // ── Contextual: iftar dua ─────────────────────────────────────────────────
 
-  Widget _buildDailyCards(AppLocalizations l10n) {
-    return Obx(() {
-      if (controller.dailyCards.isEmpty) {
-        return const SizedBox.shrink();
-      }
-      return SizedBox(
-        height: 160,
-        child: PageView.builder(
-          controller: PageController(viewportFraction: 0.92),
-          itemCount: controller.dailyCards.length,
-          itemBuilder: (context, index) {
-            final card = controller.dailyCards[index];
-            final title = card.titleKey == 'hadith'
-                ? l10n.hadithOfTheDay
-                : l10n.duaOfTheDay;
-            return Padding(
-              padding: const EdgeInsets.only(right: AppValues.gapSmall),
-              child: InkWell(
-                borderRadius: BorderRadius.circular(AppValues.radiusSmall),
-                onTap: card.titleKey == 'hadith' ? controller.openHadith : null,
-                child: _HomeCard(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        title,
-                        style: kFigtree600W14S.copyWith(
-                          color: AppColors.brand600,
-                        ),
-                      ),
-                      const SizedBox(height: AppValues.gapXSmall),
-                      Expanded(
-                        child: Text(
-                          card.text,
-                          maxLines: 4,
-                          overflow: TextOverflow.ellipsis,
-                          style: kFigtree400W14S,
-                        ),
-                      ),
-                      Text(
-                        card.source,
-                        style: kFigtree400W12S.copyWith(
-                          color: AppColors.grey600,
-                        ),
-                      ),
-                    ],
-                  ),
+  /// Only present inside the Maghrib window. A card that is always there is
+  /// furniture; one that appears exactly when it is useful gets read.
+  Widget _iftarDuaCard(AppLocalizations l10n) {
+    return DuskCard(
+      onTap: controller.openDua,
+      child: Row(
+        children: [
+          const DuskIconChip(
+            icon: PhosphorIconsRegular.forkKnife,
+            size: AppValues.tileIconChip,
+            radius: DuskRadius.iconChipLarge - 1,
+            background: AppColors.maghribChip,
+            foreground: AppColors.maghribChipInk,
+            iconSize: AppValues.icon_19,
+          ),
+          const SizedBox(width: AppValues.space_13),
+          Expanded(
+            child: Text(l10n.iftarDua, style: DuskText.rowTitle),
+          ),
+          const Icon(
+            PhosphorIconsRegular.caretRight,
+            size: AppValues.icon_17,
+            color: AppColors.inkMuted,
+          ),
+        ],
+      ),
+    );
+  }
+
+  // ── Daily hadith ──────────────────────────────────────────────────────────
+
+  Widget _hadithCard(AppLocalizations l10n) {
+    final hadith = controller.dailyHadith.value;
+    final dua = controller.todaysDua;
+
+    // Before the bundle resolves, hold the card's geometry with skeletons
+    // rather than collapsing the layout and pushing everything below it up.
+    if (hadith == null && dua == null) {
+      return const DuskCard(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            DuskSkeleton.line(width: 110, height: 12),
+            SizedBox(height: AppValues.space_12),
+            DuskSkeleton.line(height: AppValues.space_24),
+            SizedBox(height: AppValues.gapSmall),
+            DuskSkeleton.line(),
+            SizedBox(height: AppValues.gap_6),
+            DuskSkeleton.line(width: 180),
+          ],
+        ),
+      );
+    }
+
+    final arabic = hadith?.hadith.arabic ?? '';
+    final translation =
+        hadith?.hadith.bengali.isNotEmpty == true
+            ? hadith!.hadith.bengali
+            : (dua?.text ?? '');
+    final source = hadith == null
+        ? (dua?.source ?? '')
+        : '${hadith.bookName} · '
+            '${formatNumberWithLocale(hadith.hadith.number)}';
+
+    return DuskCard(
+      onTap: controller.openHadith,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Row(
+            children: [
+              Expanded(
+                child: Text(
+                  l10n.hadithOfTheDay,
+                  style:
+                      DuskText.overline.copyWith(color: AppColors.goldOnIvory),
                 ),
               ),
-            );
-          },
-        ),
-      );
-    });
+              const Icon(
+                PhosphorIconsRegular.bookmarkSimple,
+                size: AppValues.iconSmall,
+                color: AppColors.inkMuted,
+              ),
+            ],
+          ),
+          const SizedBox(height: AppValues.gapSmall),
+          if (arabic.isNotEmpty)
+            Directionality(
+              textDirection: TextDirection.rtl,
+              child: Text(
+                arabic,
+                textAlign: TextAlign.right,
+                style: DuskText.arabicCard.copyWith(color: AppColors.duskDeep),
+              ),
+            ),
+          if (translation.isNotEmpty) ...[
+            const SizedBox(height: AppValues.gapSmall),
+            Text(
+              translation,
+              style: DuskText.bodyTight.copyWith(color: AppColors.inkBody),
+            ),
+          ],
+          if (source.isNotEmpty) ...[
+            const SizedBox(height: AppValues.gapXSmall),
+            Text(
+              source,
+              style: DuskText.rowSubtitleStrong
+                  .copyWith(color: AppColors.inkMuted),
+            ),
+          ],
+        ],
+      ),
+    );
   }
 
-  Widget _buildQuickAccess(AppLocalizations l10n) {
-    final items = [
+  // ── Quick access ──────────────────────────────────────────────────────────
+
+  Widget _quickAccess(AppLocalizations l10n) {
+    final items = <_QuickItem>[
       _QuickItem(
-        label: l10n.continueReading,
-        icon: PhosphorIconsRegular.bookOpenText,
-        onTap: controller.openQuranContinue,
-      ),
-      _QuickItem(
-        label: l10n.qibla,
+        label: l10n.tileQibla,
         icon: PhosphorIconsRegular.compass,
         onTap: controller.openQibla,
       ),
       _QuickItem(
-        label: l10n.tasbih,
-        icon: PhosphorIconsRegular.handsPraying,
-        onTap: controller.openTasbih,
-      ),
-      _QuickItem(
-        label: l10n.masjidFinder,
-        icon: PhosphorIconsRegular.mapPin,
+        label: l10n.tileMasjid,
+        icon: PhosphorIconsRegular.mosque,
         onTap: controller.openMasjidFinder,
       ),
       _QuickItem(
-        label: l10n.calendar,
-        icon: PhosphorIconsRegular.calendar,
-        onTap: controller.openCalendar,
+        label: l10n.tileDua,
+        icon: PhosphorIconsRegular.handHeart,
+        onTap: controller.openDua,
       ),
       _QuickItem(
-        label: l10n.zakat,
+        label: l10n.tileZakat,
         icon: PhosphorIconsRegular.calculator,
         onTap: controller.openZakat,
       ),
     ];
 
-    return GridView.builder(
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      itemCount: items.length,
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        mainAxisSpacing: AppValues.gapSmall,
-        crossAxisSpacing: AppValues.gapSmall,
-        childAspectRatio: 1.6,
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        for (var i = 0; i < items.length; i++) ...[
+          if (i > 0) const SizedBox(width: AppValues.cardGapWide),
+          Expanded(child: items[i]),
+        ],
+      ],
+    );
+  }
+
+  static double _screenPadding(BuildContext context) =>
+      MediaQuery.sizeOf(context).width < AppValues.breakpointNarrow
+          ? AppValues.screenPaddingTight
+          : AppValues.screenPadding;
+}
+
+// ── Hero ────────────────────────────────────────────────────────────────────
+
+class _Hero extends StatelessWidget {
+  const _Hero({required this.controller, required this.l10n});
+
+  final HomeController controller;
+  final AppLocalizations l10n;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = controller.heroTheme;
+    final prayer = controller.prayerTimes;
+    final times = prayer?.dayTimes.value;
+
+    return DuskHero(
+      theme: theme,
+      bottomRadius: DuskRadius.heroHome,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          _greetingRow(theme),
+          if (times == null || prayer == null)
+            _loadingBlock(theme)
+          else
+            _nextPrayerBlock(theme, times),
+          const SizedBox(height: AppValues.space_22),
+          if (times != null) _prayerStrip(context, theme, times),
+        ],
       ),
-      itemBuilder: (context, index) {
-        final item = items[index];
-        return InkWell(
-          onTap: item.onTap,
-          borderRadius: BorderRadius.circular(AppValues.radiusSmall),
-          child: _HomeCard(
+    );
+  }
+
+  Widget _greetingRow(DuskHeroTheme theme) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(
+        AppValues.heroPadding,
+        AppValues.gapXSmall,
+        AppValues.heroPadding,
+        0,
+      ),
+      child: Row(
+        children: [
+          Expanded(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Icon(
-                  item.icon,
-                  color: AppColors.brand500,
-                  size: AppValues.icon,
-                ),
-                const SizedBox(height: AppValues.gap_4),
                 Text(
-                  item.label,
-                  textAlign: TextAlign.center,
-                  style: kFigtree500W14S,
+                  l10n.greeting,
+                  style: DuskText.bangla(
+                    size: AppValues.fontSize_12_5,
+                    weight: FontWeight.w600,
+                    color: theme.onMuted,
+                  ),
+                ),
+                Row(
+                  children: [
+                    Icon(
+                      PhosphorIconsFill.mapPin,
+                      size: AppValues.icon_14,
+                      color: theme.accent,
+                    ),
+                    const SizedBox(width: AppValues.gap_5),
+                    Flexible(
+                      child: Obx(() {
+                        final label =
+                            controller.prayerTimes?.locationLabel.value ?? '';
+                        return Text(
+                          label.isEmpty ? l10n.locationUnknown : label,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: DuskText.bangla(
+                            size: AppValues.fontSize_16,
+                            weight: FontWeight.w700,
+                            color: theme.onPrimary,
+                          ),
+                        );
+                      }),
+                    ),
+                  ],
                 ),
               ],
             ),
           ),
-        );
-      },
+          Obx(
+            () => DuskHeroIconButton(
+              icon: PhosphorIconsRegular.bell,
+              theme: theme,
+              size: AppValues.heroBellButton,
+              iconSize: AppValues.icon_19,
+              badge: controller.hasUnreadNotifications.value,
+              semanticLabel: l10n.notificationsSemantic,
+              onTap: controller.openNotifications,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  /// The loading state keeps the hero's shape and swaps the times for em
+  /// dashes. A spinner here would throw away the one piece of layout the user
+  /// is waiting to read.
+  Widget _loadingBlock(DuskHeroTheme theme) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(
+        AppValues.heroPadding,
+        AppValues.space_22,
+        AppValues.heroPadding,
+        0,
+      ),
+      child: Column(
+        children: [
+          Text(
+            l10n.nextPrayerOverline,
+            style: DuskText.overlineHero.copyWith(color: theme.accent),
+          ),
+          Text(
+            '—',
+            style: DuskText.heroPrayerName.copyWith(color: theme.onPrimary),
+          ),
+          Text(
+            l10n.preparingPrayerTimes,
+            style: DuskText.bangla(
+              size: AppValues.fontSize_12_5,
+              weight: FontWeight.w400,
+              color: theme.onMuted,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _nextPrayerBlock(DuskHeroTheme theme, DayPrayerTimes times) {
+    // Just after a window opens, the sentence the user wants is "it is Maghrib
+    // now", not "Isha in 1:12" — so for that stretch the headline names the
+    // window that has just started and the countdown keeps pointing at the
+    // next one. The rest of the day the headline is simply what is coming.
+    final justStarted = controller.justStartedWindow;
+    final headlinePrayer = justStarted ?? times.next;
+
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(
+        AppValues.heroPadding,
+        AppValues.space_22,
+        AppValues.heroPadding,
+        0,
+      ),
+      child: Column(
+        children: [
+          Text(
+            justStarted != null
+                ? l10n
+                    .currentWindowOverline(controller.prayerLabel(justStarted))
+                : l10n.nextPrayerOverline,
+            textAlign: TextAlign.center,
+            style: DuskText.overlineHero.copyWith(color: theme.accent),
+          ),
+          const SizedBox(height: 2),
+          Text(
+            controller.prayerLabel(headlinePrayer),
+            style: DuskText.heroPrayerName.copyWith(color: theme.onPrimary),
+          ),
+          Text(
+            controller.arabicPrayerName(headlinePrayer),
+            style: DuskText.arabicHeroName.copyWith(color: theme.onMuted),
+          ),
+          const SizedBox(height: AppValues.groupGap),
+          _countdownPill(theme, times),
+          const SizedBox(height: AppValues.gapXSmall),
+          _subLine(theme, times),
+        ],
+      ),
+    );
+  }
+
+  Widget _countdownPill(DuskHeroTheme theme, DayPrayerTimes times) {
+    return Obx(() {
+      final remaining =
+          controller.prayerTimes?.remaining.value ?? Duration.zero;
+      return Container(
+        padding: const EdgeInsets.symmetric(
+          vertical: AppValues.gapXSmall,
+          horizontal: AppValues.gap,
+        ),
+        decoration: BoxDecoration(
+          color: theme.accent.withValues(alpha: 0.18),
+          border: Border.all(color: theme.accent.withValues(alpha: 0.5)),
+          borderRadius: BorderRadius.circular(DuskRadius.chip),
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(
+              PhosphorIconsRegular.hourglass,
+              size: AppValues.fontSize_15,
+              color: AppColors.goldBright,
+            ),
+            const SizedBox(width: AppValues.gapXSmall),
+            Text(
+              formatRemainingWords(remaining),
+              style: DuskText.bangla(
+                size: AppValues.fontSize_15,
+                weight: FontWeight.w700,
+                color: const Color(0xFFF2E4B8),
+              ),
+            ),
+          ],
+        ),
+      );
+    });
+  }
+
+  Widget _subLine(DuskHeroTheme theme, DayPrayerTimes times) {
+    final start = times.nextTime;
+    final jamaat = controller.prayerTimes?.jamaatTimeFor(times.next);
+
+    return Text(
+      jamaat == null
+          ? l10n.windowStartsAt(formatClockWithPeriod(start))
+          : l10n.windowStartsWithJamaat(
+              formatClockWithPeriod(start),
+              formatClock(jamaat),
+            ),
+      textAlign: TextAlign.center,
+      style: DuskText.bangla(
+        size: AppValues.fontSize_12_5,
+        weight: FontWeight.w400,
+        color: theme.onMuted,
+      ),
+    );
+  }
+
+  /// The five-prayer strip. Below 340dp it scrolls rather than compressing
+  /// further — five Bangla names in 320 logical pixels stops being readable
+  /// before it stops fitting.
+  Widget _prayerStrip(
+    BuildContext context,
+    DuskHeroTheme theme,
+    DayPrayerTimes times,
+  ) {
+    final width = MediaQuery.sizeOf(context).width;
+    final narrow = width < AppValues.breakpointNarrow;
+    final veryNarrow = width < AppValues.breakpointVeryNarrow;
+
+    final cells = [
+      for (final prayer in trackedPrayers)
+        _StripCell(
+          label: controller.prayerLabel(prayer),
+          time: formatClock(times.entryFor(prayer)?.time ?? times.date),
+          active: times.current == prayer,
+          theme: theme,
+          narrow: narrow,
+        ),
+    ];
+
+    if (veryNarrow) {
+      return SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        padding: const EdgeInsets.symmetric(horizontal: AppValues.cardPadding),
+        child: Row(
+          children: [
+            for (final cell in cells)
+              Padding(
+                padding: const EdgeInsets.only(right: AppValues.gap_4),
+                child: SizedBox(width: 66, child: cell),
+              ),
+          ],
+        ),
+      );
+    }
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: AppValues.cardPadding),
+      child: Row(
+        children: [
+          for (var i = 0; i < cells.length; i++) ...[
+            if (i > 0) SizedBox(width: narrow ? AppValues.gap_4 : AppValues.gap_6),
+            Expanded(child: cells[i]),
+          ],
+        ],
+      ),
     );
   }
 }
 
-class _HomeCard extends StatelessWidget {
-  const _HomeCard({required this.child});
+class _StripCell extends StatelessWidget {
+  const _StripCell({
+    required this.label,
+    required this.time,
+    required this.active,
+    required this.theme,
+    required this.narrow,
+  });
 
-  final Widget child;
+  final String label;
+  final String time;
+  final bool active;
+  final DuskHeroTheme theme;
+  final bool narrow;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.all(AppValues.gapSmall),
-      decoration: BoxDecoration(
-        color: AppColors.baseWhite,
-        borderRadius: BorderRadius.circular(AppValues.radiusSmall),
+    return AnimatedContainer(
+      duration: AppValues.heroCrossFade,
+      curve: Curves.easeInOut,
+      padding: const EdgeInsets.symmetric(
+        vertical: AppValues.gapSmall,
+        horizontal: AppValues.gap_4,
       ),
-      child: child,
+      decoration: BoxDecoration(
+        color: active ? theme.accent : Colors.transparent,
+        borderRadius: BorderRadius.circular(AppValues.gap),
+      ),
+      child: Column(
+        children: [
+          Text(
+            label,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: DuskText.bangla(
+              size: narrow ? AppValues.fontSize_11 : AppValues.fontSize_11_5,
+              weight: active ? FontWeight.w700 : FontWeight.w600,
+              color: active ? AppColors.goldInkSoft : theme.onMuted,
+            ),
+          ),
+          Text(
+            time,
+            maxLines: 1,
+            style: DuskText.bangla(
+              size: narrow ? AppValues.fontSize_13 : AppValues.fontSize_14,
+              weight: FontWeight.w700,
+              color: active ? theme.accentInk : theme.onPrimary,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
 
-class _QuickItem {
+// ── Body pieces ─────────────────────────────────────────────────────────────
+
+class _DateCard extends StatelessWidget {
+  const _DateCard({
+    required this.label,
+    required this.value,
+    required this.background,
+    required this.labelColor,
+    required this.valueColor,
+    required this.shadow,
+  });
+
+  final String label;
+  final String value;
+  final Color background;
+  final Color labelColor;
+  final Color valueColor;
+  final List<BoxShadow> shadow;
+
+  @override
+  Widget build(BuildContext context) {
+    return DuskCard(
+      radius: DuskRadius.cardSmall,
+      color: background,
+      shadow: shadow,
+      padding: const EdgeInsets.symmetric(
+        vertical: AppValues.space_14,
+        horizontal: AppValues.cardPadding,
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            label,
+            style: DuskText.rowSubtitleStrong.copyWith(color: labelColor),
+          ),
+          Text(
+            value,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: DuskText.bangla(
+              size: AppValues.fontSize_14_5,
+              weight: FontWeight.w700,
+              color: valueColor,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _TrackerColumn extends StatelessWidget {
+  const _TrackerColumn({
+    required this.label,
+    required this.state,
+    required this.onTap,
+  });
+
+  final String label;
+  final TrackerState state;
+  final VoidCallback? onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final due = state == TrackerState.due;
+
+    return Column(
+      children: [
+        TrackerCircle(
+          state: state,
+          semanticLabel: label,
+          onTap: state == TrackerState.future ? null : onTap,
+        ),
+        const SizedBox(height: AppValues.gap_6),
+        Text(
+          label,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+          style: DuskText.tileLabel.copyWith(
+            fontWeight: due ? FontWeight.w700 : FontWeight.w600,
+            color: switch (state) {
+              TrackerState.due => AppColors.goldOnCanvas,
+              TrackerState.future => AppColors.inkMuted,
+              TrackerState.missed => AppColors.inkMuted,
+              TrackerState.done => AppColors.ink,
+            },
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _QuickItem extends StatelessWidget {
   const _QuickItem({
     required this.label,
     required this.icon,
@@ -356,4 +843,34 @@ class _QuickItem {
   final String label;
   final IconData icon;
   final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return DuskCard(
+      radius: DuskRadius.cardSmall,
+      padding: const EdgeInsets.symmetric(
+        vertical: AppValues.space_12,
+        horizontal: AppValues.gap_6,
+      ),
+      onTap: onTap,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          DuskIconChip(
+            icon: icon,
+            size: AppValues.tileIconChip,
+            radius: DuskRadius.iconChipLarge,
+            iconSize: AppValues.icon_19,
+          ),
+          const SizedBox(height: AppValues.space_7),
+          Text(
+            label,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: DuskText.tileLabel,
+          ),
+        ],
+      ),
+    );
+  }
 }

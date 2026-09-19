@@ -1,14 +1,29 @@
-import 'package:al_muttaqee/src/core/base/base_controller.dart';
-import 'package:al_muttaqee/src/core/routes/app_pages.dart';
 import 'package:get/get.dart';
 
-class SplashController extends BaseController{
+import 'package:al_muttaqee/src/core/base/base_controller.dart';
+import 'package:al_muttaqee/src/core/routes/app_pages.dart';
+import 'package:al_muttaqee/src/module/onboarding/controllers/onboarding_controller.dart';
 
-  void onReady() async {
+class SplashController extends BaseController {
+  /// How long the wordmark is held. Short enough not to be in the way, long
+  /// enough that the app does not appear to flash on a fast device.
+  static const Duration _hold = Duration(milliseconds: 1200);
+
+  @override
+  void onReady() {
     super.onReady();
-    Future.delayed(const Duration(seconds: 3),(){
-      Get.offAllNamed(Routes.dashboard);
-    });
-    // await load();
+    _route();
+  }
+
+  Future<void> _route() async {
+    // The preference read and the hold run together, so first-run users are
+    // not charged for both.
+    final results = await Future.wait([
+      OnboardingController.isComplete(),
+      Future<bool>.delayed(_hold, () => true),
+    ]);
+
+    final onboarded = results.first;
+    Get.offAllNamed(onboarded ? Routes.dashboard : Routes.onboarding);
   }
 }

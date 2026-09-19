@@ -1,0 +1,1108 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="stylesheet" href="_ds/modernist-7d5996b0-9dc4-4db1-bd0f-96dd6c7c59e5/styles.css">
+<script src="_ds/modernist-7d5996b0-9dc4-4db1-bd0f-96dd6c7c59e5/_ds_bundle.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anek+Bangla:wght@400;500;600;700;800&family=Noto+Naskh+Arabic:wght@400;700&display=swap">
+<script src="https://unpkg.com/lucide@0.462.0/dist/umd/lucide.min.js"></script>
+<style>
+body { background: var(--color-bg); }
+a { color: var(--color-accent-700); }
+a:hover { color: var(--color-accent); }
+</style>
+</helmet>
+
+<section style="display:flex;flex-direction:column;gap:0;font-family:'Archivo','Anek Bangla',sans-serif;color:var(--color-text);background:var(--color-bg);padding:64px 64px 120px">
+
+<div id="1a" style="display:flex;flex-direction:column;gap:64px;max-width:1760px">
+
+<div style="display:flex;flex-direction:column;gap:24px">
+  <div style="display:flex;align-items:center;gap:12px">
+    <span class="tag tag-accent" style="font-family:var(--font-heading);font-weight:800">1a</span>
+    <span style="font-size:12px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-700)">Al Muttaqee · UI/UX redesign · Bangla-first</span>
+  </div>
+  <hr class="hr" style="margin:0">
+  <div style="display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:48px;align-items:end">
+    <h1 style="font-size:76px;line-height:1;margin:0">আল মুত্তাকী<br><span style="color:var(--color-accent)">Redesign</span></h1>
+    <p style="margin:0;font-size:15px;max-width:44ch">Twenty screens, a restructured five-tab architecture, and a feature roadmap — rebuilt on a flat modular grid: no rounded corners, 2&nbsp;px rules doing the organising, one red accent reserved for the single thing that matters on each screen.</p>
+  </div>
+  <hr class="hr" style="margin:0">
+  <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;border-bottom:2px solid var(--color-divider)">
+    <div style="padding:20px 24px 20px 0;border-right:2px solid var(--color-divider)"><div style="font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-700);margin-bottom:6px">Ground</div><div style="font-family:var(--font-heading);font-weight:800;font-size:20px">#f3f2f2</div></div>
+    <div style="padding:20px 24px;border-right:2px solid var(--color-divider)"><div style="font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-700);margin-bottom:6px">Accent</div><div style="font-family:var(--font-heading);font-weight:800;font-size:20px;color:var(--color-accent)">#ec3013</div></div>
+    <div style="padding:20px 24px;border-right:2px solid var(--color-divider)"><div style="font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-700);margin-bottom:6px">Type</div><div style="font-family:var(--font-heading);font-weight:800;font-size:20px">Archivo / Anek Bangla</div></div>
+    <div style="padding:20px 0 20px 24px"><div style="font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-700);margin-bottom:6px">Radius</div><div style="font-family:var(--font-heading);font-weight:800;font-size:20px">0 px</div></div>
+  </div>
+</div>
+
+<div style="display:flex;flex-direction:column;gap:24px">
+  <h2 style="margin:0;font-size:32px">What the app has, and what it's missing</h2>
+  <p style="margin:0;max-width:80ch;font-size:14px;color:var(--color-neutral-800)">Read from the Flutter source. The engine is in good shape — <code>adhan</code>-based prayer calculation with ten methods, Hanafi madhab toggle and per-prayer offsets; a Quran module with reciters, per-surah offline download, repeat and playback speed; bundled hadith and daily-content JSON. What's thin is everything around it: no habit loop, no reason to open the app twice a day, and every screen is a white card on cream with no hierarchy.</p>
+  <table class="table" style="width:100%">
+    <thead><tr><th style="width:19%">Area</th><th style="width:27%">Today in code</th><th style="width:34%">Redesign / addition</th><th style="width:10%">Effort</th><th style="width:10%">Phase</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Navigation</strong></td><td>4 tabs: Home · Quran · Qibla · Tasbih. Prayer times buried behind a home card; language hidden in a drawer.</td><td>5 tabs: হোম · কুরআন · নামাজ · তাসবিহ · আরও. Qibla demoted to a quick action (used monthly, not daily); everything else consolidated under আরও.</td><td>S</td><td>1</td></tr>
+      <tr><td><strong>Prayer times</strong></td><td>Next-prayer card, plain list of six rows, settings in a bottom sheet.</td><td>Full-day timeline with elapsed rule, jamaat time per prayer, and a per-prayer reminder row (adhan sound, silent, off) as a first-class screen — not a sheet.</td><td>M</td><td>1</td></tr>
+      <tr><td><strong>Prayer tracking</strong></td><td>Does not exist.</td><td>Five taps a day, a streak, and a monthly grid. This is the single highest-value addition: it is what makes the app a daily habit rather than a clock.</td><td>M</td><td>1</td></tr>
+      <tr><td><strong>Notifications</strong></td><td>A notifications route exists; no adhan audio, no per-prayer control.</td><td>Adhan sound picker per prayer, pre-adhan nudge, Jumu'ah reminder, and an explicit exact-alarm / battery-optimisation permission screen — the usual cause of "the azan didn't fire" on Bangladeshi Android builds.</td><td>M</td><td>1</td></tr>
+      <tr><td><strong>Quran reader</strong></td><td>Ayah list, tap-to-play, translation, reciter picker, offline download, repeat, speed.</td><td>Night mode, adjustable Arabic/translation size, word-by-word highlight during playback, bookmarks and personal notes, and a long-press ayah action sheet. Tap-to-play on the ayah body is removed — it fires by accident while reading.</td><td>L</td><td>2</td></tr>
+      <tr><td><strong>Reading plan</strong></td><td>Only a "last read" pointer.</td><td>Daily goal in ayahs or minutes, khatam-in-N-months plans, and a 30-day contribution grid.</td><td>M</td><td>2</td></tr>
+      <tr><td><strong>Dua</strong></td><td>Duas appear only inside the daily-content carousel.</td><td>A browsable, categorised dua collection with Arabic, transliteration in Bangla script, and audio — the most requested feature in this app category.</td><td>M</td><td>2</td></tr>
+      <tr><td><strong>Ramadan</strong></td><td>A conditional sehri/iftar row on Home.</td><td>A seasonal mode: sehri/iftar countdown, a 30-day roza tracker, taraweeh rakat log, and a Ramadan calendar sheet users can share.</td><td>M</td><td>2</td></tr>
+      <tr><td><strong>Masjid finder</strong></td><td>Nearby list from a data source.</td><td>Distance + walking time, jamaat times per masjid (crowd-sourced), and directions hand-off. Bangladesh's real question is not "where is a masjid" but "when is jamaat".</td><td>L</td><td>3</td></tr>
+      <tr><td><strong>Zakat</strong></td><td>Calculator screen.</td><td>Bangladeshi-currency inputs with live gold/silver nisab, a per-asset breakdown, saved calculations year on year, and a printable summary.</td><td>S</td><td>2</td></tr>
+      <tr><td><strong>Widgets</strong></td><td>None.</td><td>Home-screen widget with next prayer and countdown; the highest-retention surface in every prayer app.</td><td>M</td><td>3</td></tr>
+      <tr><td><strong>Onboarding</strong></td><td>Splash straight into the dashboard; permissions requested implicitly.</td><td>Three panes: language, location, reminders — each one earning its permission with a reason before the system dialog appears.</td><td>S</td><td>1</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div style="display:flex;flex-direction:column;gap:24px">
+  <h2 style="margin:0;font-size:32px">Information architecture</h2>
+  <div style="display:grid;grid-template-columns:repeat(5,minmax(0,1fr));border-top:2px solid var(--color-divider);border-bottom:2px solid var(--color-divider)">
+    <div style="border-right:2px solid var(--color-divider);padding:20px 20px 24px 0">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px"><i data-lucide="house" width="18" height="18" style="color:var(--color-accent)"></i><span style="font-family:var(--font-heading);font-weight:800;font-size:17px">হোম</span></div>
+      <ul style="margin:0;padding-left:16px;font-size:13px;line-height:1.9;color:var(--color-neutral-800)"><li>পরের নামাজ + কাউন্টডাউন</li><li>আজকের ট্র্যাকার</li><li>পড়া চালিয়ে যান</li><li>আজকের হাদিস</li><li>দ্রুত প্রবেশ</li></ul>
+    </div>
+    <div style="border-right:2px solid var(--color-divider);padding:20px">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px"><i data-lucide="book-open" width="18" height="18" style="color:var(--color-accent)"></i><span style="font-family:var(--font-heading);font-weight:800;font-size:17px">কুরআন</span></div>
+      <ul style="margin:0;padding-left:16px;font-size:13px;line-height:1.9;color:var(--color-neutral-800)"><li>সূরা / পারা তালিকা</li><li>সূরা পাঠ · রাতের মোড</li><li>শব্দে শব্দে অডিও</li><li>বুকমার্ক ও নোট</li><li>দৈনিক পাঠ পরিকল্পনা</li></ul>
+    </div>
+    <div style="border-right:2px solid var(--color-divider);padding:20px">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px"><i data-lucide="clock" width="18" height="18" style="color:var(--color-accent)"></i><span style="font-family:var(--font-heading);font-weight:800;font-size:17px">নামাজ</span></div>
+      <ul style="margin:0;padding-left:16px;font-size:13px;line-height:1.9;color:var(--color-neutral-800)"><li>আজকের সময়সূচি</li><li>নামাজ ট্র্যাকার</li><li>আজান ও রিমাইন্ডার</li><li>হিসাব পদ্ধতি</li><li>জামাতের সময়</li></ul>
+    </div>
+    <div style="border-right:2px solid var(--color-divider);padding:20px">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px"><i data-lucide="circle-dot" width="18" height="18" style="color:var(--color-accent)"></i><span style="font-family:var(--font-heading);font-weight:800;font-size:17px">তাসবিহ</span></div>
+      <ul style="margin:0;padding-left:16px;font-size:13px;line-height:1.9;color:var(--color-neutral-800)"><li>কাউন্টার</li><li>প্রিসেট জিকির</li><li>লক্ষ্য ও কম্পন</li><li>আজকের মোট</li></ul>
+    </div>
+    <div style="padding:20px 0 24px 20px">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px"><i data-lucide="layout-grid" width="18" height="18" style="color:var(--color-accent)"></i><span style="font-family:var(--font-heading);font-weight:800;font-size:17px">আরও</span></div>
+      <ul style="margin:0;padding-left:16px;font-size:13px;line-height:1.9;color:var(--color-neutral-800)"><li>কিবলা · মসজিদ</li><li>দুআ · হাদিস</li><li>যাকাত · ক্যালেন্ডার</li><li>রমজান মোড</li><li>ভাষা · সেটিংস</li></ul>
+    </div>
+  </div>
+</div>
+
+<div style="display:flex;flex-direction:column;gap:32px">
+  <div>
+    <h2 style="margin:0 0 8px;font-size:32px">Screens</h2>
+    <p style="margin:0;font-size:14px;color:var(--color-neutral-700)">390 × 844. Frames marked <em>সম্পূর্ণ স্ক্রল</em> are drawn at full content height rather than clipped to the viewport.</p>
+  </div>
+  <div id="frames" style="display:flex;flex-wrap:wrap;gap:56px 40px;align-items:flex-start">
+
+<div style="display:flex;flex-direction:column;gap:10px;width:390px">
+  <div style="display:flex;align-items:baseline;gap:8px;border-bottom:2px solid var(--color-divider);padding-bottom:8px">
+    <span style="font-family:var(--font-heading);font-weight:800;font-size:13px;color:var(--color-accent-700)">০১</span>
+    <span style="font-family:var(--font-heading);font-weight:800;font-size:14px">স্বাগতম</span>
+    <span style="font-size:11px;color:var(--color-neutral-700);margin-left:auto">Onboarding · language</span>
+  </div>
+  <div style="width:390px;height:844px;background:var(--color-bg);border:2px solid var(--color-text);overflow:hidden;display:flex;flex-direction:column">
+    <div style="background:var(--color-accent-700);color:var(--color-bg);flex:0 0 auto;display:flex;flex-direction:column">
+      <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 18px 8px;font-size:12px;font-weight:600"><span>৯:৪১</span><span style="display:flex;gap:5px;align-items:center"><i data-lucide="signal" width="13" height="13"></i><i data-lucide="wifi" width="13" height="13"></i><i data-lucide="battery-full" width="16" height="16"></i></span></div>
+      <div style="padding:120px 24px 40px">
+        <div style="font-size:11px;letter-spacing:0.14em;text-transform:uppercase;font-weight:700;margin-bottom:20px">Islamic lifestyle · Bangladesh</div>
+        <div style="font-family:var(--font-heading);font-weight:800;font-size:56px;line-height:0.98;letter-spacing:-0.01em">আল<br>মুত্তাকী</div>
+        <div style="height:2px;background:var(--color-bg);margin:28px 0 16px;width:64px"></div>
+        <div style="font-size:15px;font-weight:500;max-width:24ch">নামাজ, কুরআন আর দৈনিক জিকির — এক জায়গায়।</div>
+      </div>
+    </div>
+    <div style="flex:1 1 auto;display:flex;flex-direction:column;padding:28px 24px 32px">
+      <div style="font-size:12px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-700);font-weight:700;margin-bottom:10px">ভাষা বাছুন · Language</div>
+      <div style="display:flex;border:2px solid var(--color-text)">
+        <div style="flex:1;padding:14px 16px;background:var(--color-text);color:var(--color-bg);font-family:var(--font-heading);font-weight:800;font-size:16px">বাংলা</div>
+        <div style="flex:1;padding:14px 16px;font-family:var(--font-heading);font-weight:800;font-size:16px;color:var(--color-neutral-700)">English</div>
+      </div>
+      <p style="margin:20px 0 0;font-size:13px;color:var(--color-neutral-800);line-height:1.7">পরে <strong>আরও → ভাষা</strong> থেকে যেকোনো সময় বদলাতে পারবেন। আরবি ও অনুবাদের ফন্ট আলাদাভাবে ঠিক করা যাবে।</p>
+      <div style="margin-top:auto;display:flex;flex-direction:column;gap:10px">
+        <button class="btn btn-primary btn-block" style="background:var(--color-accent-700);padding:16px;font-size:16px">শুরু করুন<i data-lucide="arrow-right" width="18" height="18" style="margin-left:auto"></i></button>
+        <div style="display:flex;gap:6px;padding-top:4px"><span style="width:28px;height:4px;background:var(--color-accent)"></span><span style="width:28px;height:4px;background:var(--color-neutral-400)"></span><span style="width:28px;height:4px;background:var(--color-neutral-400)"></span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div style="display:flex;flex-direction:column;gap:10px;width:390px">
+  <div style="display:flex;align-items:baseline;gap:8px;border-bottom:2px solid var(--color-divider);padding-bottom:8px">
+    <span style="font-family:var(--font-heading);font-weight:800;font-size:13px;color:var(--color-accent-700)">০২</span>
+    <span style="font-family:var(--font-heading);font-weight:800;font-size:14px">অবস্থান</span>
+    <span style="font-size:11px;color:var(--color-neutral-700);margin-left:auto">Permission, earned</span>
+  </div>
+  <div style="width:390px;height:844px;background:var(--color-bg);border:2px solid var(--color-text);overflow:hidden;display:flex;flex-direction:column">
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 18px 8px;font-size:12px;font-weight:600"><span>৯:৪১</span><span style="display:flex;gap:5px;align-items:center"><i data-lucide="signal" width="13" height="13"></i><i data-lucide="wifi" width="13" height="13"></i><i data-lucide="battery-full" width="16" height="16"></i></span></div>
+    <div style="display:flex;align-items:center;padding:8px 18px 14px;border-bottom:2px solid var(--color-divider)">
+      <i data-lucide="arrow-left" width="20" height="20"></i>
+      <span style="margin-left:auto;font-size:12px;font-weight:700;color:var(--color-neutral-700)">২ / ৩</span>
+    </div>
+    <div style="padding:36px 24px 0;flex:1 1 auto;display:flex;flex-direction:column">
+      <i data-lucide="map-pin" width="40" height="40" style="color:var(--color-accent)"></i>
+      <h3 style="margin:24px 0 12px;font-size:30px;line-height:1.1">সঠিক সময়ের জন্য<br>অবস্থান দরকার</h3>
+      <p style="margin:0 0 28px;font-size:14px;color:var(--color-neutral-800);line-height:1.7">আপনার এলাকার সূর্যের হিসাবেই নামাজের সময় বের করা হয়। অবস্থান শুধু ফোনেই থাকে, কোথাও পাঠানো হয় না।</p>
+      <div style="border-top:2px solid var(--color-divider)">
+        <div style="display:flex;gap:12px;padding:14px 0;border-bottom:2px solid var(--color-divider)"><i data-lucide="clock" width="18" height="18" style="color:var(--color-accent);flex:0 0 auto;margin-top:2px"></i><span style="font-size:13.5px">মিনিটের নিখুঁত ওয়াক্ত ও কাউন্টডাউন</span></div>
+        <div style="display:flex;gap:12px;padding:14px 0;border-bottom:2px solid var(--color-divider)"><i data-lucide="compass" width="18" height="18" style="color:var(--color-accent);flex:0 0 auto;margin-top:2px"></i><span style="font-size:13.5px">কিবলার সঠিক দিক নির্ণয়</span></div>
+        <div style="display:flex;gap:12px;padding:14px 0;border-bottom:2px solid var(--color-divider)"><i data-lucide="landmark" width="18" height="18" style="color:var(--color-accent);flex:0 0 auto;margin-top:2px"></i><span style="font-size:13.5px">কাছের মসজিদ ও জামাতের সময়</span></div>
+      </div>
+      <div style="margin-top:auto;padding-bottom:32px;display:flex;flex-direction:column;gap:10px">
+        <button class="btn btn-primary btn-block" style="background:var(--color-accent-700);padding:16px;font-size:16px">অবস্থানের অনুমতি দিন</button>
+        <button class="btn btn-secondary btn-block" style="padding:16px;font-size:15px">শহর নিজে বাছুন<span style="margin-left:auto;font-size:12px;font-weight:400;color:var(--color-neutral-700)">ঢাকা, চট্টগ্রাম…</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div style="display:flex;flex-direction:column;gap:10px;width:390px">
+  <div style="display:flex;align-items:baseline;gap:8px;border-bottom:2px solid var(--color-divider);padding-bottom:8px">
+    <span style="font-family:var(--font-heading);font-weight:800;font-size:13px;color:var(--color-accent-700)">০৩</span>
+    <span style="font-family:var(--font-heading);font-weight:800;font-size:14px">রিমাইন্ডার সেটআপ</span>
+    <span style="font-size:11px;color:var(--color-neutral-700);margin-left:auto">Reminders + exact alarm</span>
+  </div>
+  <div style="width:390px;height:844px;background:var(--color-bg);border:2px solid var(--color-text);overflow:hidden;display:flex;flex-direction:column">
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 18px 8px;font-size:12px;font-weight:600"><span>৯:৪১</span><span style="display:flex;gap:5px;align-items:center"><i data-lucide="signal" width="13" height="13"></i><i data-lucide="wifi" width="13" height="13"></i><i data-lucide="battery-full" width="16" height="16"></i></span></div>
+    <div style="display:flex;align-items:center;padding:8px 18px 14px;border-bottom:2px solid var(--color-divider)">
+      <i data-lucide="arrow-left" width="20" height="20"></i>
+      <span style="margin-left:auto;font-size:12px;font-weight:700;color:var(--color-neutral-700)">৩ / ৩</span>
+    </div>
+    <div style="padding:28px 24px 0;flex:1 1 auto;display:flex;flex-direction:column">
+      <h3 style="margin:0 0 8px;font-size:28px;line-height:1.1">কোন ওয়াক্তে<br>মনে করিয়ে দেব?</h3>
+      <p style="margin:0 0 20px;font-size:13.5px;color:var(--color-neutral-800)">প্রতিটি ওয়াক্তের জন্য আলাদাভাবে আজান, নীরব বা বন্ধ বেছে নিন।</p>
+      <div style="border-top:2px solid var(--color-divider)">
+        <div style="display:flex;align-items:center;gap:12px;padding:13px 0;border-bottom:2px solid var(--color-divider)"><span style="font-family:var(--font-heading);font-weight:800;font-size:15px;flex:1">ফজর</span><span style="font-size:12px;color:var(--color-neutral-700);font-variant-numeric:tabular-nums">৪:৩৮</span><span style="border:2px solid var(--color-text);background:var(--color-text);color:var(--color-bg);font-size:11px;font-weight:700;padding:4px 8px">আজান</span></div>
+        <div style="display:flex;align-items:center;gap:12px;padding:13px 0;border-bottom:2px solid var(--color-divider)"><span style="font-family:var(--font-heading);font-weight:800;font-size:15px;flex:1">যোহর</span><span style="font-size:12px;color:var(--color-neutral-700);font-variant-numeric:tabular-nums">১১:৫৬</span><span style="border:2px solid var(--color-text);background:var(--color-text);color:var(--color-bg);font-size:11px;font-weight:700;padding:4px 8px">আজান</span></div>
+        <div style="display:flex;align-items:center;gap:12px;padding:13px 0;border-bottom:2px solid var(--color-divider)"><span style="font-family:var(--font-heading);font-weight:800;font-size:15px;flex:1">আসর</span><span style="font-size:12px;color:var(--color-neutral-700);font-variant-numeric:tabular-nums">৪:১২</span><span style="border:2px solid var(--color-text);font-size:11px;font-weight:700;padding:4px 8px">নীরব</span></div>
+        <div style="display:flex;align-items:center;gap:12px;padding:13px 0;border-bottom:2px solid var(--color-divider)"><span style="font-family:var(--font-heading);font-weight:800;font-size:15px;flex:1">মাগরিব</span><span style="font-size:12px;color:var(--color-neutral-700);font-variant-numeric:tabular-nums">৬:০৩</span><span style="border:2px solid var(--color-text);background:var(--color-text);color:var(--color-bg);font-size:11px;font-weight:700;padding:4px 8px">আজান</span></div>
+        <div style="display:flex;align-items:center;gap:12px;padding:13px 0;border-bottom:2px solid var(--color-divider)"><span style="font-family:var(--font-heading);font-weight:800;font-size:15px;flex:1">ইশা</span><span style="font-size:12px;color:var(--color-neutral-700);font-variant-numeric:tabular-nums">৭:১৫</span><span style="border:2px solid var(--color-text);background:var(--color-text);color:var(--color-bg);font-size:11px;font-weight:700;padding:4px 8px">আজান</span></div>
+      </div>
+      <div style="margin-top:20px;border:2px solid var(--color-accent);padding:14px;display:flex;gap:12px;background:var(--color-accent-100)">
+        <i data-lucide="triangle-alert" width="20" height="20" style="color:var(--color-accent-700);flex:0 0 auto"></i>
+        <div><div style="font-family:var(--font-heading);font-weight:800;font-size:13.5px;margin-bottom:4px;color:var(--color-accent-900)">ঠিক সময়ে আজান শুনতে</div><div style="font-size:12.5px;line-height:1.6;color:var(--color-accent-900)">ব্যাটারি সেভার থেকে অ্যাপটি বাদ দিতে হবে, নাহলে আজান দেরিতে বাজতে পারে।</div><div style="font-family:var(--font-heading);font-weight:800;font-size:12.5px;margin-top:8px;color:var(--color-accent-700);text-decoration:underline">সেটিংসে যান</div></div>
+      </div>
+      <div style="margin-top:auto;padding-bottom:32px">
+        <button class="btn btn-primary btn-block" style="background:var(--color-accent-700);padding:16px;font-size:16px">শেষ করুন<i data-lucide="check" width="18" height="18" style="margin-left:auto"></i></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div style="display:flex;flex-direction:column;gap:10px;width:390px">
+  <div style="display:flex;align-items:baseline;gap:8px;border-bottom:2px solid var(--color-divider);padding-bottom:8px">
+    <span style="font-family:var(--font-heading);font-weight:800;font-size:13px;color:var(--color-accent-700)">০৪</span>
+    <span style="font-family:var(--font-heading);font-weight:800;font-size:14px">হোম</span>
+    <span style="font-size:11px;color:var(--color-neutral-700);margin-left:auto">সম্পূর্ণ স্ক্রল</span>
+  </div>
+  <div style="width:390px;height:1240px;background:var(--color-bg);border:2px solid var(--color-text);overflow:hidden;display:flex;flex-direction:column">
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 18px 8px;font-size:12px;font-weight:600"><span>৯:৪১</span><span style="display:flex;gap:5px;align-items:center"><i data-lucide="signal" width="13" height="13"></i><i data-lucide="wifi" width="13" height="13"></i><i data-lucide="battery-full" width="16" height="16"></i></span></div>
+    <div style="display:flex;align-items:center;gap:10px;padding:6px 18px 14px;border-bottom:2px solid var(--color-text)">
+      <div style="flex:1;min-width:0">
+        <div style="font-size:11.5px;color:var(--color-neutral-700);font-weight:600">আসসালামু আলাইকুম</div>
+        <div style="display:flex;align-items:center;gap:5px;font-family:var(--font-heading);font-weight:800;font-size:16px"><i data-lucide="map-pin" width="14" height="14"></i>ধানমন্ডি, ঢাকা</div>
+      </div>
+      <div style="position:relative"><i data-lucide="bell" width="22" height="22"></i><span style="position:absolute;top:-2px;right:-2px;width:8px;height:8px;background:var(--color-accent)"></span></div>
+    </div>
+
+    <div style="background:var(--color-accent-700);color:var(--color-bg);padding:22px 18px 18px">
+      <div style="display:flex;justify-content:space-between;align-items:baseline">
+        <span style="font-size:11px;letter-spacing:0.14em;text-transform:uppercase;font-weight:700">পরের নামাজ</span>
+        <span style="font-size:12px;font-weight:600">এখন যোহরের ওয়াক্ত</span>
+      </div>
+      <div style="display:flex;align-items:flex-end;justify-content:space-between;margin-top:6px">
+        <div style="font-family:var(--font-heading);font-weight:800;font-size:52px;line-height:1;letter-spacing:-0.02em">আসর</div>
+        <div style="text-align:right"><div style="font-family:var(--font-heading);font-weight:800;font-size:26px;line-height:1;font-variant-numeric:tabular-nums">৪:১২</div><div style="font-size:12px;font-weight:600">বিকাল</div></div>
+      </div>
+      <div style="height:2px;background:rgba(255,255,255,0.45);margin:18px 0 10px;position:relative"><span style="position:absolute;left:0;top:0;height:2px;width:62%;background:var(--color-bg)"></span></div>
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <span style="font-family:var(--font-heading);font-weight:800;font-size:17px;font-variant-numeric:tabular-nums">১ ঘণ্টা ২৪ মিনিট বাকি</span>
+        <i data-lucide="chevron-right" width="20" height="20"></i>
+      </div>
+    </div>
+
+    <div style="display:flex;border-bottom:2px solid var(--color-text)">
+      <div style="flex:1;padding:12px 18px;border-right:2px solid var(--color-text)"><div style="font-size:10.5px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-700);font-weight:700">আজ</div><div style="font-size:14px;font-weight:600">৬ সেপ্টেম্বর ২০২৬</div></div>
+      <div style="flex:1;padding:12px 18px"><div style="font-size:10.5px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-700);font-weight:700">হিজরি</div><div style="font-size:14px;font-weight:600">২৪ রবিউল আউয়াল ১৪৪৮</div></div>
+    </div>
+
+    <div style="padding:16px 18px;border-bottom:2px solid var(--color-text)">
+      <div style="display:flex;align-items:center;margin-bottom:12px">
+        <span style="font-family:var(--font-heading);font-weight:800;font-size:15px;flex:1">আজকের নামাজ</span>
+        <span style="display:flex;align-items:center;gap:5px;background:var(--color-text);color:var(--color-bg);padding:3px 8px;font-size:11px;font-weight:700"><i data-lucide="flame" width="12" height="12"></i>টানা ১২ দিন</span>
+      </div>
+      <div style="display:flex;gap:8px">
+        <div style="flex:1;border:2px solid var(--color-text);background:var(--color-text);color:var(--color-bg);padding:10px 4px;text-align:center"><i data-lucide="check" width="16" height="16"></i><div style="font-size:11px;font-weight:700;margin-top:2px">ফজর</div></div>
+        <div style="flex:1;border:2px solid var(--color-text);background:var(--color-text);color:var(--color-bg);padding:10px 4px;text-align:center"><i data-lucide="check" width="16" height="16"></i><div style="font-size:11px;font-weight:700;margin-top:2px">যোহর</div></div>
+        <div style="flex:1;border:2px solid var(--color-accent);color:var(--color-accent);padding:10px 4px;text-align:center"><i data-lucide="circle" width="16" height="16"></i><div style="font-size:11px;font-weight:700;margin-top:2px">আসর</div></div>
+        <div style="flex:1;border:2px solid var(--color-neutral-600);color:var(--color-neutral-700);padding:10px 4px;text-align:center"><i data-lucide="minus" width="16" height="16"></i><div style="font-size:11px;font-weight:700;margin-top:2px">মাগরিব</div></div>
+        <div style="flex:1;border:2px solid var(--color-neutral-600);color:var(--color-neutral-700);padding:10px 4px;text-align:center"><i data-lucide="minus" width="16" height="16"></i><div style="font-size:11px;font-weight:700;margin-top:2px">ইশা</div></div>
+      </div>
+    </div>
+
+    <div style="padding:16px 18px;border-bottom:2px solid var(--color-text);display:flex;gap:14px;align-items:center">
+      <div style="flex:1;min-width:0">
+        <div style="font-size:10.5px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-700);font-weight:700;margin-bottom:3px">পড়া চালিয়ে যান</div>
+        <div style="font-family:var(--font-heading);font-weight:800;font-size:19px">সূরা আল-কাহফ</div>
+        <div style="font-size:12.5px;color:var(--color-neutral-700)">আয়াত ৩২ · আজকের লক্ষ্যের ৬০%</div>
+        <div style="height:2px;background:var(--color-neutral-300);margin-top:8px;position:relative"><span style="position:absolute;left:0;top:0;height:2px;width:60%;background:var(--color-accent)"></span></div>
+      </div>
+      <div style="width:52px;height:52px;border:2px solid var(--color-text);display:flex;align-items:center;justify-content:center;flex:0 0 auto"><i data-lucide="play" width="20" height="20"></i></div>
+    </div>
+
+    <div style="padding:16px 18px;border-bottom:2px solid var(--color-text)">
+      <div style="display:flex;align-items:center;margin-bottom:10px">
+        <span style="font-size:10.5px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-700);font-weight:700;flex:1">আজকের হাদিস</span>
+        <i data-lucide="bookmark" width="16" height="16" style="color:var(--color-neutral-700)"></i>
+      </div>
+      <div style="font-family:'Noto Naskh Arabic',serif;font-size:19px;line-height:1.95;direction:rtl;text-align:right;margin-bottom:12px">إِنَّمَا الأَعْمَالُ بِالنِّيَّاتِ</div>
+      <div style="font-size:14px;line-height:1.7">নিশ্চয়ই সকল কাজের ফলাফল নিয়তের উপর নির্ভরশীল।</div>
+      <div style="font-size:11.5px;color:var(--color-neutral-700);margin-top:8px;font-weight:600">সহিহ বুখারি · ১</div>
+    </div>
+
+    <div style="padding:16px 18px 0">
+      <div style="font-size:10.5px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-700);font-weight:700;margin-bottom:10px">দ্রুত প্রবেশ</div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--color-divider);border:2px solid var(--color-text)">
+        <div style="background:var(--color-bg);padding:16px 10px;display:flex;flex-direction:column;gap:8px"><i data-lucide="compass" width="20" height="20" style="color:var(--color-accent)"></i><span style="font-size:12.5px;font-weight:600">কিবলা</span></div>
+        <div style="background:var(--color-bg);padding:16px 10px;display:flex;flex-direction:column;gap:8px"><i data-lucide="landmark" width="20" height="20" style="color:var(--color-accent)"></i><span style="font-size:12.5px;font-weight:600">মসজিদ</span></div>
+        <div style="background:var(--color-bg);padding:16px 10px;display:flex;flex-direction:column;gap:8px"><i data-lucide="hand-heart" width="20" height="20" style="color:var(--color-accent)"></i><span style="font-size:12.5px;font-weight:600">দুআ</span></div>
+        <div style="background:var(--color-bg);padding:16px 10px;display:flex;flex-direction:column;gap:8px"><i data-lucide="calculator" width="20" height="20" style="color:var(--color-accent)"></i><span style="font-size:12.5px;font-weight:600">যাকাত</span></div>
+        <div style="background:var(--color-bg);padding:16px 10px;display:flex;flex-direction:column;gap:8px"><i data-lucide="calendar" width="20" height="20" style="color:var(--color-accent)"></i><span style="font-size:12.5px;font-weight:600">ক্যালেন্ডার</span></div>
+        <div style="background:var(--color-bg);padding:16px 10px;display:flex;flex-direction:column;gap:8px"><i data-lucide="moon-star" width="20" height="20" style="color:var(--color-accent)"></i><span style="font-size:12.5px;font-weight:600">রমজান</span></div>
+      </div>
+    </div>
+
+    <div style="margin-top:auto;display:flex;border-top:2px solid var(--color-text)">
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 0 16px;border-top:4px solid var(--color-accent);margin-top:-4px;color:var(--color-accent-700)"><i data-lucide="house" width="21" height="21"></i><span style="font-size:10px;font-weight:700">হোম</span></div>
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 0 16px;color:var(--color-neutral-700)"><i data-lucide="book-open" width="21" height="21"></i><span style="font-size:10px;font-weight:700">কুরআন</span></div>
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 0 16px;color:var(--color-neutral-700)"><i data-lucide="clock" width="21" height="21"></i><span style="font-size:10px;font-weight:700">নামাজ</span></div>
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 0 16px;color:var(--color-neutral-700)"><i data-lucide="circle-dot" width="21" height="21"></i><span style="font-size:10px;font-weight:700">তাসবিহ</span></div>
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 0 16px;color:var(--color-neutral-700)"><i data-lucide="layout-grid" width="21" height="21"></i><span style="font-size:10px;font-weight:700">আরও</span></div>
+    </div>
+  </div>
+</div>
+
+<div style="display:flex;flex-direction:column;gap:10px;width:390px">
+  <div style="display:flex;align-items:baseline;gap:8px;border-bottom:2px solid var(--color-divider);padding-bottom:8px">
+    <span style="font-family:var(--font-heading);font-weight:800;font-size:13px;color:var(--color-accent-700)">০৫</span>
+    <span style="font-family:var(--font-heading);font-weight:800;font-size:14px">নামাজের সময়সূচি</span>
+    <span style="font-size:11px;color:var(--color-neutral-700);margin-left:auto">সম্পূর্ণ স্ক্রল</span>
+  </div>
+  <div style="width:390px;height:1240px;background:var(--color-bg);border:2px solid var(--color-text);overflow:hidden;display:flex;flex-direction:column">
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 18px 8px;font-size:12px;font-weight:600"><span>৯:৪১</span><span style="display:flex;gap:5px;align-items:center"><i data-lucide="signal" width="13" height="13"></i><i data-lucide="wifi" width="13" height="13"></i><i data-lucide="battery-full" width="16" height="16"></i></span></div>
+    <div style="display:flex;align-items:center;gap:12px;padding:6px 18px 14px;border-bottom:2px solid var(--color-text)">
+      <h4 style="margin:0;font-size:22px;flex:1">নামাজ</h4>
+      <i data-lucide="bell-ring" width="20" height="20"></i>
+      <i data-lucide="settings-2" width="20" height="20"></i>
+    </div>
+    <div style="display:flex;align-items:center;border-bottom:2px solid var(--color-text)">
+      <div style="padding:12px 14px;border-right:2px solid var(--color-divider)"><i data-lucide="chevron-left" width="18" height="18"></i></div>
+      <div style="flex:1;text-align:center;padding:10px"><div style="font-family:var(--font-heading);font-weight:800;font-size:15px">আজ · রবিবার</div><div style="font-size:11.5px;color:var(--color-neutral-700)">২৪ রবিউল আউয়াল ১৪৪৮</div></div>
+      <div style="padding:12px 14px;border-left:2px solid var(--color-divider)"><i data-lucide="chevron-right" width="18" height="18"></i></div>
+    </div>
+
+    <div style="background:var(--color-accent-700);color:var(--color-bg);padding:18px">
+      <div style="font-size:11px;letter-spacing:0.14em;text-transform:uppercase;font-weight:700">আসরের বাকি</div>
+      <div style="font-family:var(--font-heading);font-weight:800;font-size:46px;line-height:1.05;font-variant-numeric:tabular-nums;letter-spacing:-0.02em">১:২৪:০৬</div>
+      <div style="font-size:13px;font-weight:600;margin-top:2px">ওয়াক্ত শুরু বিকাল ৪:১২ · জামাত ৪:৩০</div>
+    </div>
+
+    <div style="border-bottom:2px solid var(--color-text)">
+      <div style="display:flex;align-items:center;gap:12px;padding:14px 18px;border-bottom:2px solid var(--color-divider);background:var(--color-neutral-200)">
+        <div style="flex:1"><div style="font-family:var(--font-heading);font-weight:800;font-size:16px">ফজর</div><div style="font-size:11.5px;color:var(--color-neutral-700)">জামাত ৫:০০ · শেষ ৫:৪৮</div></div>
+        <div style="font-family:var(--font-heading);font-weight:800;font-size:17px;font-variant-numeric:tabular-nums">৪:৩৮</div>
+        <i data-lucide="volume-2" width="17" height="17" style="color:var(--color-neutral-700)"></i>
+        <div style="width:30px;height:30px;background:var(--color-text);color:var(--color-bg);display:flex;align-items:center;justify-content:center"><i data-lucide="check" width="17" height="17"></i></div>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;padding:14px 18px;border-bottom:2px solid var(--color-divider)">
+        <div style="flex:1"><div style="font-family:var(--font-heading);font-weight:800;font-size:16px;color:var(--color-neutral-700)">সূর্যোদয়</div></div>
+        <div style="font-family:var(--font-heading);font-weight:800;font-size:17px;font-variant-numeric:tabular-nums;color:var(--color-neutral-700)">৫:৫০</div>
+        <span style="width:17px"></span><span style="width:30px"></span>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;padding:14px 18px;border-bottom:2px solid var(--color-divider);background:var(--color-neutral-200)">
+        <div style="flex:1"><div style="font-family:var(--font-heading);font-weight:800;font-size:16px">যোহর</div><div style="font-size:11.5px;color:var(--color-neutral-700)">জামাত ১:৩০ · এখন চলছে</div></div>
+        <div style="font-family:var(--font-heading);font-weight:800;font-size:17px;font-variant-numeric:tabular-nums">১১:৫৬</div>
+        <i data-lucide="volume-2" width="17" height="17" style="color:var(--color-neutral-700)"></i>
+        <div style="width:30px;height:30px;background:var(--color-text);color:var(--color-bg);display:flex;align-items:center;justify-content:center"><i data-lucide="check" width="17" height="17"></i></div>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;padding:14px 18px;border-bottom:2px solid var(--color-divider);border-left:6px solid var(--color-accent)">
+        <div style="flex:1"><div style="font-family:var(--font-heading);font-weight:800;font-size:16px;color:var(--color-accent-700)">আসর</div><div style="font-size:11.5px;color:var(--color-accent-700);font-weight:600">পরের ওয়াক্ত · জামাত ৪:৩০</div></div>
+        <div style="font-family:var(--font-heading);font-weight:800;font-size:17px;font-variant-numeric:tabular-nums;color:var(--color-accent-700)">৪:১২</div>
+        <i data-lucide="volume-x" width="17" height="17" style="color:var(--color-neutral-700)"></i>
+        <div style="width:30px;height:30px;border:2px solid var(--color-accent)"></div>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;padding:14px 18px;border-bottom:2px solid var(--color-divider)">
+        <div style="flex:1"><div style="font-family:var(--font-heading);font-weight:800;font-size:16px">মাগরিব</div><div style="font-size:11.5px;color:var(--color-neutral-700)">জামাত ৬:০৬</div></div>
+        <div style="font-family:var(--font-heading);font-weight:800;font-size:17px;font-variant-numeric:tabular-nums">৬:০৩</div>
+        <i data-lucide="volume-2" width="17" height="17" style="color:var(--color-neutral-700)"></i>
+        <div style="width:30px;height:30px;border:2px solid var(--color-neutral-400)"></div>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;padding:14px 18px">
+        <div style="flex:1"><div style="font-family:var(--font-heading);font-weight:800;font-size:16px">ইশা</div><div style="font-size:11.5px;color:var(--color-neutral-700)">জামাত ৭:৪৫</div></div>
+        <div style="font-family:var(--font-heading);font-weight:800;font-size:17px;font-variant-numeric:tabular-nums">৭:১৫</div>
+        <i data-lucide="volume-2" width="17" height="17" style="color:var(--color-neutral-700)"></i>
+        <div style="width:30px;height:30px;border:2px solid var(--color-neutral-400)"></div>
+      </div>
+    </div>
+
+    <div style="padding:16px 18px;border-bottom:2px solid var(--color-text)">
+      <div style="display:flex;align-items:center;margin-bottom:12px"><span style="font-family:var(--font-heading);font-weight:800;font-size:15px;flex:1">সেপ্টেম্বর ট্র্যাকার</span><span style="font-size:12px;font-weight:600;color:var(--color-neutral-700)">১৪২ / ১৫০</span></div>
+      <div style="display:grid;grid-template-columns:repeat(15,1fr);gap:3px">
+        <span style="aspect-ratio:1;background:var(--color-accent)"></span><span style="aspect-ratio:1;background:var(--color-accent)"></span><span style="aspect-ratio:1;background:var(--color-accent-400)"></span><span style="aspect-ratio:1;background:var(--color-accent)"></span><span style="aspect-ratio:1;background:var(--color-accent)"></span><span style="aspect-ratio:1;background:var(--color-accent)"></span><span style="aspect-ratio:1;background:var(--color-accent-300)"></span><span style="aspect-ratio:1;background:var(--color-accent)"></span><span style="aspect-ratio:1;background:var(--color-accent)"></span><span style="aspect-ratio:1;background:var(--color-accent)"></span><span style="aspect-ratio:1;background:var(--color-accent)"></span><span style="aspect-ratio:1;background:var(--color-accent-400)"></span><span style="aspect-ratio:1;background:var(--color-accent)"></span><span style="aspect-ratio:1;background:var(--color-accent)"></span><span style="aspect-ratio:1;background:var(--color-accent)"></span>
+        <span style="aspect-ratio:1;background:var(--color-accent)"></span><span style="aspect-ratio:1;background:var(--color-accent)"></span><span style="aspect-ratio:1;background:var(--color-accent)"></span><span style="aspect-ratio:1;background:var(--color-accent-300)"></span><span style="aspect-ratio:1;background:var(--color-accent)"></span><span style="aspect-ratio:1;background:var(--color-accent)"></span><span style="aspect-ratio:1;background:var(--color-accent-500)"></span><span style="aspect-ratio:1;background:var(--color-neutral-300)"></span><span style="aspect-ratio:1;background:var(--color-neutral-300)"></span><span style="aspect-ratio:1;background:var(--color-neutral-300)"></span><span style="aspect-ratio:1;background:var(--color-neutral-300)"></span><span style="aspect-ratio:1;background:var(--color-neutral-300)"></span><span style="aspect-ratio:1;background:var(--color-neutral-300)"></span><span style="aspect-ratio:1;background:var(--color-neutral-300)"></span><span style="aspect-ratio:1;background:var(--color-neutral-300)"></span>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;margin-top:10px;font-size:11px;color:var(--color-neutral-700)"><span style="width:10px;height:10px;background:var(--color-accent)"></span>৫ ওয়াক্ত<span style="width:10px;height:10px;background:var(--color-accent-300);margin-left:6px"></span>আংশিক<span style="width:10px;height:10px;background:var(--color-neutral-300);margin-left:6px"></span>বাকি</div>
+    </div>
+
+    <div style="display:flex;align-items:center;gap:12px;padding:16px 18px;border-bottom:2px solid var(--color-divider)"><i data-lucide="sliders-horizontal" width="19" height="19" style="color:var(--color-accent)"></i><span style="flex:1;font-size:14px;font-weight:600">হিসাব পদ্ধতি ও সমন্বয়</span><span style="font-size:12px;color:var(--color-neutral-700)">করাচি</span><i data-lucide="chevron-right" width="17" height="17"></i></div>
+    <div style="display:flex;align-items:center;gap:12px;padding:16px 18px"><i data-lucide="bell-ring" width="19" height="19" style="color:var(--color-accent)"></i><span style="flex:1;font-size:14px;font-weight:600">আজান ও রিমাইন্ডার</span><i data-lucide="chevron-right" width="17" height="17"></i></div>
+
+    <div style="margin-top:auto;display:flex;border-top:2px solid var(--color-text)">
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 0 16px;color:var(--color-neutral-700)"><i data-lucide="house" width="21" height="21"></i><span style="font-size:10px;font-weight:700">হোম</span></div>
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 0 16px;color:var(--color-neutral-700)"><i data-lucide="book-open" width="21" height="21"></i><span style="font-size:10px;font-weight:700">কুরআন</span></div>
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 0 16px;border-top:4px solid var(--color-accent);margin-top:-4px;color:var(--color-accent-700)"><i data-lucide="clock" width="21" height="21"></i><span style="font-size:10px;font-weight:700">নামাজ</span></div>
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 0 16px;color:var(--color-neutral-700)"><i data-lucide="circle-dot" width="21" height="21"></i><span style="font-size:10px;font-weight:700">তাসবিহ</span></div>
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 0 16px;color:var(--color-neutral-700)"><i data-lucide="layout-grid" width="21" height="21"></i><span style="font-size:10px;font-weight:700">আরও</span></div>
+    </div>
+  </div>
+</div>
+
+<div style="display:flex;flex-direction:column;gap:10px;width:390px">
+  <div style="display:flex;align-items:baseline;gap:8px;border-bottom:2px solid var(--color-divider);padding-bottom:8px">
+    <span style="font-family:var(--font-heading);font-weight:800;font-size:13px;color:var(--color-accent-700)">০৬</span>
+    <span style="font-family:var(--font-heading);font-weight:800;font-size:14px">আজান ও রিমাইন্ডার</span>
+    <span style="font-size:11px;color:var(--color-neutral-700);margin-left:auto">New screen</span>
+  </div>
+  <div style="width:390px;height:844px;background:var(--color-bg);border:2px solid var(--color-text);overflow:hidden;display:flex;flex-direction:column">
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 18px 8px;font-size:12px;font-weight:600"><span>৯:৪১</span><span style="display:flex;gap:5px;align-items:center"><i data-lucide="signal" width="13" height="13"></i><i data-lucide="wifi" width="13" height="13"></i><i data-lucide="battery-full" width="16" height="16"></i></span></div>
+    <div style="display:flex;align-items:center;gap:12px;padding:6px 18px 14px;border-bottom:2px solid var(--color-text)">
+      <i data-lucide="arrow-left" width="20" height="20"></i>
+      <h4 style="margin:0;font-size:19px;flex:1">আজান ও রিমাইন্ডার</h4>
+    </div>
+    <div style="padding:10px 18px 6px;font-size:10.5px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-700);font-weight:700">প্রতি ওয়াক্তে</div>
+    <div style="border-top:2px solid var(--color-divider)">
+      <div style="display:flex;align-items:center;gap:12px;padding:11px 18px;border-bottom:2px solid var(--color-divider)"><div style="flex:1"><div style="font-family:var(--font-heading);font-weight:800;font-size:15px">ফজর</div><div style="font-size:11.5px;color:var(--color-neutral-700)">মিশারি রশিদ · ৫ মিনিট আগে</div></div><i data-lucide="chevron-right" width="17" height="17"></i></div>
+      <div style="display:flex;align-items:center;gap:12px;padding:11px 18px;border-bottom:2px solid var(--color-divider)"><div style="flex:1"><div style="font-family:var(--font-heading);font-weight:800;font-size:15px">যোহর</div><div style="font-size:11.5px;color:var(--color-neutral-700)">মক্কা আজান</div></div><i data-lucide="chevron-right" width="17" height="17"></i></div>
+      <div style="display:flex;align-items:center;gap:12px;padding:11px 18px;border-bottom:2px solid var(--color-divider)"><div style="flex:1"><div style="font-family:var(--font-heading);font-weight:800;font-size:15px">আসর</div><div style="font-size:11.5px;color:var(--color-neutral-700)">নীরব বিজ্ঞপ্তি</div></div><i data-lucide="chevron-right" width="17" height="17"></i></div>
+      <div style="display:flex;align-items:center;gap:12px;padding:11px 18px;border-bottom:2px solid var(--color-divider)"><div style="flex:1"><div style="font-family:var(--font-heading);font-weight:800;font-size:15px">মাগরিব</div><div style="font-size:11.5px;color:var(--color-neutral-700)">মক্কা আজান</div></div><i data-lucide="chevron-right" width="17" height="17"></i></div>
+      <div style="display:flex;align-items:center;gap:12px;padding:11px 18px;border-bottom:2px solid var(--color-divider)"><div style="flex:1"><div style="font-family:var(--font-heading);font-weight:800;font-size:15px">ইশা</div><div style="font-size:11.5px;color:var(--color-neutral-700)">মক্কা আজান</div></div><i data-lucide="chevron-right" width="17" height="17"></i></div>
+    </div>
+    <div style="padding:12px 18px 6px;font-size:10.5px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-700);font-weight:700">অন্যান্য</div>
+    <div style="border-top:2px solid var(--color-divider)">
+      <div style="display:flex;align-items:center;gap:12px;padding:14px 18px;border-bottom:2px solid var(--color-divider)"><span style="flex:1;font-size:14px;font-weight:600">জুমার রিমাইন্ডার</span><div style="width:44px;height:24px;background:var(--color-accent);position:relative"><span style="position:absolute;right:2px;top:2px;width:20px;height:20px;background:var(--color-bg)"></span></div></div>
+      <div style="display:flex;align-items:center;gap:12px;padding:14px 18px;border-bottom:2px solid var(--color-divider)"><span style="flex:1;font-size:14px;font-weight:600">তাহাজ্জুদ ডাক</span><div style="width:44px;height:24px;background:var(--color-neutral-400);position:relative"><span style="position:absolute;left:2px;top:2px;width:20px;height:20px;background:var(--color-bg)"></span></div></div>
+      <div style="display:flex;align-items:center;gap:12px;padding:14px 18px;border-bottom:2px solid var(--color-divider)"><span style="flex:1;font-size:14px;font-weight:600">আজকের হাদিস বিজ্ঞপ্তি</span><div style="width:44px;height:24px;background:var(--color-accent);position:relative"><span style="position:absolute;right:2px;top:2px;width:20px;height:20px;background:var(--color-bg)"></span></div></div>
+    </div>
+    <div style="margin:14px 18px;border:2px solid var(--color-text);padding:12px;display:flex;gap:12px;align-items:flex-start">
+      <i data-lucide="shield-check" width="20" height="20" style="color:var(--color-accent);flex:0 0 auto"></i>
+      <div style="flex:1"><div style="font-family:var(--font-heading);font-weight:800;font-size:13.5px;margin-bottom:4px">সঠিক সময়ে বাজার অনুমতি</div><div style="font-size:12.5px;line-height:1.6;color:var(--color-neutral-800)">Exact alarm ও ব্যাটারি ছাড় — দুটোই চালু আছে।</div></div>
+      <i data-lucide="circle-check-big" width="20" height="20" style="color:var(--color-accent)"></i>
+    </div>
+    <div style="margin-top:auto;padding:0 18px 22px"><button class="btn btn-secondary btn-block" style="padding:14px"><i data-lucide="play" width="16" height="16"></i><span style="margin-left:8px">আজানের শব্দ পরীক্ষা করুন</span></button></div>
+  </div>
+</div>
+
+<div style="display:flex;flex-direction:column;gap:10px;width:390px">
+  <div style="display:flex;align-items:baseline;gap:8px;border-bottom:2px solid var(--color-divider);padding-bottom:8px">
+    <span style="font-family:var(--font-heading);font-weight:800;font-size:13px;color:var(--color-accent-700)">০৭</span>
+    <span style="font-family:var(--font-heading);font-weight:800;font-size:14px">কুরআন — সূরা তালিকা</span>
+    <span style="font-size:11px;color:var(--color-neutral-700);margin-left:auto">Index</span>
+  </div>
+  <div style="width:390px;height:844px;background:var(--color-bg);border:2px solid var(--color-text);overflow:hidden;display:flex;flex-direction:column">
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 18px 8px;font-size:12px;font-weight:600"><span>৯:৪১</span><span style="display:flex;gap:5px;align-items:center"><i data-lucide="signal" width="13" height="13"></i><i data-lucide="wifi" width="13" height="13"></i><i data-lucide="battery-full" width="16" height="16"></i></span></div>
+    <div style="display:flex;align-items:center;gap:12px;padding:6px 18px 14px;border-bottom:2px solid var(--color-text)">
+      <h4 style="margin:0;font-size:22px;flex:1">কুরআন</h4>
+      <i data-lucide="search" width="20" height="20"></i>
+      <i data-lucide="bookmark" width="20" height="20"></i>
+      <i data-lucide="settings-2" width="20" height="20"></i>
+    </div>
+    <div style="display:flex;border-bottom:2px solid var(--color-text)">
+      <div style="flex:1;padding:12px;text-align:center;font-family:var(--font-heading);font-weight:800;font-size:14px;border-bottom:4px solid var(--color-accent);color:var(--color-accent-700);margin-bottom:-2px">সূরা</div>
+      <div style="flex:1;padding:12px;text-align:center;font-family:var(--font-heading);font-weight:800;font-size:14px;color:var(--color-neutral-700)">পারা</div>
+      <div style="flex:1;padding:12px;text-align:center;font-family:var(--font-heading);font-weight:800;font-size:14px;color:var(--color-neutral-700)">বুকমার্ক</div>
+    </div>
+    <div style="background:var(--color-accent-700);color:var(--color-bg);padding:16px 18px;display:flex;align-items:center;gap:14px">
+      <div style="flex:1"><div style="font-size:10.5px;letter-spacing:0.12em;text-transform:uppercase;font-weight:700">শেষ পড়া</div><div style="font-family:var(--font-heading);font-weight:800;font-size:22px;line-height:1.15">আল-কাহফ · ৩২</div><div style="font-size:12px;font-weight:600">আজকের লক্ষ্য ২০ আয়াতের ১২টি হয়েছে</div></div>
+      <i data-lucide="arrow-right" width="24" height="24"></i>
+    </div>
+    <div style="flex:1 1 auto;overflow:hidden">
+      <div style="display:flex;align-items:center;gap:14px;padding:14px 18px;border-bottom:2px solid var(--color-divider)"><span style="font-family:var(--font-heading);font-weight:800;font-size:14px;width:26px;color:var(--color-neutral-700);font-variant-numeric:tabular-nums">১</span><div style="flex:1"><div style="font-family:var(--font-heading);font-weight:800;font-size:15.5px">আল-ফাতিহা</div><div style="font-size:11.5px;color:var(--color-neutral-700)">মাক্কি · ৭ আয়াত</div></div><span style="font-family:'Noto Naskh Arabic',serif;font-size:19px">الفاتحة</span></div>
+      <div style="display:flex;align-items:center;gap:14px;padding:14px 18px;border-bottom:2px solid var(--color-divider)"><span style="font-family:var(--font-heading);font-weight:800;font-size:14px;width:26px;color:var(--color-neutral-700);font-variant-numeric:tabular-nums">২</span><div style="flex:1"><div style="font-family:var(--font-heading);font-weight:800;font-size:15.5px">আল-বাকারা</div><div style="font-size:11.5px;color:var(--color-neutral-700)">মাদানি · ২৮৬ আয়াত</div></div><i data-lucide="circle-arrow-down" width="16" height="16" style="color:var(--color-neutral-600)"></i><span style="font-family:'Noto Naskh Arabic',serif;font-size:19px">البقرة</span></div>
+      <div style="display:flex;align-items:center;gap:14px;padding:14px 18px;border-bottom:2px solid var(--color-divider)"><span style="font-family:var(--font-heading);font-weight:800;font-size:14px;width:26px;color:var(--color-neutral-700);font-variant-numeric:tabular-nums">৩</span><div style="flex:1"><div style="font-family:var(--font-heading);font-weight:800;font-size:15.5px">আলে ইমরান</div><div style="font-size:11.5px;color:var(--color-neutral-700)">মাদানি · ২০০ আয়াত</div></div><span style="font-family:'Noto Naskh Arabic',serif;font-size:19px">آل عمران</span></div>
+      <div style="display:flex;align-items:center;gap:14px;padding:14px 18px;border-bottom:2px solid var(--color-divider)"><span style="font-family:var(--font-heading);font-weight:800;font-size:14px;width:26px;color:var(--color-neutral-700);font-variant-numeric:tabular-nums">৪</span><div style="flex:1"><div style="font-family:var(--font-heading);font-weight:800;font-size:15.5px">আন-নিসা</div><div style="font-size:11.5px;color:var(--color-neutral-700)">মাদানি · ১৭৬ আয়াত</div></div><span style="font-family:'Noto Naskh Arabic',serif;font-size:19px">النساء</span></div>
+      <div style="display:flex;align-items:center;gap:14px;padding:14px 18px;border-bottom:2px solid var(--color-divider)"><span style="font-family:var(--font-heading);font-weight:800;font-size:14px;width:26px;color:var(--color-neutral-700);font-variant-numeric:tabular-nums">৫</span><div style="flex:1"><div style="font-family:var(--font-heading);font-weight:800;font-size:15.5px">আল-মায়িদা</div><div style="font-size:11.5px;color:var(--color-neutral-700)">মাদানি · ১২০ আয়াত</div></div><span style="font-family:'Noto Naskh Arabic',serif;font-size:19px">المائدة</span></div>
+      <div style="display:flex;align-items:center;gap:14px;padding:14px 18px;border-bottom:2px solid var(--color-divider)"><span style="font-family:var(--font-heading);font-weight:800;font-size:14px;width:26px;color:var(--color-neutral-700);font-variant-numeric:tabular-nums">৬</span><div style="flex:1"><div style="font-family:var(--font-heading);font-weight:800;font-size:15.5px">আল-আনআম</div><div style="font-size:11.5px;color:var(--color-neutral-700)">মাক্কি · ১৬৫ আয়াত</div></div><span style="font-family:'Noto Naskh Arabic',serif;font-size:19px">الأنعام</span></div>
+      <div style="display:flex;align-items:center;gap:14px;padding:14px 18px;border-bottom:2px solid var(--color-divider)"><span style="font-family:var(--font-heading);font-weight:800;font-size:14px;width:26px;color:var(--color-neutral-700);font-variant-numeric:tabular-nums">৭</span><div style="flex:1"><div style="font-family:var(--font-heading);font-weight:800;font-size:15.5px">আল-আরাফ</div><div style="font-size:11.5px;color:var(--color-neutral-700)">মাক্কি · ২০৬ আয়াত</div></div><span style="font-family:'Noto Naskh Arabic',serif;font-size:19px">الأعراف</span></div>
+    </div>
+    <div style="display:flex;border-top:2px solid var(--color-text)">
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 0 16px;color:var(--color-neutral-700)"><i data-lucide="house" width="21" height="21"></i><span style="font-size:10px;font-weight:700">হোম</span></div>
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 0 16px;border-top:4px solid var(--color-accent);margin-top:-4px;color:var(--color-accent-700)"><i data-lucide="book-open" width="21" height="21"></i><span style="font-size:10px;font-weight:700">কুরআন</span></div>
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 0 16px;color:var(--color-neutral-700)"><i data-lucide="clock" width="21" height="21"></i><span style="font-size:10px;font-weight:700">নামাজ</span></div>
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 0 16px;color:var(--color-neutral-700)"><i data-lucide="circle-dot" width="21" height="21"></i><span style="font-size:10px;font-weight:700">তাসবিহ</span></div>
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 0 16px;color:var(--color-neutral-700)"><i data-lucide="layout-grid" width="21" height="21"></i><span style="font-size:10px;font-weight:700">আরও</span></div>
+    </div>
+  </div>
+</div>
+
+<div style="display:flex;flex-direction:column;gap:10px;width:390px">
+  <div style="display:flex;align-items:baseline;gap:8px;border-bottom:2px solid var(--color-divider);padding-bottom:8px">
+    <span style="font-family:var(--font-heading);font-weight:800;font-size:13px;color:var(--color-accent-700)">০৮</span>
+    <span style="font-family:var(--font-heading);font-weight:800;font-size:14px">সূরা পাঠ — দিন</span>
+    <span style="font-size:11px;color:var(--color-neutral-700);margin-left:auto">Reading, day mode</span>
+  </div>
+  <div style="width:390px;height:844px;background:var(--color-bg);border:2px solid var(--color-text);overflow:hidden;display:flex;flex-direction:column">
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 18px 8px;font-size:12px;font-weight:600"><span>৯:৪১</span><span style="display:flex;gap:5px;align-items:center"><i data-lucide="signal" width="13" height="13"></i><i data-lucide="wifi" width="13" height="13"></i><i data-lucide="battery-full" width="16" height="16"></i></span></div>
+    <div style="display:flex;align-items:center;gap:12px;padding:6px 18px 12px;border-bottom:2px solid var(--color-text)">
+      <i data-lucide="arrow-left" width="20" height="20"></i>
+      <div style="flex:1;min-width:0"><div style="font-family:var(--font-heading);font-weight:800;font-size:16px">আল-কাহফ</div><div style="font-size:11px;color:var(--color-neutral-700)">১৮ · ১১০ আয়াত · মাক্কি</div></div>
+      <i data-lucide="type" width="19" height="19"></i>
+      <i data-lucide="moon" width="19" height="19"></i>
+    </div>
+    <div style="height:2px;background:var(--color-neutral-300);position:relative"><span style="position:absolute;left:0;top:0;height:2px;width:29%;background:var(--color-accent)"></span></div>
+
+    <div style="flex:1 1 auto;overflow:hidden">
+      <div style="padding:18px 18px 16px;border-bottom:2px solid var(--color-divider);text-align:center">
+        <div style="font-family:'Noto Naskh Arabic',serif;font-size:22px;line-height:2">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
+      </div>
+      <div style="padding:16px 18px;border-bottom:2px solid var(--color-divider);border-left:6px solid var(--color-accent);background:var(--color-neutral-100)">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
+          <span style="border:2px solid var(--color-accent);color:var(--color-accent-700);font-family:var(--font-heading);font-weight:800;font-size:12px;padding:1px 7px;font-variant-numeric:tabular-nums">৩২</span>
+          <span style="font-size:11px;font-weight:700;color:var(--color-accent-700);letter-spacing:0.06em;text-transform:uppercase">বাজছে</span>
+          <span style="margin-left:auto;display:flex;gap:14px;color:var(--color-neutral-700)"><i data-lucide="bookmark" width="16" height="16"></i><i data-lucide="ellipsis-vertical" width="16" height="16"></i></span>
+        </div>
+        <div style="font-family:'Noto Naskh Arabic',serif;font-size:23px;line-height:2.15;direction:rtl;text-align:right"><span style="background:var(--color-accent-700);color:var(--color-bg);padding:0 4px">وَاضْرِبْ</span> لَهُم مَّثَلًا رَّجُلَيْنِ جَعَلْنَا لِأَحَدِهِمَا جَنَّتَيْنِ مِنْ أَعْنَابٍ</div>
+        <div style="font-size:14px;line-height:1.75;margin-top:12px;color:var(--color-neutral-900)">আর আপনি তাদের কাছে দুই ব্যক্তির দৃষ্টান্ত বর্ণনা করুন — তাদের একজনকে আমরা দিয়েছিলাম দুটি আঙুরের বাগান।</div>
+      </div>
+      <div style="padding:16px 18px;border-bottom:2px solid var(--color-divider)">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
+          <span style="border:2px solid var(--color-neutral-500);color:var(--color-neutral-700);font-family:var(--font-heading);font-weight:800;font-size:12px;padding:1px 7px;font-variant-numeric:tabular-nums">৩৩</span>
+          <span style="margin-left:auto;display:flex;gap:14px;color:var(--color-neutral-600)"><i data-lucide="bookmark" width="16" height="16"></i><i data-lucide="ellipsis-vertical" width="16" height="16"></i></span>
+        </div>
+        <div style="font-family:'Noto Naskh Arabic',serif;font-size:23px;line-height:2.15;direction:rtl;text-align:right">كِلْتَا الْجَنَّتَيْنِ آتَتْ أُكُلَهَا وَلَمْ تَظْلِم مِّنْهُ شَيْئًا</div>
+        <div style="font-size:14px;line-height:1.75;margin-top:12px;color:var(--color-neutral-900)">উভয় বাগানই ফল দিয়েছিল এবং তাতে কোনো কমতি করেনি।</div>
+      </div>
+      <div style="padding:16px 18px">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
+          <span style="border:2px solid var(--color-neutral-500);color:var(--color-neutral-700);font-family:var(--font-heading);font-weight:800;font-size:12px;padding:1px 7px;font-variant-numeric:tabular-nums">৩৪</span>
+          <span style="margin-left:auto;display:flex;gap:14px;color:var(--color-neutral-600)"><i data-lucide="bookmark" width="16" height="16"></i><i data-lucide="ellipsis-vertical" width="16" height="16"></i></span>
+        </div>
+        <div style="font-family:'Noto Naskh Arabic',serif;font-size:23px;line-height:2.15;direction:rtl;text-align:right">وَكَانَ لَهُ ثَمَرٌ فَقَالَ لِصَاحِبِهِ وَهُوَ يُحَاوِرُهُ</div>
+      </div>
+    </div>
+
+    <div style="border-top:2px solid var(--color-text);background:var(--color-bg)">
+      <div style="display:flex;align-items:center;gap:10px;padding:10px 18px;border-bottom:2px solid var(--color-divider)">
+        <i data-lucide="mic" width="15" height="15" style="color:var(--color-neutral-700)"></i>
+        <span style="font-size:12.5px;font-weight:600;flex:1">মিশারি রশিদ আল-আফাসি</span>
+        <span style="font-size:11px;font-weight:700;color:var(--color-accent-700)">১.০×</span>
+        <i data-lucide="circle-arrow-down" width="16" height="16" style="color:var(--color-neutral-700)"></i>
+      </div>
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 24px 20px">
+        <i data-lucide="repeat-1" width="21" height="21" style="color:var(--color-accent)"></i>
+        <i data-lucide="skip-back" width="22" height="22"></i>
+        <div style="width:56px;height:56px;background:var(--color-accent-700);color:var(--color-bg);display:flex;align-items:center;justify-content:center"><i data-lucide="pause" width="26" height="26"></i></div>
+        <i data-lucide="skip-forward" width="22" height="22"></i>
+        <i data-lucide="list" width="21" height="21" style="color:var(--color-neutral-700)"></i>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div style="display:flex;flex-direction:column;gap:10px;width:390px">
+  <div style="display:flex;align-items:baseline;gap:8px;border-bottom:2px solid var(--color-divider);padding-bottom:8px">
+    <span style="font-family:var(--font-heading);font-weight:800;font-size:13px;color:var(--color-accent-700)">০৯</span>
+    <span style="font-family:var(--font-heading);font-weight:800;font-size:14px">সূরা পাঠ — রাত</span>
+    <span style="font-size:11px;color:var(--color-neutral-700);margin-left:auto">Night + word-by-word</span>
+  </div>
+  <div style="width:390px;height:844px;background:#1a1918;color:#f3f2f2;border:2px solid var(--color-text);overflow:hidden;display:flex;flex-direction:column">
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 18px 8px;font-size:12px;font-weight:600"><span>২১:০৮</span><span style="display:flex;gap:5px;align-items:center"><i data-lucide="signal" width="13" height="13"></i><i data-lucide="wifi" width="13" height="13"></i><i data-lucide="battery-full" width="16" height="16"></i></span></div>
+    <div style="display:flex;align-items:center;gap:12px;padding:6px 18px 12px;border-bottom:2px solid #f3f2f2">
+      <i data-lucide="arrow-left" width="20" height="20"></i>
+      <div style="flex:1;min-width:0"><div style="font-family:var(--font-heading);font-weight:800;font-size:16px">আল-কাহফ</div><div style="font-size:11px;color:#a09b99">শব্দে শব্দে মোড চালু</div></div>
+      <i data-lucide="type" width="19" height="19"></i>
+      <i data-lucide="sun" width="19" height="19" style="color:var(--color-accent-400)"></i>
+    </div>
+    <div style="flex:1 1 auto;overflow:hidden">
+      <div style="padding:20px 18px;border-bottom:2px solid #3a3735;background:#232120;border-left:6px solid var(--color-accent-500)">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
+          <span style="border:2px solid var(--color-accent-500);color:var(--color-accent-400);font-family:var(--font-heading);font-weight:800;font-size:12px;padding:1px 7px">৩২</span>
+          <span style="margin-left:auto;display:flex;gap:14px;color:#a09b99"><i data-lucide="bookmark" width="16" height="16"></i><i data-lucide="ellipsis-vertical" width="16" height="16"></i></span>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:10px 14px;direction:rtl;justify-content:flex-start">
+          <div style="text-align:center;background:var(--color-accent-700);color:#f3f2f2;padding:4px 8px"><div style="font-family:'Noto Naskh Arabic',serif;font-size:24px;line-height:1.5">وَاضْرِبْ</div><div style="font-size:11px;font-weight:600">এবং বর্ণনা করুন</div></div>
+          <div style="text-align:center;padding:4px 2px"><div style="font-family:'Noto Naskh Arabic',serif;font-size:24px;line-height:1.5">لَهُم</div><div style="font-size:11px;color:#a09b99">তাদের কাছে</div></div>
+          <div style="text-align:center;padding:4px 2px"><div style="font-family:'Noto Naskh Arabic',serif;font-size:24px;line-height:1.5">مَّثَلًا</div><div style="font-size:11px;color:#a09b99">দৃষ্টান্ত</div></div>
+          <div style="text-align:center;padding:4px 2px"><div style="font-family:'Noto Naskh Arabic',serif;font-size:24px;line-height:1.5">رَّجُلَيْنِ</div><div style="font-size:11px;color:#a09b99">দুই ব্যক্তির</div></div>
+        </div>
+        <div style="font-size:14px;line-height:1.75;margin-top:16px;color:#d8d4d2">আর আপনি তাদের কাছে দুই ব্যক্তির দৃষ্টান্ত বর্ণনা করুন।</div>
+      </div>
+      <div style="padding:20px 18px;border-bottom:2px solid #3a3735">
+        <span style="border:2px solid #6b6664;color:#a09b99;font-family:var(--font-heading);font-weight:800;font-size:12px;padding:1px 7px">৩৩</span>
+        <div style="font-family:'Noto Naskh Arabic',serif;font-size:23px;line-height:2.15;direction:rtl;text-align:right;margin-top:12px">كِلْتَا الْجَنَّتَيْنِ آتَتْ أُكُلَهَا وَلَمْ تَظْلِم مِّنْهُ شَيْئًا</div>
+        <div style="font-size:14px;line-height:1.75;margin-top:12px;color:#d8d4d2">উভয় বাগানই ফল দিয়েছিল এবং তাতে কোনো কমতি করেনি।</div>
+      </div>
+      <div style="padding:20px 18px">
+        <span style="border:2px solid #6b6664;color:#a09b99;font-family:var(--font-heading);font-weight:800;font-size:12px;padding:1px 7px">৩৪</span>
+        <div style="font-family:'Noto Naskh Arabic',serif;font-size:23px;line-height:2.15;direction:rtl;text-align:right;margin-top:12px">وَكَانَ لَهُ ثَمَرٌ فَقَالَ لِصَاحِبِهِ</div>
+      </div>
+    </div>
+    <div style="border-top:2px solid #f3f2f2">
+      <div style="display:flex;align-items:center;gap:10px;padding:10px 18px;border-bottom:2px solid #3a3735">
+        <i data-lucide="mic" width="15" height="15" style="color:#a09b99"></i>
+        <span style="font-size:12.5px;font-weight:600;flex:1">মিশারি রশিদ আল-আফাসি</span>
+        <span style="font-size:11px;font-weight:700;color:var(--color-accent-300)">০.৭৫×</span>
+        <i data-lucide="check-check" width="16" height="16" style="color:var(--color-accent-400)"></i>
+      </div>
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 24px 20px">
+        <i data-lucide="repeat-1" width="21" height="21" style="color:var(--color-accent-400)"></i>
+        <i data-lucide="skip-back" width="22" height="22"></i>
+        <div style="width:56px;height:56px;background:var(--color-accent-700);color:#f3f2f2;display:flex;align-items:center;justify-content:center"><i data-lucide="pause" width="26" height="26"></i></div>
+        <i data-lucide="skip-forward" width="22" height="22"></i>
+        <i data-lucide="list" width="21" height="21" style="color:#a09b99"></i>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div style="display:flex;flex-direction:column;gap:10px;width:390px">
+  <div style="display:flex;align-items:baseline;gap:8px;border-bottom:2px solid var(--color-divider);padding-bottom:8px">
+    <span style="font-family:var(--font-heading);font-weight:800;font-size:13px;color:var(--color-accent-700)">১০</span>
+    <span style="font-family:var(--font-heading);font-weight:800;font-size:14px">আয়াত অ্যাকশন</span>
+    <span style="font-size:11px;color:var(--color-neutral-700);margin-left:auto">Long-press sheet</span>
+  </div>
+  <div style="width:390px;height:844px;background:var(--color-bg);border:2px solid var(--color-text);overflow:hidden;display:flex;flex-direction:column;position:relative">
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 18px 8px;font-size:12px;font-weight:600"><span>৯:৪১</span><span style="display:flex;gap:5px;align-items:center"><i data-lucide="signal" width="13" height="13"></i><i data-lucide="wifi" width="13" height="13"></i><i data-lucide="battery-full" width="16" height="16"></i></span></div>
+    <div style="display:flex;align-items:center;gap:12px;padding:6px 18px 12px;border-bottom:2px solid var(--color-text);opacity:0.35">
+      <i data-lucide="arrow-left" width="20" height="20"></i>
+      <div style="flex:1"><div style="font-family:var(--font-heading);font-weight:800;font-size:16px">আল-কাহফ</div></div>
+      <i data-lucide="type" width="19" height="19"></i>
+    </div>
+    <div style="flex:1 1 auto;padding:16px 18px;opacity:0.35">
+      <div style="font-family:'Noto Naskh Arabic',serif;font-size:23px;line-height:2.15;direction:rtl;text-align:right">وَاضْرِبْ لَهُم مَّثَلًا رَّجُلَيْنِ جَعَلْنَا لِأَحَدِهِمَا جَنَّتَيْنِ</div>
+      <div style="font-size:14px;line-height:1.75;margin-top:12px">আর আপনি তাদের কাছে দুই ব্যক্তির দৃষ্টান্ত বর্ণনা করুন।</div>
+    </div>
+    <div style="background:var(--color-bg);border-top:2px solid var(--color-text)">
+      <div style="padding:16px 18px;border-bottom:2px solid var(--color-text);display:flex;align-items:center;gap:10px">
+        <span style="background:var(--color-accent-700);color:var(--color-bg);font-family:var(--font-heading);font-weight:800;font-size:12px;padding:2px 8px">১৮ : ৩২</span>
+        <span style="font-family:var(--font-heading);font-weight:800;font-size:15px;flex:1">আয়াত ৩২</span>
+        <i data-lucide="x" width="20" height="20"></i>
+      </div>
+      <div style="display:flex;align-items:center;gap:14px;padding:15px 18px;border-bottom:2px solid var(--color-divider)"><i data-lucide="bookmark" width="19" height="19" style="color:var(--color-accent)"></i><span style="flex:1;font-size:14.5px;font-weight:600">বুকমার্ক করুন</span></div>
+      <div style="display:flex;align-items:center;gap:14px;padding:15px 18px;border-bottom:2px solid var(--color-divider)"><i data-lucide="pen-line" width="19" height="19" style="color:var(--color-accent)"></i><span style="flex:1;font-size:14.5px;font-weight:600">নোট লিখুন</span></div>
+      <div style="display:flex;align-items:center;gap:14px;padding:15px 18px;border-bottom:2px solid var(--color-divider)"><i data-lucide="play" width="19" height="19" style="color:var(--color-accent)"></i><span style="flex:1;font-size:14.5px;font-weight:600">এখান থেকে শুনুন</span></div>
+      <div style="display:flex;align-items:center;gap:14px;padding:15px 18px;border-bottom:2px solid var(--color-divider)"><i data-lucide="book-marked" width="19" height="19" style="color:var(--color-accent)"></i><span style="flex:1;font-size:14.5px;font-weight:600">তাফসির দেখুন</span><span style="font-size:11.5px;color:var(--color-neutral-700)">ইবনে কাসির</span></div>
+      <div style="display:flex;align-items:center;gap:14px;padding:15px 18px;border-bottom:2px solid var(--color-divider)"><i data-lucide="copy" width="19" height="19" style="color:var(--color-accent)"></i><span style="flex:1;font-size:14.5px;font-weight:600">কপি করুন</span></div>
+      <div style="display:flex;align-items:center;gap:14px;padding:15px 18px;border-bottom:2px solid var(--color-divider)"><i data-lucide="image-down" width="19" height="19" style="color:var(--color-accent)"></i><span style="flex:1;font-size:14.5px;font-weight:600">ছবি বানিয়ে শেয়ার করুন</span></div>
+      <div style="padding:16px 18px 24px"><button class="btn btn-secondary btn-block" style="padding:13px">বন্ধ করুন</button></div>
+    </div>
+  </div>
+</div>
+
+<div style="display:flex;flex-direction:column;gap:10px;width:390px">
+  <div style="display:flex;align-items:baseline;gap:8px;border-bottom:2px solid var(--color-divider);padding-bottom:8px">
+    <span style="font-family:var(--font-heading);font-weight:800;font-size:13px;color:var(--color-accent-700)">১১</span>
+    <span style="font-family:var(--font-heading);font-weight:800;font-size:14px">দৈনিক পাঠ পরিকল্পনা</span>
+    <span style="font-size:11px;color:var(--color-neutral-700);margin-left:auto">New feature</span>
+  </div>
+  <div style="width:390px;height:844px;background:var(--color-bg);border:2px solid var(--color-text);overflow:hidden;display:flex;flex-direction:column">
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 18px 8px;font-size:12px;font-weight:600"><span>৯:৪১</span><span style="display:flex;gap:5px;align-items:center"><i data-lucide="signal" width="13" height="13"></i><i data-lucide="wifi" width="13" height="13"></i><i data-lucide="battery-full" width="16" height="16"></i></span></div>
+    <div style="display:flex;align-items:center;gap:12px;padding:6px 18px 14px;border-bottom:2px solid var(--color-text)">
+      <i data-lucide="arrow-left" width="20" height="20"></i>
+      <h4 style="margin:0;font-size:19px;flex:1">পাঠ পরিকল্পনা</h4>
+      <i data-lucide="settings-2" width="19" height="19"></i>
+    </div>
+    <div style="background:var(--color-accent-700);color:var(--color-bg);padding:20px 18px">
+      <div style="font-size:11px;letter-spacing:0.14em;text-transform:uppercase;font-weight:700">আজকের লক্ষ্য</div>
+      <div style="display:flex;align-items:flex-end;gap:8px;margin-top:4px"><span style="font-family:var(--font-heading);font-weight:800;font-size:52px;line-height:1;font-variant-numeric:tabular-nums">১২</span><span style="font-family:var(--font-heading);font-weight:800;font-size:22px;padding-bottom:6px">/ ২০ আয়াত</span></div>
+      <div style="height:2px;background:rgba(255,255,255,0.45);margin:16px 0 8px;position:relative"><span style="position:absolute;left:0;top:0;height:2px;width:60%;background:var(--color-bg)"></span></div>
+      <div style="font-size:13px;font-weight:600">আর ৮ আয়াত — প্রায় ৪ মিনিট</div>
+    </div>
+    <div style="padding:16px 18px;border-bottom:2px solid var(--color-text)">
+      <div style="font-size:10.5px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-700);font-weight:700;margin-bottom:10px">গত ৩০ দিন</div>
+      <div style="display:grid;grid-template-columns:repeat(10,1fr);gap:4px">
+        <span style="aspect-ratio:1;background:var(--color-accent)"></span><span style="aspect-ratio:1;background:var(--color-accent)"></span><span style="aspect-ratio:1;background:var(--color-accent-300)"></span><span style="aspect-ratio:1;background:var(--color-neutral-300)"></span><span style="aspect-ratio:1;background:var(--color-accent)"></span><span style="aspect-ratio:1;background:var(--color-accent)"></span><span style="aspect-ratio:1;background:var(--color-accent)"></span><span style="aspect-ratio:1;background:var(--color-accent-400)"></span><span style="aspect-ratio:1;background:var(--color-accent)"></span><span style="aspect-ratio:1;background:var(--color-accent)"></span>
+        <span style="aspect-ratio:1;background:var(--color-neutral-300)"></span><span style="aspect-ratio:1;background:var(--color-accent)"></span><span style="aspect-ratio:1;background:var(--color-accent)"></span><span style="aspect-ratio:1;background:var(--color-accent)"></span><span style="aspect-ratio:1;background:var(--color-accent-300)"></span><span style="aspect-ratio:1;background:var(--color-accent)"></span><span style="aspect-ratio:1;background:var(--color-accent)"></span><span style="aspect-ratio:1;background:var(--color-neutral-300)"></span><span style="aspect-ratio:1;background:var(--color-accent)"></span><span style="aspect-ratio:1;background:var(--color-accent)"></span>
+        <span style="aspect-ratio:1;background:var(--color-accent)"></span><span style="aspect-ratio:1;background:var(--color-accent-400)"></span><span style="aspect-ratio:1;background:var(--color-accent)"></span><span style="aspect-ratio:1;background:var(--color-accent)"></span><span style="aspect-ratio:1;background:var(--color-accent)"></span><span style="aspect-ratio:1;background:var(--color-accent)"></span><span style="aspect-ratio:1;background:var(--color-accent-300)"></span><span style="aspect-ratio:1;background:var(--color-accent)"></span><span style="aspect-ratio:1;background:var(--color-accent-500)"></span><span style="aspect-ratio:1;border:2px solid var(--color-text)"></span>
+      </div>
+    </div>
+    <div style="padding:16px 18px 8px;font-size:10.5px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-700);font-weight:700">পরিকল্পনা বাছুন</div>
+    <div style="border-top:2px solid var(--color-divider)">
+      <div style="display:flex;align-items:center;gap:12px;padding:15px 18px;border-bottom:2px solid var(--color-divider);border-left:6px solid var(--color-accent)"><div style="flex:1"><div style="font-family:var(--font-heading);font-weight:800;font-size:15px">দিনে ২০ আয়াত</div><div style="font-size:11.5px;color:var(--color-neutral-700)">খতম হবে প্রায় ১১ মাসে</div></div><i data-lucide="circle-check-big" width="20" height="20" style="color:var(--color-accent)"></i></div>
+      <div style="display:flex;align-items:center;gap:12px;padding:15px 18px;border-bottom:2px solid var(--color-divider)"><div style="flex:1"><div style="font-family:var(--font-heading);font-weight:800;font-size:15px">দিনে ১ পারা</div><div style="font-size:11.5px;color:var(--color-neutral-700)">রমজানে খতম</div></div><i data-lucide="circle" width="20" height="20" style="color:var(--color-neutral-500)"></i></div>
+      <div style="display:flex;align-items:center;gap:12px;padding:15px 18px;border-bottom:2px solid var(--color-divider)"><div style="flex:1"><div style="font-family:var(--font-heading);font-weight:800;font-size:15px">দিনে ১০ মিনিট</div><div style="font-size:11.5px;color:var(--color-neutral-700)">সময় ধরে, আয়াত নয়</div></div><i data-lucide="circle" width="20" height="20" style="color:var(--color-neutral-500)"></i></div>
+      <div style="display:flex;align-items:center;gap:12px;padding:15px 18px;border-bottom:2px solid var(--color-divider)"><div style="flex:1"><div style="font-family:var(--font-heading);font-weight:800;font-size:15px">শুক্রবারে সূরা কাহফ</div><div style="font-size:11.5px;color:var(--color-neutral-700)">সাপ্তাহিক অভ্যাস</div></div><i data-lucide="circle" width="20" height="20" style="color:var(--color-neutral-500)"></i></div>
+    </div>
+    <div style="margin-top:auto;padding:16px 18px 24px"><button class="btn btn-primary btn-block" style="background:var(--color-accent-700);padding:15px;font-size:15px">আজকের পাঠ শুরু করুন<i data-lucide="arrow-right" width="17" height="17" style="margin-left:auto"></i></button></div>
+  </div>
+</div>
+
+<div style="display:flex;flex-direction:column;gap:10px;width:390px">
+  <div style="display:flex;align-items:baseline;gap:8px;border-bottom:2px solid var(--color-divider);padding-bottom:8px">
+    <span style="font-family:var(--font-heading);font-weight:800;font-size:13px;color:var(--color-accent-700)">১২</span>
+    <span style="font-family:var(--font-heading);font-weight:800;font-size:14px">তাসবিহ</span>
+    <span style="font-size:11px;color:var(--color-neutral-700);margin-left:auto">Thumb-reachable counter</span>
+  </div>
+  <div style="width:390px;height:844px;background:var(--color-bg);border:2px solid var(--color-text);overflow:hidden;display:flex;flex-direction:column">
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 18px 8px;font-size:12px;font-weight:600"><span>৯:৪১</span><span style="display:flex;gap:5px;align-items:center"><i data-lucide="signal" width="13" height="13"></i><i data-lucide="wifi" width="13" height="13"></i><i data-lucide="battery-full" width="16" height="16"></i></span></div>
+    <div style="display:flex;align-items:center;gap:12px;padding:6px 18px 14px;border-bottom:2px solid var(--color-text)">
+      <h4 style="margin:0;font-size:22px;flex:1">তাসবিহ</h4>
+      <i data-lucide="history" width="20" height="20"></i>
+      <i data-lucide="vibrate" width="20" height="20" style="color:var(--color-accent)"></i>
+    </div>
+    <div style="display:flex;gap:2px;padding:12px 18px;border-bottom:2px solid var(--color-text);overflow:hidden">
+      <span style="background:var(--color-text);color:var(--color-bg);font-family:var(--font-heading);font-weight:800;font-size:12.5px;padding:7px 11px;white-space:nowrap">সুবহানাল্লাহ</span>
+      <span style="border:2px solid var(--color-neutral-400);color:var(--color-neutral-700);font-family:var(--font-heading);font-weight:800;font-size:12.5px;padding:5px 11px;white-space:nowrap">আলহামদুলিল্লাহ</span>
+      <span style="border:2px solid var(--color-neutral-400);color:var(--color-neutral-700);font-family:var(--font-heading);font-weight:800;font-size:12.5px;padding:5px 11px;white-space:nowrap">আল্লাহু</span>
+    </div>
+    <div style="padding:26px 18px 20px;text-align:center;border-bottom:2px solid var(--color-divider)">
+      <div style="font-family:'Noto Naskh Arabic',serif;font-size:34px;line-height:1.6">سُبْحَانَ اللَّه</div>
+      <div style="font-size:13px;color:var(--color-neutral-700);margin-top:4px">সুবহানাল্লাহ · ৩৩ বার</div>
+    </div>
+    <div style="flex:1 1 auto;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 18px">
+      <div style="font-family:var(--font-heading);font-weight:800;font-size:132px;line-height:0.9;font-variant-numeric:tabular-nums;letter-spacing:-0.04em">২৭</div>
+      <div style="display:flex;align-items:center;gap:10px;margin-top:10px;width:100%">
+        <span style="font-size:12px;font-weight:700;color:var(--color-neutral-700)">০</span>
+        <div style="flex:1;height:2px;background:var(--color-neutral-300);position:relative"><span style="position:absolute;left:0;top:0;height:2px;width:82%;background:var(--color-accent)"></span></div>
+        <span style="font-size:12px;font-weight:700;color:var(--color-neutral-700)">৩৩</span>
+      </div>
+      <div style="display:flex;gap:0;margin-top:24px;border:2px solid var(--color-text);width:100%">
+        <div style="flex:1;padding:10px;text-align:center;border-right:2px solid var(--color-text)"><div style="font-size:10.5px;color:var(--color-neutral-700);font-weight:700;text-transform:uppercase;letter-spacing:0.06em">আজ মোট</div><div style="font-family:var(--font-heading);font-weight:800;font-size:20px;font-variant-numeric:tabular-nums">৩৬৪</div></div>
+        <div style="flex:1;padding:10px;text-align:center;border-right:2px solid var(--color-text)"><div style="font-size:10.5px;color:var(--color-neutral-700);font-weight:700;text-transform:uppercase;letter-spacing:0.06em">রাউন্ড</div><div style="font-family:var(--font-heading);font-weight:800;font-size:20px;font-variant-numeric:tabular-nums">১১</div></div>
+        <div style="flex:1;padding:10px;text-align:center"><div style="font-size:10.5px;color:var(--color-neutral-700);font-weight:700;text-transform:uppercase;letter-spacing:0.06em">টানা</div><div style="font-family:var(--font-heading);font-weight:800;font-size:20px;font-variant-numeric:tabular-nums">৯ দিন</div></div>
+      </div>
+    </div>
+    <div style="padding:0 18px 14px;display:flex;gap:12px;align-items:stretch">
+      <div style="width:64px;border:2px solid var(--color-text);display:flex;align-items:center;justify-content:center"><i data-lucide="rotate-ccw" width="22" height="22"></i></div>
+      <div style="flex:1;background:var(--color-accent-700);color:var(--color-bg);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:26px 0"><i data-lucide="plus" width="30" height="30"></i><span style="font-family:var(--font-heading);font-weight:800;font-size:14px;margin-top:2px">গণনা করুন</span></div>
+      <div style="width:64px;border:2px solid var(--color-text);display:flex;align-items:center;justify-content:center"><i data-lucide="target" width="22" height="22"></i></div>
+    </div>
+    <div style="display:flex;border-top:2px solid var(--color-text)">
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 0 16px;color:var(--color-neutral-700)"><i data-lucide="house" width="21" height="21"></i><span style="font-size:10px;font-weight:700">হোম</span></div>
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 0 16px;color:var(--color-neutral-700)"><i data-lucide="book-open" width="21" height="21"></i><span style="font-size:10px;font-weight:700">কুরআন</span></div>
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 0 16px;color:var(--color-neutral-700)"><i data-lucide="clock" width="21" height="21"></i><span style="font-size:10px;font-weight:700">নামাজ</span></div>
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 0 16px;border-top:4px solid var(--color-accent);margin-top:-4px;color:var(--color-accent-700)"><i data-lucide="circle-dot" width="21" height="21"></i><span style="font-size:10px;font-weight:700">তাসবিহ</span></div>
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 0 16px;color:var(--color-neutral-700)"><i data-lucide="layout-grid" width="21" height="21"></i><span style="font-size:10px;font-weight:700">আরও</span></div>
+    </div>
+  </div>
+</div>
+
+<div style="display:flex;flex-direction:column;gap:10px;width:390px">
+  <div style="display:flex;align-items:baseline;gap:8px;border-bottom:2px solid var(--color-divider);padding-bottom:8px">
+    <span style="font-family:var(--font-heading);font-weight:800;font-size:13px;color:var(--color-accent-700)">১৩</span>
+    <span style="font-family:var(--font-heading);font-weight:800;font-size:14px">কিবলা</span>
+    <span style="font-size:11px;color:var(--color-neutral-700);margin-left:auto">Bearing plate</span>
+  </div>
+  <div style="width:390px;height:844px;background:var(--color-bg);border:2px solid var(--color-text);overflow:hidden;display:flex;flex-direction:column">
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 18px 8px;font-size:12px;font-weight:600"><span>৯:৪১</span><span style="display:flex;gap:5px;align-items:center"><i data-lucide="signal" width="13" height="13"></i><i data-lucide="wifi" width="13" height="13"></i><i data-lucide="battery-full" width="16" height="16"></i></span></div>
+    <div style="display:flex;align-items:center;gap:12px;padding:6px 18px 14px;border-bottom:2px solid var(--color-text)">
+      <i data-lucide="arrow-left" width="20" height="20"></i>
+      <h4 style="margin:0;font-size:19px;flex:1">কিবলা</h4>
+      <i data-lucide="info" width="19" height="19"></i>
+    </div>
+    <div style="display:flex;border-bottom:2px solid var(--color-text)">
+      <div style="flex:1;padding:14px 18px;border-right:2px solid var(--color-text)"><div style="font-size:10.5px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-700);font-weight:700">কিবলার দিক</div><div style="font-family:var(--font-heading);font-weight:800;font-size:26px;font-variant-numeric:tabular-nums">২৭৮°</div></div>
+      <div style="flex:1;padding:14px 18px"><div style="font-size:10.5px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-700);font-weight:700">মক্কা থেকে দূরত্ব</div><div style="font-family:var(--font-heading);font-weight:800;font-size:26px;font-variant-numeric:tabular-nums">৪,৭৯২ কিমি</div></div>
+    </div>
+    <div style="flex:1 1 auto;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px">
+      <div style="width:300px;height:300px;border:2px solid var(--color-text);position:relative;background:var(--color-bg)">
+        <span style="position:absolute;left:50%;top:0;bottom:0;width:2px;background:var(--color-neutral-300);transform:translateX(-1px)"></span>
+        <span style="position:absolute;top:50%;left:0;right:0;height:2px;background:var(--color-neutral-300);transform:translateY(-1px)"></span>
+        <span style="position:absolute;left:50%;top:8px;transform:translateX(-50%);font-family:var(--font-heading);font-weight:800;font-size:13px">N</span>
+        <span style="position:absolute;left:50%;bottom:8px;transform:translateX(-50%);font-family:var(--font-heading);font-weight:800;font-size:13px;color:var(--color-neutral-600)">S</span>
+        <span style="position:absolute;top:50%;right:10px;transform:translateY(-50%);font-family:var(--font-heading);font-weight:800;font-size:13px;color:var(--color-neutral-600)">E</span>
+        <span style="position:absolute;top:50%;left:10px;transform:translateY(-50%);font-family:var(--font-heading);font-weight:800;font-size:13px;color:var(--color-neutral-600)">W</span>
+        <span style="position:absolute;left:50%;top:50%;width:4px;height:150px;background:var(--color-accent);transform:translate(-2px,-100%) rotate(-82deg);transform-origin:50% 100%"></span>
+        <span style="position:absolute;left:50%;top:50%;width:2px;height:110px;background:var(--color-neutral-500);transform:translate(-1px,0) rotate(-82deg);transform-origin:50% 0"></span>
+        <span style="position:absolute;left:50%;top:50%;width:14px;height:14px;background:var(--color-text);transform:translate(-7px,-7px)"></span>
+        <span style="position:absolute;left:14px;top:26px;width:40px;height:40px;border:2px solid var(--color-accent);display:flex;align-items:center;justify-content:center;color:var(--color-accent);transform:rotate(0deg)"><i data-lucide="landmark" width="20" height="20"></i></span>
+      </div>
+      <div style="margin-top:22px;border:2px solid var(--color-accent);background:var(--color-accent-700);color:var(--color-bg);padding:10px 16px;font-family:var(--font-heading);font-weight:800;font-size:15px;display:flex;align-items:center;gap:8px"><i data-lucide="check" width="18" height="18"></i>সোজা সামনে — কিবলা ঠিক আছে</div>
+    </div>
+    <div style="padding:14px 18px 22px;border-top:2px solid var(--color-divider);display:flex;gap:12px;align-items:flex-start">
+      <i data-lucide="refresh-cw" width="18" height="18" style="color:var(--color-neutral-700);flex:0 0 auto;margin-top:2px"></i>
+      <div style="font-size:12.5px;line-height:1.6;color:var(--color-neutral-800)">দিক ঠিক না লাগলে ফোনটি ৮-এর মতো করে কয়েকবার ঘোরান। ধাতব বস্তু ও চুম্বক থেকে দূরে থাকুন।</div>
+    </div>
+  </div>
+</div>
+
+<div style="display:flex;flex-direction:column;gap:10px;width:390px">
+  <div style="display:flex;align-items:baseline;gap:8px;border-bottom:2px solid var(--color-divider);padding-bottom:8px">
+    <span style="font-family:var(--font-heading);font-weight:800;font-size:13px;color:var(--color-accent-700)">১৪</span>
+    <span style="font-family:var(--font-heading);font-weight:800;font-size:14px">হাদিস</span>
+    <span style="font-size:11px;color:var(--color-neutral-700);margin-left:auto">Daily + browsable</span>
+  </div>
+  <div style="width:390px;height:844px;background:var(--color-bg);border:2px solid var(--color-text);overflow:hidden;display:flex;flex-direction:column">
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 18px 8px;font-size:12px;font-weight:600"><span>৯:৪১</span><span style="display:flex;gap:5px;align-items:center"><i data-lucide="signal" width="13" height="13"></i><i data-lucide="wifi" width="13" height="13"></i><i data-lucide="battery-full" width="16" height="16"></i></span></div>
+    <div style="display:flex;align-items:center;gap:12px;padding:6px 18px 14px;border-bottom:2px solid var(--color-text)">
+      <i data-lucide="arrow-left" width="20" height="20"></i>
+      <h4 style="margin:0;font-size:19px;flex:1">হাদিস</h4>
+      <i data-lucide="search" width="19" height="19"></i>
+      <i data-lucide="bookmark" width="19" height="19"></i>
+    </div>
+    <div style="background:var(--color-accent-700);color:var(--color-bg);padding:20px 18px">
+      <div style="font-size:11px;letter-spacing:0.14em;text-transform:uppercase;font-weight:700;margin-bottom:14px">আজকের হাদিস</div>
+      <div style="font-family:'Noto Naskh Arabic',serif;font-size:22px;line-height:2;direction:rtl;text-align:right">مَنْ لَا يَرْحَمْ لَا يُرْحَمْ</div>
+      <div style="font-size:15px;line-height:1.7;margin-top:14px;font-weight:500">যে দয়া করে না, তার প্রতিও দয়া করা হয় না।</div>
+      <div style="display:flex;align-items:center;gap:12px;margin-top:16px;padding-top:14px;border-top:2px solid rgba(255,255,255,0.45)">
+        <span style="font-size:12px;font-weight:700;flex:1">সহিহ বুখারি · ৫৯৯৭</span>
+        <i data-lucide="bookmark" width="18" height="18"></i>
+        <i data-lucide="share-2" width="18" height="18"></i>
+        <i data-lucide="image-down" width="18" height="18"></i>
+      </div>
+    </div>
+    <div style="padding:16px 18px 8px;font-size:10.5px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-700);font-weight:700">গ্রন্থ</div>
+    <div style="border-top:2px solid var(--color-divider);flex:1 1 auto;overflow:hidden">
+      <div style="display:flex;align-items:center;gap:14px;padding:15px 18px;border-bottom:2px solid var(--color-divider)"><div style="flex:1"><div style="font-family:var(--font-heading);font-weight:800;font-size:15.5px">সহিহ বুখারি</div><div style="font-size:11.5px;color:var(--color-neutral-700)">৯৭ অধ্যায় · ৭,৫৬৩ হাদিস</div></div><i data-lucide="chevron-right" width="17" height="17"></i></div>
+      <div style="display:flex;align-items:center;gap:14px;padding:15px 18px;border-bottom:2px solid var(--color-divider)"><div style="flex:1"><div style="font-family:var(--font-heading);font-weight:800;font-size:15.5px">সহিহ মুসলিম</div><div style="font-size:11.5px;color:var(--color-neutral-700)">৫৬ অধ্যায় · ৭,৪৭০ হাদিস</div></div><i data-lucide="chevron-right" width="17" height="17"></i></div>
+      <div style="display:flex;align-items:center;gap:14px;padding:15px 18px;border-bottom:2px solid var(--color-divider)"><div style="flex:1"><div style="font-family:var(--font-heading);font-weight:800;font-size:15.5px">সুনানে আবু দাউদ</div><div style="font-size:11.5px;color:var(--color-neutral-700)">৪৩ অধ্যায় · ৫,২৭৪ হাদিস</div></div><i data-lucide="chevron-right" width="17" height="17"></i></div>
+      <div style="display:flex;align-items:center;gap:14px;padding:15px 18px;border-bottom:2px solid var(--color-divider)"><div style="flex:1"><div style="font-family:var(--font-heading);font-weight:800;font-size:15.5px">জামে তিরমিজি</div><div style="font-size:11.5px;color:var(--color-neutral-700)">৪৯ অধ্যায় · ৩,৯৫৬ হাদিস</div></div><i data-lucide="chevron-right" width="17" height="17"></i></div>
+      <div style="display:flex;align-items:center;gap:14px;padding:15px 18px;border-bottom:2px solid var(--color-divider)"><div style="flex:1"><div style="font-family:var(--font-heading);font-weight:800;font-size:15.5px">৪০ হাদিস — নববি</div><div style="font-size:11.5px;color:var(--color-neutral-700)">নতুনদের জন্য সংকলন</div></div><span class="tag tag-accent" style="font-size:10px;padding:2px 6px">শুরু করুন</span><i data-lucide="chevron-right" width="17" height="17"></i></div>
+    </div>
+  </div>
+</div>
+
+<div style="display:flex;flex-direction:column;gap:10px;width:390px">
+  <div style="display:flex;align-items:baseline;gap:8px;border-bottom:2px solid var(--color-divider);padding-bottom:8px">
+    <span style="font-family:var(--font-heading);font-weight:800;font-size:13px;color:var(--color-accent-700)">১৫</span>
+    <span style="font-family:var(--font-heading);font-weight:800;font-size:14px">দুআ সংকলন</span>
+    <span style="font-size:11px;color:var(--color-neutral-700);margin-left:auto">New feature</span>
+  </div>
+  <div style="width:390px;height:844px;background:var(--color-bg);border:2px solid var(--color-text);overflow:hidden;display:flex;flex-direction:column">
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 18px 8px;font-size:12px;font-weight:600"><span>৯:৪১</span><span style="display:flex;gap:5px;align-items:center"><i data-lucide="signal" width="13" height="13"></i><i data-lucide="wifi" width="13" height="13"></i><i data-lucide="battery-full" width="16" height="16"></i></span></div>
+    <div style="display:flex;align-items:center;gap:12px;padding:6px 18px 14px;border-bottom:2px solid var(--color-text)">
+      <i data-lucide="arrow-left" width="20" height="20"></i>
+      <h4 style="margin:0;font-size:19px;flex:1">দুআ</h4>
+      <i data-lucide="search" width="19" height="19"></i>
+      <i data-lucide="bookmark" width="19" height="19"></i>
+    </div>
+    <div style="padding:14px 18px 8px;font-size:10.5px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-700);font-weight:700">এই মুহূর্তে দরকারি</div>
+    <div style="padding:0 18px 14px;display:flex;gap:8px">
+      <span style="background:var(--color-text);color:var(--color-bg);font-size:12px;font-weight:700;padding:7px 11px">ঘুমানোর আগে</span>
+      <span style="border:2px solid var(--color-neutral-400);color:var(--color-neutral-800);font-size:12px;font-weight:700;padding:5px 11px">খাওয়ার সময়</span>
+      <span style="border:2px solid var(--color-neutral-400);color:var(--color-neutral-800);font-size:12px;font-weight:700;padding:5px 11px">সফরে</span>
+    </div>
+    <div style="border-top:2px solid var(--color-text);border-bottom:2px solid var(--color-text);padding:16px 18px">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px"><span style="font-family:var(--font-heading);font-weight:800;font-size:15px;flex:1">ঘুমানোর আগের দুআ</span><i data-lucide="volume-2" width="18" height="18" style="color:var(--color-accent)"></i><i data-lucide="bookmark" width="18" height="18" style="color:var(--color-neutral-700)"></i></div>
+      <div style="font-family:'Noto Naskh Arabic',serif;font-size:22px;line-height:2;direction:rtl;text-align:right">بِاسْمِكَ اللَّهُمَّ أَمُوتُ وَأَحْيَا</div>
+      <div style="font-size:13px;font-weight:600;color:var(--color-accent-700);margin-top:10px">বিসমিকা আল্লাহুম্মা আমূতু ওয়া আহইয়া</div>
+      <div style="font-size:13.5px;line-height:1.7;margin-top:6px;color:var(--color-neutral-900)">হে আল্লাহ! আপনার নামেই আমি মরি ও বাঁচি।</div>
+      <div style="font-size:11.5px;color:var(--color-neutral-700);margin-top:8px;font-weight:600">সহিহ বুখারি · ৬৩২৪</div>
+    </div>
+    <div style="padding:16px 18px 8px;font-size:10.5px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-700);font-weight:700">বিভাগ</div>
+    <div style="padding:0 18px;flex:1 1 auto;overflow:hidden">
+      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:2px;background:var(--color-divider);border:2px solid var(--color-text)">
+        <div style="background:var(--color-bg);padding:14px 12px"><i data-lucide="sunrise" width="19" height="19" style="color:var(--color-accent)"></i><div style="font-size:13.5px;font-weight:600;margin-top:8px">সকাল-সন্ধ্যা</div><div style="font-size:11px;color:var(--color-neutral-700)">২৪টি</div></div>
+        <div style="background:var(--color-bg);padding:14px 12px"><i data-lucide="hand-heart" width="19" height="19" style="color:var(--color-accent)"></i><div style="font-size:13.5px;font-weight:600;margin-top:8px">নামাজের দুআ</div><div style="font-size:11px;color:var(--color-neutral-700)">১৮টি</div></div>
+        <div style="background:var(--color-bg);padding:14px 12px"><i data-lucide="heart-pulse" width="19" height="19" style="color:var(--color-accent)"></i><div style="font-size:13.5px;font-weight:600;margin-top:8px">রোগ ও কষ্টে</div><div style="font-size:11px;color:var(--color-neutral-700)">১৫টি</div></div>
+        <div style="background:var(--color-bg);padding:14px 12px"><i data-lucide="users" width="19" height="19" style="color:var(--color-accent)"></i><div style="font-size:13.5px;font-weight:600;margin-top:8px">পরিবার</div><div style="font-size:11px;color:var(--color-neutral-700)">১২টি</div></div>
+        <div style="background:var(--color-bg);padding:14px 12px"><i data-lucide="plane" width="19" height="19" style="color:var(--color-accent)"></i><div style="font-size:13.5px;font-weight:600;margin-top:8px">সফর</div><div style="font-size:11px;color:var(--color-neutral-700)">৯টি</div></div>
+        <div style="background:var(--color-bg);padding:14px 12px"><i data-lucide="shield" width="19" height="19" style="color:var(--color-accent)"></i><div style="font-size:13.5px;font-weight:600;margin-top:8px">আশ্রয় প্রার্থনা</div><div style="font-size:11px;color:var(--color-neutral-700)">১৪টি</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div style="display:flex;flex-direction:column;gap:10px;width:390px">
+  <div style="display:flex;align-items:baseline;gap:8px;border-bottom:2px solid var(--color-divider);padding-bottom:8px">
+    <span style="font-family:var(--font-heading);font-weight:800;font-size:13px;color:var(--color-accent-700)">১৬</span>
+    <span style="font-family:var(--font-heading);font-weight:800;font-size:14px">যাকাত ক্যালকুলেটর</span>
+    <span style="font-size:11px;color:var(--color-neutral-700);margin-left:auto">Live nisab</span>
+  </div>
+  <div style="width:390px;height:844px;background:var(--color-bg);border:2px solid var(--color-text);overflow:hidden;display:flex;flex-direction:column">
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 18px 8px;font-size:12px;font-weight:600"><span>৯:৪১</span><span style="display:flex;gap:5px;align-items:center"><i data-lucide="signal" width="13" height="13"></i><i data-lucide="wifi" width="13" height="13"></i><i data-lucide="battery-full" width="16" height="16"></i></span></div>
+    <div style="display:flex;align-items:center;gap:12px;padding:6px 18px 14px;border-bottom:2px solid var(--color-text)">
+      <i data-lucide="arrow-left" width="20" height="20"></i>
+      <h4 style="margin:0;font-size:19px;flex:1">যাকাত</h4>
+      <i data-lucide="history" width="19" height="19"></i>
+      <i data-lucide="circle-help" width="19" height="19"></i>
+    </div>
+    <div style="display:flex;border-bottom:2px solid var(--color-text)">
+      <div style="flex:1;padding:12px 18px;border-right:2px solid var(--color-divider)"><div style="font-size:10.5px;text-transform:uppercase;letter-spacing:0.08em;color:var(--color-neutral-700);font-weight:700">নিসাব (রূপা)</div><div style="font-family:var(--font-heading);font-weight:800;font-size:16px">৭৮,৫০০ ৳</div></div>
+      <div style="flex:1;padding:12px 18px"><div style="font-size:10.5px;text-transform:uppercase;letter-spacing:0.08em;color:var(--color-neutral-700);font-weight:700">রূপা / ভরি</div><div style="font-family:var(--font-heading);font-weight:800;font-size:16px">২,১০০ ৳</div></div>
+    </div>
+    <div style="flex:1 1 auto;overflow:hidden">
+      <div style="padding:14px 18px 8px;font-size:10.5px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-700);font-weight:700">সম্পদ</div>
+      <div style="border-top:2px solid var(--color-divider)">
+        <div style="display:flex;align-items:center;gap:12px;padding:12px 18px;border-bottom:2px solid var(--color-divider)"><span style="flex:1;font-size:14px;font-weight:600">নগদ ও ব্যাংক</span><span style="font-family:var(--font-heading);font-weight:800;font-size:15px;font-variant-numeric:tabular-nums">৪,২০,০০০</span><span style="font-size:12px;color:var(--color-neutral-700)">৳</span></div>
+        <div style="display:flex;align-items:center;gap:12px;padding:12px 18px;border-bottom:2px solid var(--color-divider)"><span style="flex:1;font-size:14px;font-weight:600">স্বর্ণ <span style="font-size:11.5px;color:var(--color-neutral-700);font-weight:400">১২ ভরি</span></span><span style="font-family:var(--font-heading);font-weight:800;font-size:15px;font-variant-numeric:tabular-nums">১৬,৮০,০০০</span><span style="font-size:12px;color:var(--color-neutral-700)">৳</span></div>
+        <div style="display:flex;align-items:center;gap:12px;padding:12px 18px;border-bottom:2px solid var(--color-divider)"><span style="flex:1;font-size:14px;font-weight:600">রূপা</span><span style="font-family:var(--font-heading);font-weight:800;font-size:15px;font-variant-numeric:tabular-nums">০</span><span style="font-size:12px;color:var(--color-neutral-700)">৳</span></div>
+        <div style="display:flex;align-items:center;gap:12px;padding:12px 18px;border-bottom:2px solid var(--color-divider)"><span style="flex:1;font-size:14px;font-weight:600">ব্যবসার পণ্য</span><span style="font-family:var(--font-heading);font-weight:800;font-size:15px;font-variant-numeric:tabular-nums">২,৫০,০০০</span><span style="font-size:12px;color:var(--color-neutral-700)">৳</span></div>
+        <div style="display:flex;align-items:center;gap:12px;padding:12px 18px;border-bottom:2px solid var(--color-divider)"><span style="flex:1;font-size:14px;font-weight:600">বিনিয়োগ ও শেয়ার</span><span style="font-family:var(--font-heading);font-weight:800;font-size:15px;font-variant-numeric:tabular-nums">৮০,০০০</span><span style="font-size:12px;color:var(--color-neutral-700)">৳</span></div>
+      </div>
+      <div style="padding:14px 18px 8px;font-size:10.5px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-700);font-weight:700">বাদ যাবে</div>
+      <div style="border-top:2px solid var(--color-divider)">
+        <div style="display:flex;align-items:center;gap:12px;padding:12px 18px;border-bottom:2px solid var(--color-divider)"><span style="flex:1;font-size:14px;font-weight:600">ঋণ ও দেনা</span><span style="font-family:var(--font-heading);font-weight:800;font-size:15px;font-variant-numeric:tabular-nums;color:var(--color-accent-700)">− ১,৫০,০০০</span><span style="font-size:12px;color:var(--color-neutral-700)">৳</span></div>
+        <div style="display:flex;align-items:center;gap:12px;padding:12px 18px;border-bottom:2px solid var(--color-divider)"><span style="flex:1;font-size:14px;font-weight:600">বাকি খরচ</span><span style="font-family:var(--font-heading);font-weight:800;font-size:15px;font-variant-numeric:tabular-nums;color:var(--color-accent-700)">− ২০,০০০</span><span style="font-size:12px;color:var(--color-neutral-700)">৳</span></div>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;padding:14px 18px;border-bottom:2px solid var(--color-divider)"><i data-lucide="plus" width="17" height="17" style="color:var(--color-accent)"></i><span style="font-size:14px;font-weight:700;color:var(--color-accent-700)">আরেকটি খাত যোগ করুন</span></div>
+    </div>
+    <div style="background:var(--color-accent-700);color:var(--color-bg);padding:16px 18px;border-top:2px solid var(--color-text)">
+      <div style="display:flex;justify-content:space-between;font-size:12.5px;font-weight:600"><span>মোট যাকাতযোগ্য সম্পদ</span><span style="font-variant-numeric:tabular-nums">২২,৬০,০০০ ৳</span></div>
+      <div style="height:2px;background:rgba(255,255,255,0.45);margin:12px 0"></div>
+      <div style="display:flex;align-items:flex-end;justify-content:space-between">
+        <div><div style="font-size:11px;letter-spacing:0.12em;text-transform:uppercase;font-weight:700">প্রদেয় যাকাত · ২.৫%</div><div style="font-family:var(--font-heading);font-weight:800;font-size:34px;line-height:1.1;font-variant-numeric:tabular-nums">৫৬,৫০০ ৳</div></div>
+        <i data-lucide="arrow-right" width="24" height="24"></i>
+      </div>
+    </div>
+    <div style="display:flex;gap:0;border-top:2px solid var(--color-text)">
+      <div style="flex:1;padding:14px;text-align:center;font-family:var(--font-heading);font-weight:800;font-size:13.5px;border-right:2px solid var(--color-text)">সংরক্ষণ করুন</div>
+      <div style="flex:1;padding:14px;text-align:center;font-family:var(--font-heading);font-weight:800;font-size:13.5px">হিসাব শেয়ার</div>
+    </div>
+  </div>
+</div>
+
+<div style="display:flex;flex-direction:column;gap:10px;width:390px">
+  <div style="display:flex;align-items:baseline;gap:8px;border-bottom:2px solid var(--color-divider);padding-bottom:8px">
+    <span style="font-family:var(--font-heading);font-weight:800;font-size:13px;color:var(--color-accent-700)">১৭</span>
+    <span style="font-family:var(--font-heading);font-weight:800;font-size:14px">মসজিদ ও জামাত</span>
+    <span style="font-size:11px;color:var(--color-neutral-700);margin-left:auto">Jamaat-first</span>
+  </div>
+  <div style="width:390px;height:844px;background:var(--color-bg);border:2px solid var(--color-text);overflow:hidden;display:flex;flex-direction:column">
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 18px 8px;font-size:12px;font-weight:600"><span>৯:৪১</span><span style="display:flex;gap:5px;align-items:center"><i data-lucide="signal" width="13" height="13"></i><i data-lucide="wifi" width="13" height="13"></i><i data-lucide="battery-full" width="16" height="16"></i></span></div>
+    <div style="display:flex;align-items:center;gap:12px;padding:6px 18px 14px;border-bottom:2px solid var(--color-text)">
+      <i data-lucide="arrow-left" width="20" height="20"></i>
+      <h4 style="margin:0;font-size:19px;flex:1">কাছের মসজিদ</h4>
+      <i data-lucide="map" width="19" height="19"></i>
+    </div>
+    <div style="height:150px;border-bottom:2px solid var(--color-text);position:relative;background-color:var(--color-neutral-200);background-image:repeating-linear-gradient(0deg,var(--color-neutral-300) 0 1px,transparent 1px 26px),repeating-linear-gradient(90deg,var(--color-neutral-300) 0 1px,transparent 1px 26px)">
+      <span style="position:absolute;left:52%;top:44%;width:14px;height:14px;background:var(--color-accent);transform:translate(-7px,-7px)"></span>
+      <span style="position:absolute;left:28%;top:64%;width:10px;height:10px;background:var(--color-text)"></span>
+      <span style="position:absolute;left:72%;top:28%;width:10px;height:10px;background:var(--color-text)"></span>
+      <span style="position:absolute;left:38%;top:22%;width:10px;height:10px;background:var(--color-text)"></span>
+      <span style="position:absolute;bottom:10px;left:12px;background:var(--color-bg);border:2px solid var(--color-text);font-size:11px;font-weight:700;padding:4px 8px">৭টি মসজিদ · ১ কিমি</span>
+    </div>
+    <div style="display:flex;gap:8px;padding:12px 18px;border-bottom:2px solid var(--color-text)">
+      <span style="background:var(--color-text);color:var(--color-bg);font-size:12px;font-weight:700;padding:7px 11px">দূরত্ব</span>
+      <span style="border:2px solid var(--color-neutral-400);color:var(--color-neutral-800);font-size:12px;font-weight:700;padding:5px 11px">জামাতের সময়</span>
+      <span style="border:2px solid var(--color-neutral-400);color:var(--color-neutral-800);font-size:12px;font-weight:700;padding:5px 11px">জুমা</span>
+    </div>
+    <div style="flex:1 1 auto;overflow:hidden">
+      <div style="padding:15px 18px;border-bottom:2px solid var(--color-divider);border-left:6px solid var(--color-accent)">
+        <div style="display:flex;align-items:baseline;gap:10px"><span style="font-family:var(--font-heading);font-weight:800;font-size:16px;flex:1">বায়তুল আমান জামে মসজিদ</span><span style="font-family:var(--font-heading);font-weight:800;font-size:14px;color:var(--color-accent-700)">২৪০ মি</span></div>
+        <div style="font-size:11.5px;color:var(--color-neutral-700);margin-top:2px">রোড ৭/এ, ধানমন্ডি · হেঁটে ৩ মিনিট</div>
+        <div style="display:flex;gap:2px;margin-top:10px;background:var(--color-divider);border:2px solid var(--color-text)">
+          <div style="flex:1;background:var(--color-bg);padding:6px 4px;text-align:center"><div style="font-size:10px;font-weight:700;color:var(--color-neutral-700)">ফজর</div><div style="font-size:12.5px;font-weight:700;font-variant-numeric:tabular-nums">৫:০০</div></div>
+          <div style="flex:1;background:var(--color-bg);padding:6px 4px;text-align:center"><div style="font-size:10px;font-weight:700;color:var(--color-neutral-700)">যোহর</div><div style="font-size:12.5px;font-weight:700;font-variant-numeric:tabular-nums">১:৩০</div></div>
+          <div style="flex:1;background:var(--color-accent-700);color:var(--color-bg);padding:6px 4px;text-align:center"><div style="font-size:10px;font-weight:700">আসর</div><div style="font-size:12.5px;font-weight:700;font-variant-numeric:tabular-nums">৪:৩০</div></div>
+          <div style="flex:1;background:var(--color-bg);padding:6px 4px;text-align:center"><div style="font-size:10px;font-weight:700;color:var(--color-neutral-700)">মাগরিব</div><div style="font-size:12.5px;font-weight:700;font-variant-numeric:tabular-nums">৬:০৬</div></div>
+          <div style="flex:1;background:var(--color-bg);padding:6px 4px;text-align:center"><div style="font-size:10px;font-weight:700;color:var(--color-neutral-700)">ইশা</div><div style="font-size:12.5px;font-weight:700;font-variant-numeric:tabular-nums">৭:৪৫</div></div>
+        </div>
+        <div style="display:flex;gap:8px;margin-top:10px"><button class="btn btn-primary" style="background:var(--color-accent-700);padding:8px 12px;font-size:12.5px">পথ দেখান</button><button class="btn btn-secondary" style="padding:8px 12px;font-size:12.5px">সময় ঠিক করুন</button></div>
+      </div>
+      <div style="padding:15px 18px;border-bottom:2px solid var(--color-divider)">
+        <div style="display:flex;align-items:baseline;gap:10px"><span style="font-family:var(--font-heading);font-weight:800;font-size:16px;flex:1">সাত মসজিদ</span><span style="font-family:var(--font-heading);font-weight:800;font-size:14px;color:var(--color-neutral-700)">৬১০ মি</span></div>
+        <div style="font-size:11.5px;color:var(--color-neutral-700);margin-top:2px">মোহাম্মদপুর · হেঁটে ৮ মিনিট · জুমা ১:১৫</div>
+      </div>
+      <div style="padding:15px 18px;border-bottom:2px solid var(--color-divider)">
+        <div style="display:flex;align-items:baseline;gap:10px"><span style="font-family:var(--font-heading);font-weight:800;font-size:16px;flex:1">ঈদগাহ জামে মসজিদ</span><span style="font-family:var(--font-heading);font-weight:800;font-size:14px;color:var(--color-neutral-700)">৯৪০ মি</span></div>
+        <div style="font-size:11.5px;color:var(--color-neutral-700);margin-top:2px">কলাবাগান · হেঁটে ১২ মিনিট · জুমা ১:৩০</div>
+      </div>
+      <div style="padding:15px 18px;border-bottom:2px solid var(--color-divider)">
+        <div style="display:flex;align-items:baseline;gap:10px"><span style="font-family:var(--font-heading);font-weight:800;font-size:16px;flex:1">তাকওয়া মসজিদ</span><span style="font-family:var(--font-heading);font-weight:800;font-size:14px;color:var(--color-neutral-700)">১.২ কিমি</span></div>
+        <div style="font-size:11.5px;color:var(--color-neutral-700);margin-top:2px">জিগাতলা · জামাতের সময় জানা নেই</div>
+        <div style="font-size:12px;font-weight:700;color:var(--color-accent-700);margin-top:6px;text-decoration:underline">আপনি জানেন? যোগ করুন</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div style="display:flex;flex-direction:column;gap:10px;width:390px">
+  <div style="display:flex;align-items:baseline;gap:8px;border-bottom:2px solid var(--color-divider);padding-bottom:8px">
+    <span style="font-family:var(--font-heading);font-weight:800;font-size:13px;color:var(--color-accent-700)">১৮</span>
+    <span style="font-family:var(--font-heading);font-weight:800;font-size:14px">হিজরি ক্যালেন্ডার</span>
+    <span style="font-size:11px;color:var(--color-neutral-700);margin-left:auto">Dual date</span>
+  </div>
+  <div style="width:390px;height:844px;background:var(--color-bg);border:2px solid var(--color-text);overflow:hidden;display:flex;flex-direction:column">
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 18px 8px;font-size:12px;font-weight:600"><span>৯:৪১</span><span style="display:flex;gap:5px;align-items:center"><i data-lucide="signal" width="13" height="13"></i><i data-lucide="wifi" width="13" height="13"></i><i data-lucide="battery-full" width="16" height="16"></i></span></div>
+    <div style="display:flex;align-items:center;gap:12px;padding:6px 18px 14px;border-bottom:2px solid var(--color-text)">
+      <i data-lucide="arrow-left" width="20" height="20"></i>
+      <h4 style="margin:0;font-size:19px;flex:1">ক্যালেন্ডার</h4>
+      <i data-lucide="settings-2" width="19" height="19"></i>
+    </div>
+    <div style="display:flex;align-items:center;border-bottom:2px solid var(--color-text)">
+      <div style="padding:14px;border-right:2px solid var(--color-divider)"><i data-lucide="chevron-left" width="18" height="18"></i></div>
+      <div style="flex:1;text-align:center;padding:10px"><div style="font-family:var(--font-heading);font-weight:800;font-size:18px">রবিউল আউয়াল ১৪৪৮</div><div style="font-size:11.5px;color:var(--color-neutral-700)">আগস্ট – সেপ্টেম্বর ২০২৬</div></div>
+      <div style="padding:14px;border-left:2px solid var(--color-divider)"><i data-lucide="chevron-right" width="18" height="18"></i></div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(7,1fr);border-bottom:2px solid var(--color-text)">
+      <div style="padding:8px 0;text-align:center;font-size:10.5px;font-weight:800;color:var(--color-accent-700)">শুক্র</div>
+      <div style="padding:8px 0;text-align:center;font-size:10.5px;font-weight:800;color:var(--color-neutral-700)">শনি</div>
+      <div style="padding:8px 0;text-align:center;font-size:10.5px;font-weight:800;color:var(--color-neutral-700)">রবি</div>
+      <div style="padding:8px 0;text-align:center;font-size:10.5px;font-weight:800;color:var(--color-neutral-700)">সোম</div>
+      <div style="padding:8px 0;text-align:center;font-size:10.5px;font-weight:800;color:var(--color-neutral-700)">মঙ্গল</div>
+      <div style="padding:8px 0;text-align:center;font-size:10.5px;font-weight:800;color:var(--color-neutral-700)">বুধ</div>
+      <div style="padding:8px 0;text-align:center;font-size:10.5px;font-weight:800;color:var(--color-neutral-700)">বৃহঃ</div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:1px;background:var(--color-neutral-300);border-bottom:2px solid var(--color-text)">
+      <div style="background:var(--color-bg);padding:8px 6px;min-height:62px"><div style="font-family:var(--font-heading);font-weight:800;font-size:15px">১৫</div><div style="font-size:10px;color:var(--color-neutral-700)">২৮</div></div>
+      <div style="background:var(--color-bg);padding:8px 6px;min-height:62px"><div style="font-family:var(--font-heading);font-weight:800;font-size:15px">১৬</div><div style="font-size:10px;color:var(--color-neutral-700)">২৯</div></div>
+      <div style="background:var(--color-bg);padding:8px 6px;min-height:62px"><div style="font-family:var(--font-heading);font-weight:800;font-size:15px">১৭</div><div style="font-size:10px;color:var(--color-neutral-700)">৩০</div></div>
+      <div style="background:var(--color-bg);padding:8px 6px;min-height:62px"><div style="font-family:var(--font-heading);font-weight:800;font-size:15px">১৮</div><div style="font-size:10px;color:var(--color-neutral-700)">৩১</div></div>
+      <div style="background:var(--color-bg);padding:8px 6px;min-height:62px"><div style="font-family:var(--font-heading);font-weight:800;font-size:15px">১৯</div><div style="font-size:10px;color:var(--color-neutral-700)">১</div></div>
+      <div style="background:var(--color-bg);padding:8px 6px;min-height:62px"><div style="font-family:var(--font-heading);font-weight:800;font-size:15px">২০</div><div style="font-size:10px;color:var(--color-neutral-700)">২</div></div>
+      <div style="background:var(--color-bg);padding:8px 6px;min-height:62px"><div style="font-family:var(--font-heading);font-weight:800;font-size:15px">২১</div><div style="font-size:10px;color:var(--color-neutral-700)">৩</div></div>
+      <div style="background:var(--color-bg);padding:8px 6px;min-height:62px"><div style="font-family:var(--font-heading);font-weight:800;font-size:15px;color:var(--color-accent-700)">২২</div><div style="font-size:10px;color:var(--color-neutral-700)">৪</div><span style="display:block;width:100%;height:3px;background:var(--color-accent);margin-top:6px"></span></div>
+      <div style="background:var(--color-bg);padding:8px 6px;min-height:62px"><div style="font-family:var(--font-heading);font-weight:800;font-size:15px">২৩</div><div style="font-size:10px;color:var(--color-neutral-700)">৫</div></div>
+      <div style="background:var(--color-accent-700);color:var(--color-bg);padding:8px 6px;min-height:62px"><div style="font-family:var(--font-heading);font-weight:800;font-size:15px">২৪</div><div style="font-size:10px">৬</div><div style="font-size:9.5px;font-weight:700;margin-top:4px">আজ</div></div>
+      <div style="background:var(--color-bg);padding:8px 6px;min-height:62px"><div style="font-family:var(--font-heading);font-weight:800;font-size:15px">২৫</div><div style="font-size:10px;color:var(--color-neutral-700)">৭</div></div>
+      <div style="background:var(--color-bg);padding:8px 6px;min-height:62px"><div style="font-family:var(--font-heading);font-weight:800;font-size:15px">২৬</div><div style="font-size:10px;color:var(--color-neutral-700)">৮</div></div>
+      <div style="background:var(--color-bg);padding:8px 6px;min-height:62px"><div style="font-family:var(--font-heading);font-weight:800;font-size:15px">২৭</div><div style="font-size:10px;color:var(--color-neutral-700)">৯</div></div>
+      <div style="background:var(--color-bg);padding:8px 6px;min-height:62px"><div style="font-family:var(--font-heading);font-weight:800;font-size:15px">২৮</div><div style="font-size:10px;color:var(--color-neutral-700)">১০</div></div>
+      <div style="background:var(--color-bg);padding:8px 6px;min-height:62px"><div style="font-family:var(--font-heading);font-weight:800;font-size:15px;color:var(--color-accent-700)">২৯</div><div style="font-size:10px;color:var(--color-neutral-700)">১১</div><span style="display:block;width:100%;height:3px;background:var(--color-accent);margin-top:6px"></span></div>
+      <div style="background:var(--color-bg);padding:8px 6px;min-height:62px"><div style="font-family:var(--font-heading);font-weight:800;font-size:15px">৩০</div><div style="font-size:10px;color:var(--color-neutral-700)">১২</div></div>
+      <div style="background:var(--color-bg);padding:8px 6px;min-height:62px"><div style="font-family:var(--font-heading);font-weight:800;font-size:15px">১</div><div style="font-size:10px;color:var(--color-neutral-700)">১৩</div></div>
+      <div style="background:var(--color-bg);padding:8px 6px;min-height:62px"><div style="font-family:var(--font-heading);font-weight:800;font-size:15px">২</div><div style="font-size:10px;color:var(--color-neutral-700)">১৪</div></div>
+      <div style="background:var(--color-bg);padding:8px 6px;min-height:62px"><div style="font-family:var(--font-heading);font-weight:800;font-size:15px">৩</div><div style="font-size:10px;color:var(--color-neutral-700)">১৫</div></div>
+      <div style="background:var(--color-bg);padding:8px 6px;min-height:62px"><div style="font-family:var(--font-heading);font-weight:800;font-size:15px">৪</div><div style="font-size:10px;color:var(--color-neutral-700)">১৬</div></div>
+      <div style="background:var(--color-bg);padding:8px 6px;min-height:62px"><div style="font-family:var(--font-heading);font-weight:800;font-size:15px">৫</div><div style="font-size:10px;color:var(--color-neutral-700)">১৭</div></div>
+    </div>
+    <div style="padding:14px 18px 8px;font-size:10.5px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-700);font-weight:700">এ মাসের দিনগুলো</div>
+    <div style="border-top:2px solid var(--color-divider);flex:1 1 auto">
+      <div style="display:flex;gap:12px;padding:13px 18px;border-bottom:2px solid var(--color-divider);border-left:6px solid var(--color-accent)"><span style="font-family:var(--font-heading);font-weight:800;font-size:14px;width:34px">২২</span><div style="flex:1"><div style="font-size:14px;font-weight:600">শবে বরাতের রাত</div><div style="font-size:11.5px;color:var(--color-neutral-700)">সূর্যাস্তের পর শুরু</div></div></div>
+      <div style="display:flex;gap:12px;padding:13px 18px;border-bottom:2px solid var(--color-divider)"><span style="font-family:var(--font-heading);font-weight:800;font-size:14px;width:34px">২৯</span><div style="flex:1"><div style="font-size:14px;font-weight:600">আইয়ামে বীযের রোজা</div><div style="font-size:11.5px;color:var(--color-neutral-700)">১৩, ১৪, ১৫ তারিখ</div></div></div>
+      <div style="display:flex;gap:12px;padding:13px 18px"><span style="font-family:var(--font-heading);font-weight:800;font-size:14px;width:34px">প্রতি</span><div style="flex:1"><div style="font-size:14px;font-weight:600">সোম ও বৃহস্পতিবারের রোজা</div><div style="font-size:11.5px;color:var(--color-neutral-700)">রিমাইন্ডার চালু</div></div></div>
+    </div>
+  </div>
+</div>
+
+<div style="display:flex;flex-direction:column;gap:10px;width:390px">
+  <div style="display:flex;align-items:baseline;gap:8px;border-bottom:2px solid var(--color-divider);padding-bottom:8px">
+    <span style="font-family:var(--font-heading);font-weight:800;font-size:13px;color:var(--color-accent-700)">১৯</span>
+    <span style="font-family:var(--font-heading);font-weight:800;font-size:14px">রমজান মোড</span>
+    <span style="font-size:11px;color:var(--color-neutral-700);margin-left:auto">Seasonal</span>
+  </div>
+  <div style="width:390px;height:844px;background:var(--color-bg);border:2px solid var(--color-text);overflow:hidden;display:flex;flex-direction:column">
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 18px 8px;font-size:12px;font-weight:600"><span>১৬:২২</span><span style="display:flex;gap:5px;align-items:center"><i data-lucide="signal" width="13" height="13"></i><i data-lucide="wifi" width="13" height="13"></i><i data-lucide="battery-full" width="16" height="16"></i></span></div>
+    <div style="display:flex;align-items:center;gap:12px;padding:6px 18px 14px;border-bottom:2px solid var(--color-text)">
+      <i data-lucide="arrow-left" width="20" height="20"></i>
+      <h4 style="margin:0;font-size:19px;flex:1">রমজান</h4>
+      <i data-lucide="share-2" width="19" height="19"></i>
+    </div>
+    <div style="background:var(--color-accent-700);color:var(--color-bg);padding:22px 18px">
+      <div style="font-size:11px;letter-spacing:0.14em;text-transform:uppercase;font-weight:700">১২তম রোজা · ইফতার বাকি</div>
+      <div style="font-family:var(--font-heading);font-weight:800;font-size:58px;line-height:1;font-variant-numeric:tabular-nums;letter-spacing:-0.03em;margin-top:6px">১:৪১:০৮</div>
+      <div style="display:flex;gap:0;margin-top:20px;border:2px solid var(--color-bg)">
+        <div style="flex:1;padding:10px 12px;border-right:2px solid var(--color-bg)"><div style="font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em">সেহরি শেষ</div><div style="font-family:var(--font-heading);font-weight:800;font-size:20px;font-variant-numeric:tabular-nums">৪:৩৮</div></div>
+        <div style="flex:1;padding:10px 12px"><div style="font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em">ইফতার</div><div style="font-family:var(--font-heading);font-weight:800;font-size:20px;font-variant-numeric:tabular-nums">৬:০৩</div></div>
+      </div>
+    </div>
+    <div style="padding:16px 18px;border-bottom:2px solid var(--color-text)">
+      <div style="display:flex;align-items:center;margin-bottom:12px"><span style="font-family:var(--font-heading);font-weight:800;font-size:15px;flex:1">রোজার ট্র্যাকার</span><span style="font-size:12px;font-weight:600;color:var(--color-neutral-700)">১১ / ১২ রাখা হয়েছে</span></div>
+      <div style="display:grid;grid-template-columns:repeat(10,1fr);gap:4px">
+        <span style="aspect-ratio:1;background:var(--color-accent-700);color:var(--color-bg);font-size:10px;font-weight:800;display:flex;align-items:center;justify-content:center">১</span><span style="aspect-ratio:1;background:var(--color-accent-700);color:var(--color-bg);font-size:10px;font-weight:800;display:flex;align-items:center;justify-content:center">২</span><span style="aspect-ratio:1;background:var(--color-accent-700);color:var(--color-bg);font-size:10px;font-weight:800;display:flex;align-items:center;justify-content:center">৩</span><span style="aspect-ratio:1;background:var(--color-accent-700);color:var(--color-bg);font-size:10px;font-weight:800;display:flex;align-items:center;justify-content:center">৪</span><span style="aspect-ratio:1;background:var(--color-neutral-700);color:var(--color-bg);font-size:10px;font-weight:800;display:flex;align-items:center;justify-content:center">৫</span><span style="aspect-ratio:1;background:var(--color-accent-700);color:var(--color-bg);font-size:10px;font-weight:800;display:flex;align-items:center;justify-content:center">৬</span><span style="aspect-ratio:1;background:var(--color-accent-700);color:var(--color-bg);font-size:10px;font-weight:800;display:flex;align-items:center;justify-content:center">৭</span><span style="aspect-ratio:1;background:var(--color-accent-700);color:var(--color-bg);font-size:10px;font-weight:800;display:flex;align-items:center;justify-content:center">৮</span><span style="aspect-ratio:1;background:var(--color-accent-700);color:var(--color-bg);font-size:10px;font-weight:800;display:flex;align-items:center;justify-content:center">৯</span><span style="aspect-ratio:1;background:var(--color-accent-700);color:var(--color-bg);font-size:10px;font-weight:800;display:flex;align-items:center;justify-content:center">১০</span>
+        <span style="aspect-ratio:1;background:var(--color-accent-700);color:var(--color-bg);font-size:10px;font-weight:800;display:flex;align-items:center;justify-content:center">১১</span><span style="aspect-ratio:1;border:2px solid var(--color-accent);color:var(--color-accent-700);font-size:10px;font-weight:800;display:flex;align-items:center;justify-content:center">১২</span><span style="aspect-ratio:1;background:var(--color-neutral-300)"></span><span style="aspect-ratio:1;background:var(--color-neutral-300)"></span><span style="aspect-ratio:1;background:var(--color-neutral-300)"></span><span style="aspect-ratio:1;background:var(--color-neutral-300)"></span><span style="aspect-ratio:1;background:var(--color-neutral-300)"></span><span style="aspect-ratio:1;background:var(--color-neutral-300)"></span><span style="aspect-ratio:1;background:var(--color-neutral-300)"></span><span style="aspect-ratio:1;background:var(--color-neutral-300)"></span>
+        <span style="aspect-ratio:1;background:var(--color-neutral-300)"></span><span style="aspect-ratio:1;background:var(--color-neutral-300)"></span><span style="aspect-ratio:1;background:var(--color-neutral-300)"></span><span style="aspect-ratio:1;background:var(--color-neutral-300)"></span><span style="aspect-ratio:1;background:var(--color-neutral-300)"></span><span style="aspect-ratio:1;background:var(--color-neutral-300)"></span><span style="aspect-ratio:1;background:var(--color-neutral-300)"></span><span style="aspect-ratio:1;background:var(--color-neutral-300)"></span><span style="aspect-ratio:1;background:var(--color-neutral-300)"></span><span style="aspect-ratio:1;background:var(--color-neutral-300)"></span>
+      </div>
+    </div>
+    <div style="border-bottom:2px solid var(--color-text)">
+      <div style="display:flex;align-items:center;gap:12px;padding:15px 18px;border-bottom:2px solid var(--color-divider)"><i data-lucide="moon-star" width="19" height="19" style="color:var(--color-accent)"></i><div style="flex:1"><div style="font-size:14px;font-weight:600">তারাবিহ</div><div style="font-size:11.5px;color:var(--color-neutral-700)">আজ ২০ রাকাত · ধারাবাহিক ১১ দিন</div></div><div style="width:30px;height:30px;background:var(--color-text);color:var(--color-bg);display:flex;align-items:center;justify-content:center"><i data-lucide="check" width="17" height="17"></i></div></div>
+      <div style="display:flex;align-items:center;gap:12px;padding:15px 18px;border-bottom:2px solid var(--color-divider)"><i data-lucide="book-open" width="19" height="19" style="color:var(--color-accent)"></i><div style="flex:1"><div style="font-size:14px;font-weight:600">খতমের অগ্রগতি</div><div style="font-size:11.5px;color:var(--color-neutral-700)">১১ / ৩০ পারা · সময়মতো চলছে</div></div><span style="font-family:var(--font-heading);font-weight:800;font-size:16px;color:var(--color-accent-700)">৩৭%</span></div>
+      <div style="display:flex;align-items:center;gap:12px;padding:15px 18px"><i data-lucide="hand-coins" width="19" height="19" style="color:var(--color-accent)"></i><div style="flex:1"><div style="font-size:14px;font-weight:600">ফিতরা ও যাকাত</div><div style="font-size:11.5px;color:var(--color-neutral-700)">এ বছরের হিসাব দেখুন</div></div><i data-lucide="chevron-right" width="17" height="17"></i></div>
+    </div>
+    <div style="margin-top:auto;padding:16px 18px 24px"><button class="btn btn-primary btn-block" style="background:var(--color-accent-700);padding:15px;font-size:15px">রমজানের সময়সূচি শেয়ার করুন<i data-lucide="share-2" width="17" height="17" style="margin-left:auto"></i></button></div>
+  </div>
+</div>
+
+<div style="display:flex;flex-direction:column;gap:10px;width:390px">
+  <div style="display:flex;align-items:baseline;gap:8px;border-bottom:2px solid var(--color-divider);padding-bottom:8px">
+    <span style="font-family:var(--font-heading);font-weight:800;font-size:13px;color:var(--color-accent-700)">২০</span>
+    <span style="font-family:var(--font-heading);font-weight:800;font-size:14px">আরও</span>
+    <span style="font-size:11px;color:var(--color-neutral-700);margin-left:auto">Everything else, once</span>
+  </div>
+  <div style="width:390px;height:844px;background:var(--color-bg);border:2px solid var(--color-text);overflow:hidden;display:flex;flex-direction:column">
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 18px 8px;font-size:12px;font-weight:600"><span>৯:৪১</span><span style="display:flex;gap:5px;align-items:center"><i data-lucide="signal" width="13" height="13"></i><i data-lucide="wifi" width="13" height="13"></i><i data-lucide="battery-full" width="16" height="16"></i></span></div>
+    <div style="padding:6px 18px 14px;border-bottom:2px solid var(--color-text)"><h4 style="margin:0;font-size:22px">আরও</h4></div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--color-divider);border-bottom:2px solid var(--color-text)">
+      <div style="background:var(--color-bg);padding:16px 10px;display:flex;flex-direction:column;gap:8px"><i data-lucide="compass" width="20" height="20" style="color:var(--color-accent)"></i><span style="font-size:12.5px;font-weight:600">কিবলা</span></div>
+      <div style="background:var(--color-bg);padding:16px 10px;display:flex;flex-direction:column;gap:8px"><i data-lucide="landmark" width="20" height="20" style="color:var(--color-accent)"></i><span style="font-size:12.5px;font-weight:600">মসজিদ</span></div>
+      <div style="background:var(--color-bg);padding:16px 10px;display:flex;flex-direction:column;gap:8px"><i data-lucide="hand-heart" width="20" height="20" style="color:var(--color-accent)"></i><span style="font-size:12.5px;font-weight:600">দুআ</span></div>
+      <div style="background:var(--color-bg);padding:16px 10px;display:flex;flex-direction:column;gap:8px"><i data-lucide="scroll-text" width="20" height="20" style="color:var(--color-accent)"></i><span style="font-size:12.5px;font-weight:600">হাদিস</span></div>
+      <div style="background:var(--color-bg);padding:16px 10px;display:flex;flex-direction:column;gap:8px"><i data-lucide="calculator" width="20" height="20" style="color:var(--color-accent)"></i><span style="font-size:12.5px;font-weight:600">যাকাত</span></div>
+      <div style="background:var(--color-bg);padding:16px 10px;display:flex;flex-direction:column;gap:8px"><i data-lucide="calendar" width="20" height="20" style="color:var(--color-accent)"></i><span style="font-size:12.5px;font-weight:600">ক্যালেন্ডার</span></div>
+      <div style="background:var(--color-bg);padding:16px 10px;display:flex;flex-direction:column;gap:8px"><i data-lucide="moon-star" width="20" height="20" style="color:var(--color-accent)"></i><span style="font-size:12.5px;font-weight:600">রমজান</span></div>
+      <div style="background:var(--color-bg);padding:16px 10px;display:flex;flex-direction:column;gap:8px"><i data-lucide="sparkles" width="20" height="20" style="color:var(--color-accent)"></i><span style="font-size:12.5px;font-weight:600">৯৯ নাম</span></div>
+      <div style="background:var(--color-bg);padding:16px 10px;display:flex;flex-direction:column;gap:8px"><i data-lucide="layout-dashboard" width="20" height="20" style="color:var(--color-accent)"></i><span style="font-size:12.5px;font-weight:600">উইজেট</span></div>
+    </div>
+    <div style="padding:11px 18px 6px;font-size:10.5px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-700);font-weight:700">সেটিংস</div>
+    <div style="border-top:2px solid var(--color-divider);flex:1 1 auto">
+      <div style="display:flex;align-items:center;gap:14px;padding:12px 18px;border-bottom:2px solid var(--color-divider)"><i data-lucide="languages" width="18" height="18"></i><span style="flex:1;font-size:14px;font-weight:600">ভাষা</span><span style="font-size:12.5px;color:var(--color-neutral-700)">বাংলা</span><i data-lucide="chevron-right" width="17" height="17"></i></div>
+      <div style="display:flex;align-items:center;gap:14px;padding:12px 18px;border-bottom:2px solid var(--color-divider)"><i data-lucide="map-pin" width="18" height="18"></i><span style="flex:1;font-size:14px;font-weight:600">অবস্থান</span><span style="font-size:12.5px;color:var(--color-neutral-700)">ধানমন্ডি</span><i data-lucide="chevron-right" width="17" height="17"></i></div>
+      <div style="display:flex;align-items:center;gap:14px;padding:12px 18px;border-bottom:2px solid var(--color-divider)"><i data-lucide="sliders-horizontal" width="18" height="18"></i><span style="flex:1;font-size:14px;font-weight:600">নামাজের হিসাব পদ্ধতি</span><span style="font-size:12.5px;color:var(--color-neutral-700)">করাচি</span><i data-lucide="chevron-right" width="17" height="17"></i></div>
+      <div style="display:flex;align-items:center;gap:14px;padding:12px 18px;border-bottom:2px solid var(--color-divider)"><i data-lucide="bell-ring" width="18" height="18"></i><span style="flex:1;font-size:14px;font-weight:600">আজান ও রিমাইন্ডার</span><i data-lucide="chevron-right" width="17" height="17"></i></div>
+      <div style="display:flex;align-items:center;gap:14px;padding:12px 18px;border-bottom:2px solid var(--color-divider)"><i data-lucide="type" width="18" height="18"></i><span style="flex:1;font-size:14px;font-weight:600">ফন্ট ও পড়ার সেটিংস</span><i data-lucide="chevron-right" width="17" height="17"></i></div>
+      <div style="display:flex;align-items:center;gap:14px;padding:12px 18px;border-bottom:2px solid var(--color-divider)"><i data-lucide="moon" width="18" height="18"></i><span style="flex:1;font-size:14px;font-weight:600">রাতের মোড</span><span style="font-size:12.5px;color:var(--color-neutral-700)">স্বয়ংক্রিয়</span><i data-lucide="chevron-right" width="17" height="17"></i></div>
+      <div style="display:flex;align-items:center;gap:14px;padding:12px 18px;border-bottom:2px solid var(--color-divider)"><i data-lucide="hard-drive-download" width="18" height="18"></i><span style="flex:1;font-size:14px;font-weight:600">অফলাইন ডাউনলোড</span><span style="font-size:12.5px;color:var(--color-neutral-700)">২১৪ এমবি</span><i data-lucide="chevron-right" width="17" height="17"></i></div>
+      <div style="display:flex;align-items:center;gap:14px;padding:12px 18px"><i data-lucide="info" width="18" height="18"></i><span style="flex:1;font-size:14px;font-weight:600">অ্যাপ সম্পর্কে</span><span style="font-size:12.5px;color:var(--color-neutral-700)">২.০.০</span><i data-lucide="chevron-right" width="17" height="17"></i></div>
+    </div>
+    <div style="display:flex;border-top:2px solid var(--color-text)">
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 0 16px;color:var(--color-neutral-700)"><i data-lucide="house" width="21" height="21"></i><span style="font-size:10px;font-weight:700">হোম</span></div>
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 0 16px;color:var(--color-neutral-700)"><i data-lucide="book-open" width="21" height="21"></i><span style="font-size:10px;font-weight:700">কুরআন</span></div>
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 0 16px;color:var(--color-neutral-700)"><i data-lucide="clock" width="21" height="21"></i><span style="font-size:10px;font-weight:700">নামাজ</span></div>
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 0 16px;color:var(--color-neutral-700)"><i data-lucide="circle-dot" width="21" height="21"></i><span style="font-size:10px;font-weight:700">তাসবিহ</span></div>
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 0 16px;border-top:4px solid var(--color-accent);margin-top:-4px;color:var(--color-accent-700)"><i data-lucide="layout-grid" width="21" height="21"></i><span style="font-size:10px;font-weight:700">আরও</span></div>
+    </div>
+  </div>
+</div>
+
+  </div>
+</div>
+
+<div style="display:flex;flex-direction:column;gap:24px">
+  <h2 style="margin:0;font-size:32px">Components</h2>
+  <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:2px solid var(--color-divider);border-bottom:2px solid var(--color-divider)">
+    <div style="padding:24px 24px 28px 0;border-right:2px solid var(--color-divider);display:flex;flex-direction:column;gap:14px">
+      <h6 style="margin:0">Actions</h6>
+      <button class="btn btn-primary btn-block" style="background:var(--color-accent-700);padding:14px">প্রধান কাজ<i data-lucide="arrow-right" width="16" height="16" style="margin-left:auto"></i></button>
+      <button class="btn btn-secondary btn-block" style="padding:14px">দ্বিতীয় কাজ</button>
+      <div style="display:flex;gap:10px"><span class="btn btn-icon btn-secondary"><i data-lucide="bookmark" width="17" height="17"></i></span><span class="btn btn-icon btn-secondary"><i data-lucide="share-2" width="17" height="17"></i></span><span class="btn btn-icon" style="background:var(--color-accent-700);color:var(--color-bg)"><i data-lucide="play" width="17" height="17"></i></span></div>
+      <p style="margin:0;font-size:12px;color:var(--color-neutral-700)">Labels stay flush left; only the one true action on a screen is filled red.</p>
+    </div>
+    <div style="padding:24px;border-right:2px solid var(--color-divider);display:flex;flex-direction:column;gap:14px">
+      <h6 style="margin:0">Selection</h6>
+      <div style="display:flex;border:2px solid var(--color-text)"><div style="flex:1;padding:9px 12px;background:var(--color-text);color:var(--color-bg);font-family:var(--font-heading);font-weight:800;font-size:13px">সূরা</div><div style="flex:1;padding:9px 12px;font-family:var(--font-heading);font-weight:800;font-size:13px;color:var(--color-neutral-700)">পারা</div></div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap"><span style="background:var(--color-text);color:var(--color-bg);font-size:12px;font-weight:700;padding:6px 10px">নির্বাচিত</span><span style="border:2px solid var(--color-neutral-400);color:var(--color-neutral-800);font-size:12px;font-weight:700;padding:4px 10px">চিপ</span></div>
+      <div style="display:flex;align-items:center;gap:10px"><div style="width:44px;height:24px;background:var(--color-accent);position:relative"><span style="position:absolute;right:2px;top:2px;width:20px;height:20px;background:var(--color-bg)"></span></div><span style="font-size:13px;font-weight:600">চালু</span><div style="width:44px;height:24px;background:var(--color-neutral-400);position:relative;margin-left:8px"><span style="position:absolute;left:2px;top:2px;width:20px;height:20px;background:var(--color-bg)"></span></div><span style="font-size:13px;font-weight:600;color:var(--color-neutral-700)">বন্ধ</span></div>
+      <p style="margin:0;font-size:12px;color:var(--color-neutral-700)">Square switches, no pill; state reads from fill, not from a shadow.</p>
+    </div>
+    <div style="padding:24px;border-right:2px solid var(--color-divider);display:flex;flex-direction:column;gap:14px">
+      <h6 style="margin:0">List rows</h6>
+      <div style="border-top:2px solid var(--color-divider)">
+        <div style="display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:2px solid var(--color-divider)"><div style="flex:1"><div style="font-family:var(--font-heading);font-weight:800;font-size:14.5px">ফজর</div><div style="font-size:11px;color:var(--color-neutral-700)">জামাত ৫:০০</div></div><span style="font-family:var(--font-heading);font-weight:800;font-size:15px">৪:৩৮</span></div>
+        <div style="display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:2px solid var(--color-divider);border-left:6px solid var(--color-accent);padding-left:10px"><div style="flex:1"><div style="font-family:var(--font-heading);font-weight:800;font-size:14.5px;color:var(--color-accent-700)">আসর</div><div style="font-size:11px;color:var(--color-accent-700)">পরের ওয়াক্ত</div></div><span style="font-family:var(--font-heading);font-weight:800;font-size:15px;color:var(--color-accent-700)">৪:১২</span></div>
+      </div>
+      <p style="margin:0;font-size:12px;color:var(--color-neutral-700)">Active row is marked by a 6&nbsp;px left bar, never by a rounded highlight pill.</p>
+    </div>
+    <div style="padding:24px 0 28px 24px;display:flex;flex-direction:column;gap:14px">
+      <h6 style="margin:0">Type in three scripts</h6>
+      <div style="font-family:'Noto Naskh Arabic',serif;font-size:26px;line-height:1.9;direction:rtl;text-align:right">إِنَّمَا الأَعْمَالُ بِالنِّيَّاتِ</div>
+      <div style="font-size:15px;font-weight:600">সকল কাজের ফল নিয়তের উপর</div>
+      <div style="font-family:var(--font-heading);font-weight:800;font-size:22px;font-variant-numeric:tabular-nums">৪:১২ · ২৭৮° · ২.৫%</div>
+      <p style="margin:0;font-size:12px;color:var(--color-neutral-700)">Noto Naskh Arabic for revelation, Anek Bangla for the interface, Archivo for numerals — Bangla digits everywhere the user reads a time or a count.</p>
+    </div>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:32px;padding-top:8px">
+    <div><h5 style="margin:0 0 6px">Where the red goes</h5><p style="margin:0;font-size:13px;color:var(--color-neutral-800)">Exactly one red field per screen, on the thing the user came for: the countdown on হোম, the payable amount on যাকাত, the iftar clock in রমজান. Everything else is ink on ground.</p></div>
+    <div><h5 style="margin:0 0 6px">Bangla-first sizing</h5><p style="margin:0;font-size:13px;color:var(--color-neutral-800)">Bangla runs taller than Latin — body copy sits at 14&nbsp;px with 1.7 line-height, never below 12.5&nbsp;px, and no tab label is shorter than four characters so the 5-tab bar still reads on a 360&nbsp;dp screen. Every tap target is ≥ 44&nbsp;px.</p></div>
+    <div><h5 style="margin:0 0 6px">What to build first</h5><p style="margin:0;font-size:13px;color:var(--color-neutral-800)">Phase 1 is nav + prayer screen + tracking + reminders — it changes retention on its own, and it touches only <code>dashboard</code>, <code>prayer_times</code> and <code>notifications</code>. Quran reading changes land in phase 2.</p></div>
+  </div>
+</div>
+
+</div>
+</section>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1888,&quot;height&quot;:1200}}">
+class Component extends DCLogic {
+  componentDidMount() { this.icons(); }
+  componentDidUpdate() { this.icons(); }
+  icons() {
+    const go = () => { try { window.lucide && window.lucide.createIcons(); } catch (e) {} };
+    go();
+    if (!window.lucide) setTimeout(go, 400), setTimeout(go, 1200);
+  }
+}
+</script>
+</body>
+</html>

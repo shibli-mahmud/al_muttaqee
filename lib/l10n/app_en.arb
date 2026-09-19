@@ -160,7 +160,9 @@
   "quranParaLabel": "Para {number}",
   "@quranParaLabel": {
     "placeholders": {
-      "number": {"type": "int"}
+      "number": {
+        "type": "int"
+      }
     }
   },
   "quranRevelationMeccan": "Meccan",
@@ -168,7 +170,524 @@
   "quranAyahNumberLabel": "Ayah {number}",
   "@quranAyahNumberLabel": {
     "placeholders": {
-      "number": {"type": "int"}
+      "number": {
+        "type": "int"
+      }
     }
-  }
+  },
+  "navHome": "Home",
+  "navQuran": "Quran",
+  "navPrayer": "Prayer",
+  "navTasbih": "Tasbih",
+  "navMore": "More",
+  "greeting": "Assalamu alaikum",
+  "nextPrayerOverline": "Next prayer",
+  "currentWindowOverline": "{prayer} is in now",
+  "@currentWindowOverline": {
+    "placeholders": {
+      "prayer": {}
+    }
+  },
+  "windowStartsWithJamaat": "Starts {start} · Jamaat {jamaat}",
+  "@windowStartsWithJamaat": {
+    "placeholders": {
+      "start": {},
+      "jamaat": {}
+    }
+  },
+  "windowStartsAt": "Starts {start}",
+  "@windowStartsAt": {
+    "placeholders": {
+      "start": {}
+    }
+  },
+  "nextPrayerStartsIn": "{prayer} starts in {remaining}",
+  "@nextPrayerStartsIn": {
+    "placeholders": {
+      "prayer": {},
+      "remaining": {}
+    }
+  },
+  "locationUnknown": "Choose location",
+  "notificationsSemantic": "Notifications",
+  "todayLabel": "Today",
+  "hijriLabel": "Hijri",
+  "todaysPrayers": "Today's prayers",
+  "streakDays": "{count} day streak",
+  "@streakDays": {
+    "placeholders": {
+      "count": {}
+    }
+  },
+  "streakNone": "Start a streak",
+  "continueReadingOverline": "Continue reading",
+  "readingProgressLine": "Ayah {ayah} · {percent} of today's goal",
+  "@readingProgressLine": {
+    "placeholders": {
+      "ayah": {},
+      "percent": {}
+    }
+  },
+  "readingNotStarted": "Start reading",
+  "quickAccessOverline": "Quick access",
+  "tileQibla": "Qibla",
+  "tileMasjid": "Masjid",
+  "tileDua": "Dua",
+  "tileZakat": "Zakat",
+  "tileHadith": "Hadith",
+  "tileCalendar": "Calendar",
+  "tileRamadan": "Ramadan",
+  "tileNames99": "99 Names",
+  "tileWidget": "Widgets",
+  "iftarDua": "Iftar dua",
+  "comingSoonBody": "This is coming soon.",
+  "prayerScreenTitle": "Prayer",
+  "dateToday": "Today · {weekday}",
+  "@dateToday": {
+    "placeholders": {
+      "weekday": {}
+    }
+  },
+  "remainingOverline": "{prayer} in",
+  "@remainingOverline": {
+    "placeholders": {
+      "prayer": {}
+    }
+  },
+  "jamaatAndEnd": "Jamaat {jamaat} · ends {end}",
+  "@jamaatAndEnd": {
+    "placeholders": {
+      "jamaat": {},
+      "end": {}
+    }
+  },
+  "jamaatOnly": "Jamaat {jamaat}",
+  "@jamaatOnly": {
+    "placeholders": {
+      "jamaat": {}
+    }
+  },
+  "endsAt": "Ends {end}",
+  "@endsAt": {
+    "placeholders": {
+      "end": {}
+    }
+  },
+  "nextWindowWithJamaat": "Next · jamaat {jamaat}",
+  "@nextWindowWithJamaat": {
+    "placeholders": {
+      "jamaat": {}
+    }
+  },
+  "nextWindow": "Next up",
+  "runningNow": "In now",
+  "jamaatUnknown": "Jamaat time not set",
+  "monthTracker": "{month} tracker",
+  "@monthTracker": {
+    "placeholders": {
+      "month": {}
+    }
+  },
+  "legendAllFive": "All five",
+  "legendPartial": "Partial",
+  "legendPending": "Ahead",
+  "calculationAndOffsets": "Calculation & adjustments",
+  "adhanAndReminders": "Adhan & reminders",
+  "madhabOverline": "Madhab",
+  "hanafiAsr": "Hanafi — later Asr",
+  "offsetsOverline": "Minute adjustments",
+  "offsetsExplainer": "Nudge each window a few minutes to match your local masjid.",
+  "minutesValue": "{minutes} min",
+  "@minutesValue": {
+    "placeholders": {
+      "minutes": {}
+    }
+  },
+  "jamaatOverline": "Jamaat times",
+  "jamaatExplainer": "Jamaat times differ by masjid — set the ones you attend.",
+  "notSet": "Not set",
+  "clearValue": "Clear",
+  "perPrayerOverline": "For each prayer",
+  "otherRemindersOverline": "Other",
+  "reminderJumua": "Jumu'ah reminder",
+  "reminderTahajjud": "Tahajjud call",
+  "reminderDailyHadith": "Daily hadith notification",
+  "testAdhanSound": "Test the adhan sound",
+  "adhanModeAdhan": "Adhan",
+  "adhanModeSilent": "Silent",
+  "adhanModeOff": "Off",
+  "adhanModeSilentLong": "Silent notification",
+  "adhanModeOffLong": "Turned off",
+  "adhanSoundDefault": "Device sound",
+  "adhanSoundMakkah": "Makkah adhan",
+  "adhanSoundMadinah": "Madinah adhan",
+  "adhanSoundMishary": "Mishary Rashid",
+  "adhanSoundOverline": "Adhan sound",
+  "adhanModeOverline": "How to notify",
+  "preOffsetOverline": "How early",
+  "preOffsetOnTime": "On time",
+  "preOffsetMinutes": "{minutes} min early",
+  "@preOffsetMinutes": {
+    "placeholders": {
+      "minutes": {}
+    }
+  },
+  "adhanSummaryWithOffset": "{sound} · {minutes} min early",
+  "@adhanSummaryWithOffset": {
+    "placeholders": {
+      "sound": {},
+      "minutes": {}
+    }
+  },
+  "exactAlarmOkTitle": "Allowed to ring on time",
+  "exactAlarmOkBody": "Exact alarms and battery exemption are both on.",
+  "exactAlarmWarnTitle": "To hear the adhan on time",
+  "exactAlarmWarnBody": "Exclude the app from battery saver, or the adhan may ring late.",
+  "notificationsBlockedBody": "Notifications are blocked, so no adhan will ring.",
+  "exactAlarmBlockedBody": "Exact alarms are off, so the adhan may ring a few minutes late.",
+  "openSettings": "Open settings",
+  "onboardingTagline": "Prayer, Quran and daily dhikr —\nall in one place.",
+  "onboardingLanguageOverline": "Choose a language · ভাষা",
+  "onboardingLanguageNote": "You can change this any time from More → Language. Arabic and translation fonts are set separately.",
+  "onboardingStart": "Get started",
+  "onboardingStep": "{current} / {total}",
+  "@onboardingStep": {
+    "placeholders": {
+      "current": {},
+      "total": {}
+    }
+  },
+  "onboardingLocationTitle": "Accurate times\nneed your location",
+  "onboardingLocationBody": "Prayer times come from the sun where you are. Your location stays on your phone and is never sent anywhere.",
+  "onboardingReasonTimes": "Prayer windows and countdowns to the minute",
+  "onboardingReasonQibla": "An accurate Qibla direction",
+  "onboardingReasonMasjid": "Nearby masjids and their jamaat times",
+  "onboardingAllowLocation": "Allow location",
+  "onboardingPickCity": "Pick a city yourself",
+  "onboardingCityHint": "Dhaka, Chattogram…",
+  "onboardingCityTitle": "Choose a city",
+  "onboardingRemindersTitle": "Which prayers should\nwe remind you about?",
+  "onboardingRemindersBody": "Choose adhan, silent or off for each prayer separately.",
+  "onboardingFinish": "Finish",
+  "moreTitle": "More",
+  "settingsOverline": "Settings",
+  "settingLanguage": "Language",
+  "settingLocation": "Location",
+  "settingCalculation": "Calculation method",
+  "settingFonts": "Fonts & reading",
+  "settingNightMode": "Night mode",
+  "settingOfflineDownloads": "Offline downloads",
+  "settingAbout": "About",
+  "nightModeAuto": "Automatic",
+  "megabytes": "{size} MB",
+  "@megabytes": {
+    "placeholders": {
+      "size": {}
+    }
+  },
+  "retry": "Try again",
+  "locationDeniedTitle": "No location",
+  "locationDeniedBody": "Showing Dhaka's times without location permission. Pick your city or allow location.",
+  "methodKarachiShort": "Karachi",
+  "cancel": "Cancel",
+  "copyHadith": "Copy",
+  "copiedToClipboard": "Copied",
+  "hadithCollectionsOverline": "Collections",
+  "hadithCollectionMeta": "{chapters} chapters · {hadiths} hadiths",
+  "@hadithCollectionMeta": {
+    "placeholders": {
+      "chapters": {},
+      "hadiths": {}
+    }
+  },
+  "hadithChapterMeta": "{count} hadiths",
+  "@hadithChapterMeta": {
+    "placeholders": {
+      "count": {}
+    }
+  },
+  "hadithCuratedSubtitle": "Start with {count} selected hadiths",
+  "@hadithCuratedSubtitle": {
+    "placeholders": {
+      "count": {}
+    }
+  },
+  "hadithStartHere": "Start",
+  "hadithSearchTitle": "Search hadith",
+  "hadithSearchHint": "Search in Bangla",
+  "hadithSearchPrompt": "Type a topic in Bangla — prayer, fasting, charity.",
+  "hadithSearchCount": "{count} hadiths found",
+  "@hadithSearchCount": {
+    "placeholders": {
+      "count": {}
+    }
+  },
+  "hadithBookmarksTitle": "Saved hadiths",
+  "hadithNoBookmarks": "You have not saved any hadith yet.",
+  "hadithBrowseCollections": "Browse collections",
+  "hadithPreparing": "Preparing the hadith collection — this takes a moment the first time.",
+  "hadithLoadFailedTitle": "Could not open the hadith collection",
+  "hadithLoadFailedBody": "This can happen when storage is low. Free some space and try again.",
+  "hadithAttribution": "Translations and gradings come from open hadith datasets. Tell us if you spot an error.",
+  "tasbihTimes": "{count} times",
+  "@tasbihTimes": {
+    "placeholders": {
+      "count": {}
+    }
+  },
+  "tasbihCountAction": "Count",
+  "tasbihTodayTotal": "Today",
+  "tasbihRounds": "Rounds",
+  "tasbihStreak": "Streak",
+  "tasbihReset": "Reset",
+  "tasbihResetTitle": "Reset the count?",
+  "tasbihResetBody": "Today's count for this dhikr will be cleared. Earlier days are kept.",
+  "tasbihSetGoal": "Set a goal",
+  "tasbihHaptics": "Vibration",
+  "tasbihHistoryTitle": "Dhikr history",
+  "tasbihLast30Days": "Last 30 days",
+  "tasbihDaysCounted": "Days",
+  "tasbihTotalCounted": "Total dhikr",
+  "tasbihNoHistory": "You have not counted any dhikr yet.",
+  "tasbihStartCounting": "Start counting",
+  "tasbihOfTarget": "{done} / {target}",
+  "@tasbihOfTarget": {
+    "placeholders": {
+      "done": {},
+      "target": {}
+    }
+  },
+  "qiblaRecalibrate": "Recalibrate",
+  "qiblaAligned": "Straight ahead — facing the qibla",
+  "qiblaTurnLeft": "Turn {degrees}° left",
+  "@qiblaTurnLeft": {
+    "placeholders": {
+      "degrees": {}
+    }
+  },
+  "qiblaTurnRight": "Turn {degrees}° right",
+  "@qiblaTurnRight": {
+    "placeholders": {
+      "degrees": {}
+    }
+  },
+  "qiblaDistanceLabel": "Distance to Makkah",
+  "qiblaKilometres": "{value} km",
+  "@qiblaKilometres": {
+    "placeholders": {
+      "value": {}
+    }
+  },
+  "qiblaAccuracyLabel": "Accuracy",
+  "qiblaAccuracyHigh": "High",
+  "qiblaAccuracyMedium": "Medium",
+  "qiblaAccuracyLow": "Low",
+  "qiblaAccuracyUnknown": "Unknown",
+  "qiblaCalibrationHint": "Compass accuracy is low. Move the phone in a figure-8 a few times and stay clear of metal.",
+  "qiblaLocationServiceOff": "Location services are off. Turn them on to find the qibla.",
+  "qiblaLocationDenied": "The qibla direction needs location permission.",
+  "qiblaCompassUnavailable": "No compass was found on this phone.",
+  "masjidKeyMissingTitle": "Map is not set up",
+  "masjidLocationNeeded": "Finding nearby masjids needs location permission.",
+  "masjidCountWithin": "{count} masjids within {radius} km",
+  "@masjidCountWithin": {
+    "placeholders": {
+      "count": {},
+      "radius": {}
+    }
+  },
+  "masjidWalkMinutes": "{minutes} min walk",
+  "@masjidWalkMinutes": {
+    "placeholders": {
+      "minutes": {}
+    }
+  },
+  "masjidStraightLine": "{metres} m as the crow flies",
+  "@masjidStraightLine": {
+    "placeholders": {
+      "metres": {}
+    }
+  },
+  "masjidSortDistance": "Distance",
+  "masjidSortJamaat": "Jamaat time",
+  "masjidSortJumua": "Jumu'ah",
+  "masjidShowRoute": "Directions",
+  "masjidSetJamaat": "Set times",
+  "masjidAddJamaatPrompt": "Know the times? Add them",
+  "masjidJamaatExplainer": "Jamaat times differ by masjid. Add the ones you know — you will be the one using them.",
+  "quranBookmarkTab": "Bookmarks",
+  "quranNoBookmarks": "You have not saved any ayah yet.",
+  "quranSearchHint": "Surah name or number",
+  "quranAyahCount": "{count} ayahs",
+  "@quranAyahCount": {
+    "placeholders": {
+      "count": {}
+    }
+  },
+  "quranPlayingNow": "Playing",
+  "quranTypeSettings": "Text settings",
+  "quranArabicSize": "Arabic size",
+  "quranTranslationSize": "Translation size",
+  "quranShowTranslation": "Show translation",
+  "quranAddBookmark": "Bookmark",
+  "quranRemoveBookmark": "Remove bookmark",
+  "quranWriteNote": "Write a note",
+  "quranEditNote": "Edit note",
+  "quranPlayFromHere": "Play from here",
+  "quranCopyAyah": "Copy",
+  "quranNoteHint": "Your note about this ayah…",
+  "quranSaveNote": "Save note",
+  "quranPlanTitle": "Daily reading plan",
+  "quranTodaysGoal": "Today's goal",
+  "quranAyahUnit": "ayahs",
+  "quranMinutesUnit": "min",
+  "quranNoPlanYet": "No plan yet",
+  "quranPickAPlanPrompt": "Choose a plan below.",
+  "quranGoalDone": "Today's goal is done — alhamdulillah.",
+  "quranRemainingToday": "{ayahs} ayahs left — about {minutes} min",
+  "@quranRemainingToday": {
+    "placeholders": {
+      "ayahs": {},
+      "minutes": {}
+    }
+  },
+  "quranLast30Days": "Last 30 days",
+  "quranChoosePlan": "Choose a plan",
+  "quranStartTodaysReading": "Start today's reading",
+  "quranPlanProgress": "{done} / {target} ayahs of today's goal",
+  "@quranPlanProgress": {
+    "placeholders": {
+      "done": {},
+      "target": {}
+    }
+  },
+  "quranPlanMinutesProgress": "{done} / {target} min read today",
+  "@quranPlanMinutesProgress": {
+    "placeholders": {
+      "done": {},
+      "target": {}
+    }
+  },
+  "quranPlanAyahs": "{count} ayahs a day",
+  "@quranPlanAyahs": {
+    "placeholders": {
+      "count": {}
+    }
+  },
+  "quranPlanAyahsDetail": "A khatm in about {months} months",
+  "@quranPlanAyahsDetail": {
+    "placeholders": {
+      "months": {}
+    }
+  },
+  "quranPlanPara": "{count} para a day",
+  "@quranPlanPara": {
+    "placeholders": {
+      "count": {}
+    }
+  },
+  "quranPlanParaDetail": "A khatm in Ramadan — 30 days",
+  "quranPlanMinutes": "{count} min a day",
+  "@quranPlanMinutes": {
+    "placeholders": {
+      "count": {}
+    }
+  },
+  "quranPlanMinutesDetail": "Measured in time, not ayahs",
+  "quranPlanWeekly": "Surah al-Kahf on Fridays",
+  "quranPlanWeeklyDetail": "A weekly habit",
+  "duaFeaturedOverline": "Dua of the day",
+  "duaRightNowOverline": "Useful right now",
+  "duaCategoriesOverline": "Categories",
+  "duaCount": "{count}",
+  "@duaCount": {
+    "placeholders": {
+      "count": {}
+    }
+  },
+  "duaAttribution": "Every dua comes from the supplication chapters of Bukhari, Muslim, Ibn Majah and an-Nasa'i, with its source shown.",
+  "ramadanUntilIftar": "Until iftar",
+  "ramadanUntilSehri": "Until sehri ends",
+  "ramadanCountdownLabel": "Day {day} · {subject}",
+  "@ramadanCountdownLabel": {
+    "placeholders": {
+      "day": {},
+      "subject": {}
+    }
+  },
+  "ramadanRozaTracker": "Fast tracker",
+  "ramadanKeptRatio": "{kept} / {total} kept",
+  "@ramadanKeptRatio": {
+    "placeholders": {
+      "kept": {},
+      "total": {}
+    }
+  },
+  "ramadanKept": "Kept",
+  "ramadanMissed": "Missed",
+  "ramadanTaraweeh": "Taraweeh",
+  "ramadanTaraweehDone": "{rakats} rakats today · {streak} day streak",
+  "@ramadanTaraweehDone": {
+    "placeholders": {
+      "rakats": {},
+      "streak": {}
+    }
+  },
+  "ramadanTaraweehPending": "Not prayed yet today",
+  "ramadanKhatmProgress": "Khatm progress",
+  "ramadanFitraZakat": "Fitra & zakat",
+  "ramadanShare": "Share",
+  "ramadanShareSchedule": "Share the Ramadan schedule",
+  "zakatAssetsOverline": "Assets",
+  "zakatDeductionsOverline": "Deductions",
+  "zakatCash": "Cash & bank",
+  "zakatGold": "Gold",
+  "zakatSilver": "Silver",
+  "zakatBusiness": "Business stock",
+  "zakatInvestments": "Investments & shares",
+  "zakatDebts": "Debts owed",
+  "zakatExpenses": "Pending expenses",
+  "zakatAddCategory": "Add another category",
+  "zakatRemoveCategory": "Remove this category",
+  "zakatCategoryNameHint": "Category name",
+  "zakatBhori": "{value} bhori",
+  "@zakatBhori": {
+    "placeholders": {
+      "value": {}
+    }
+  },
+  "zakatBhoriUnit": "bhori",
+  "zakatEnterBhori": "Enter the weight in bhori",
+  "zakatEnterTaka": "Enter the amount in taka",
+  "zakatRatePerBhori": "Today's rate · {rate} per bhori",
+  "@zakatRatePerBhori": {
+    "placeholders": {
+      "rate": {}
+    }
+  },
+  "zakatSaveAmount": "Save",
+  "zakatNisabGold": "Nisab (gold)",
+  "zakatNisabSilver": "Nisab (silver)",
+  "zakatGoldPerBhori": "Gold / bhori",
+  "zakatSilverPerBhori": "Silver / bhori",
+  "zakatUseGoldNisab": "Use the gold nisab",
+  "zakatNisabExplainer": "The silver nisab is lower, so more people qualify — it is the cautious default.",
+  "zakatTotalWealth": "Zakatable wealth",
+  "zakatPayableOverline": "Zakat payable · 2.5%",
+  "zakatBelowNisab": "Below nisab — zakat is not due",
+  "zakatHelp": "About zakat",
+  "zakatHelpBody": "Zakat is 2.5% of wealth held above nisab for a lunar year. Metal rates change daily, so check them before calculating. This is a helper, not a fatwa — ask a scholar for complex cases.",
+  "zakatRatesUnavailableTitle": "Rates unavailable",
+  "zakatRatesUnavailableBody": "Could not fetch today's metal rates, so nisab cannot be calculated. Check your connection and try again.",
+  "calendarEventsOverline": "This month",
+  "calendarNoEvents": "No special days this month.",
+  "calendarAdjustTitle": "Adjust the Hijri date",
+  "calendarAdjustBody": "The calculated date can differ by a day from the moon sighting announcement. Match it here.",
+  "calendarOffsetMinus": "One day earlier",
+  "calendarOffsetNone": "As calculated",
+  "calendarOffsetPlus": "One day later",
+  "calendarMawlid": "Mawlid an-Nabi",
+  "calendarShabeMeraj": "Shab-e-Mi'raj",
+  "calendarShabeBarat": "Shab-e-Barat",
+  "calendarArafah": "Day of Arafah"
 }

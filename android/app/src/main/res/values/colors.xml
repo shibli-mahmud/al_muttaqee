@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Dusk palette, for the native window behind Flutter. -->
+    <color name="dusk_ivory">#FBF8F3</color>
+    <color name="dusk_deep">#06312F</color>
+    <color name="dusk_gold">#C9A227</color>
+</resources>

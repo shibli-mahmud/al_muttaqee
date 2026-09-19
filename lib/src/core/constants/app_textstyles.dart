@@ -1,19 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:al_muttaqee/l10n/l10n.dart';
 import 'app_values.dart';
+import 'dusk_text_styles.dart';
 
-// Base text style — Figtree for English; Noto Sans Bengali for Bangla
+/// The pre-Dusk type scale.
+///
+/// Screens that have not been rebuilt on [DuskText] yet still call these, so
+/// they stay until the last `kFigtree*` call site goes. What did change with
+/// Dusk is where the Bangla glyphs come from: this used to reach for Noto Sans
+/// Bengali through `google_fonts`, which fetched the font over the network on
+/// first paint. Anek Bangla is bundled, so the not-yet-migrated screens shift
+/// to the Dusk face in the same commit as everything else and stop depending
+/// on a connection to render their own interface copy.
 const String _figtreeFamily = 'Figtree';
 
-/// Returns the given style with Bangla font (Noto Sans Bengali) when locale is bn.
+/// Swaps in the bundled Bangla face when the locale is `bn`.
 TextStyle _resolve(TextStyle base) {
   if (!L10n.isBangla(L10n.selectedLocale)) return base;
-  return GoogleFonts.notoSansBengali(
-    fontSize: base.fontSize,
-    fontWeight: base.fontWeight,
-    fontFeatures: base.fontFeatures,
-  );
+  return base.copyWith(fontFamily: DuskText.fontBangla);
 }
 
 // Font weight 200
